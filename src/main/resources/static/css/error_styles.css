@@ -1,0 +1,105 @@
+@charset "ISO-8859-1";
+
+* {
+	margin: 0;
+	padding: 0;
+	outline: none;
+	box-sizing: border-box;
+	font-family: 'Poppins', sans-serif;
+	background-image: linear-gradient(to top, #5ee7df 0%, #b490ca 100%);
+}
+
+body {
+	height: 100vh;
+	background-size: 400%;
+}
+
+.error-page {
+	position: absolute;
+	top: 10%;
+	left: 15%;
+	right: 15%;
+	bottom: 10%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: grey;
+	box-shadow: 7px 13px 37px rgb(100, 97, 97); /*sombra del cuadro*/
+	border-radius: 15px;
+}
+
+.error-page .content {
+	max-width: 600px;
+	text-align: center;
+	background: grey;
+}
+
+.content h1 {
+	font-size: 5vw;
+	line-height: 1em;
+	position: relative;
+	background: grey;
+}
+
+.content h1:after {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	background-size: 400%;
+}
+
+.content h4 {
+	font-size: 1.5em;
+	margin-bottom: 20px;
+	text-transform: uppercase;
+	color: #000;
+	font-size: 5em;
+	max-width: 600px;
+	position: relative;
+	background: grey;
+}
+
+.content h4:after {
+	position: absolute;
+	content: attr(data-text);
+	top: 0;
+	left: 0;
+	right: 0;
+	text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
+}
+
+.content p {
+	font-size: 1.2em;
+	color: #0d0d0d;
+	background: grey;
+}
+
+.content .btns {
+	margin: 25px 0;
+	display: inline-flex;
+	background: grey;
+}
+
+.content .btns a {
+	display: inline-block;
+	margin: 0 10px;
+	text-decoration: none;
+	border: 2px solid white;
+	color: white bold;
+	font-weight: 500;
+	padding: 10px 25px;
+	border-radius: 25px;
+	text-transform: uppercase;
+	transition: all 0.3s ease;
+	background: #5ee7df;
+}
+
+.content .btns a:hover {
+	background: #5ee7df;
+	color: #fff;
+}
+
+.error {
+	color: red;
+}
