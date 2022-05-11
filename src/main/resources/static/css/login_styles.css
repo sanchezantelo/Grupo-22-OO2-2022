@@ -5,9 +5,9 @@ header.masthead {
 	padding-bottom: calc(10rem - 4.5rem);
 	background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%,
 		rgba(92, 77, 66, 0.8) 100%), url("../assets/img/bg-masthead.jpg");
-	background-position: center;
+	background-position: center center;
 	background-repeat: no-repeat;
-	background-attachment: scroll;
+	background-attachment: fixed;
 	background-size: cover;
 }
 
@@ -15,7 +15,7 @@ header.masthead h1, header.masthead .h1 {
 	font-size: 2.25rem;
 }
 
-@media ( min-width : 1000px) {
+@media ( min-width : 1200px) {
 	header.masthead {
 		height: 100vh;
 		min-height: 40rem;
@@ -30,7 +30,7 @@ header.masthead h1, header.masthead .h1 {
 	}
 }
 
-@media ( min-width : 5000px) {
+@media ( min-width : 1200px) {
 	header.masthead h1, header.masthead .h1 {
 		font-size: 3.5rem;
 	}
@@ -57,10 +57,11 @@ h3 {
 }
 
 body {
-	background-repeat: no-repeat, repeat;
-	background-position: center;
+	background-repeat: no-repeat;
+	background-position: center center;
 	background-size: cover;
-	padding-top: 50px;
+	background-attachment: fixed;
+	
 }
 
 .login-form {
@@ -81,4 +82,3 @@ body {
 .btn-primary {
 	width: 100%;
 }
-
