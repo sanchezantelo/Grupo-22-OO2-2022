@@ -15,10 +15,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	    http
 	        .formLogin()
 	        .loginPage("/login.html")
+	        .failureUrl("/login-error.html")
 	        .defaultSuccessUrl("/index.html")
 	      .and()
 	        .logout()
-	        .logoutSuccessUrl("/index.html");
+	        .logoutSuccessUrl("/index.html")
+	        .and().authorizeRequests().antMatchers("/admin/usuario/abm-usuario.html").hasAuthority("ROL_ADMIN")
+	        .and().authorizeRequests().antMatchers("/admin/usuario/listUsuarios").hasAuthority("ROL_ADMIN")
+	        .and().authorizeRequests().antMatchers("/buscador.html").hasAuthority("ROL_AUDITOR")
+	        .and().authorizeRequests().antMatchers("/admin/rol/abm-rol.html").hasAuthority("ROL_ADMIN");
 
 }
 	

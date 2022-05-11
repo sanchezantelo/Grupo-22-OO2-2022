@@ -15,7 +15,7 @@ header.masthead h1, header.masthead .h1 {
 	font-size: 2.25rem;
 }
 
-@media ( min-width : 992px) {
+@media ( min-width : 1000px) {
 	header.masthead {
 		height: 100vh;
 		min-height: 40rem;
@@ -30,7 +30,7 @@ header.masthead h1, header.masthead .h1 {
 	}
 }
 
-@media ( min-width : 1200px) {
+@media ( min-width : 5000px) {
 	header.masthead h1, header.masthead .h1 {
 		font-size: 3.5rem;
 	}
@@ -48,7 +48,7 @@ body {
 h3 {
 	font-style: italic;
 	font-family: "Playfair Display", "Bookman", serif;
-	color: red;
+	color: white;
 	letter-spacing: -0.005em;
 	word-spacing: 1px;
 	font-size: 2em;
@@ -81,3 +81,4 @@ body {
 .btn-primary {
 	width: 100%;
 }
+

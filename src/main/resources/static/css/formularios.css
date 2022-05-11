@@ -1,22 +1,87 @@
 @charset "ISO-8859-1";
 
 .w3-example {
-    padding: 8px 20px;
-    margin: 24px -20px;
-    box-shadow: none!important;
+	padding: 8px 20px;
+	margin: 24px -20px;
+	box-shadow: none !important;
 }
-
 
 /*********************************
 Footer 
 *********************************/
 
-.social-media-icon{
-    color: #000000;
+.cabecera {
+	color: #FFFFFF;
+	font-size: 15px;
+	line-height: 10px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #FFFFFF;
 }
 
 
-.social-media-icon i{
-    font-size: 30px;
-    line-height: 60px;
+
+header.masthead {
+	padding-top: 10rem;
+	padding-bottom: calc(10rem - 4.5rem);
+	background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%,
+		rgba(92, 77, 66, 0.8) 100%), url("../assets/img/bg-masthead.jpg");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-attachment: scroll;
+	background-size: cover;
 }
+
+header.masthead h1, header.masthead .h1 {
+	font-size: 2.25rem;
+}
+
+@media ( min-width : 1000px) {
+	header.masthead {
+		height: 100vh;
+		min-height: 40rem;
+		padding-top: 4.5rem;
+		padding-bottom: 0;
+	}
+	header.masthead p {
+		font-size: 1.15rem;
+	}
+	header.masthead h1, header.masthead .h1 {
+		font-size: 3rem;
+	}
+}
+
+@media ( min-width : 5000px) {
+	header.masthead h1, header.masthead .h1 {
+		font-size: 3.5rem;
+	}
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: 'montserrat';
+	background-image: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%,
+		rgba(92, 77, 66, 0.8) 100%), url("../assets/img/bg-masthead.jpg");
+	box-sizing: border-box;
+}
+
+h3 {
+	font-style: italic;
+	font-family: "Playfair Display", "Bookman", serif;
+	color: white;
+	letter-spacing: -0.005em;
+	word-spacing: 1px;
+	font-size: 2em;
+	font-weight: bold;
+	margin-top: 30px;
+}
+
+body {
+	background-repeat: no-repeat, repeat;
+	background-position: center;
+	background-size: cover;
+	padding-top: 50px;
+}
+
