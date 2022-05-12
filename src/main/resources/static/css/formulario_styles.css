@@ -9,19 +9,22 @@
 /*********************************
 Footer 
 *********************************/
-
 .cabecera {
 	color: #FFFFFF;
 	font-size: 15px;
 	line-height: 10px;
 }
 
-.navbar-light .navbar-nav .nav-link {
-    color: #FFFFFF;
+.navbar-light .navbar-nav .nav-item .nav-link {
+	color: #E7E8E9;
+	font-family: "Merriweather Sans", -apple-system, BlinkMacSystemFont,
+		"Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+		"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+		"Noto Color Emoji";
+	font-weight: 600;
+	font-size: 0.9rem;
+	padding: 0.20rem 0;
 }
-
-
-
 header.masthead {
 	padding-top: 4rem;
 	padding-bottom: calc(10rem - 4.5rem);
@@ -61,7 +64,9 @@ header.masthead h1, header.masthead .h1 {
 body {
 	margin: 0;
 	padding: 0;
-	font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+		"Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+		"Segoe UI Emoji", "Segoe UI Symbol";
 	background-image: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%,
 		rgba(92, 77, 66, 0.8) 100%), url("../assets/img/bg-masthead.jpg");
 	box-sizing: border-box;
@@ -83,6 +88,4 @@ body {
 	background-position: center center;
 	background-size: cover;
 	background-attachment: fixed;
-	
 }
-
