@@ -1,8 +1,9 @@
 package com.webservice.app.controller;
 
-import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -19,7 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.lowagie.text.DocumentException;
+import com.lowagie.text.Document;
+import com.lowagie.text.pdf.PdfWriter;
 import com.webservice.app.entities.UsuarioRol;
 import com.webservice.app.models.UsuarioRolModel;
 import com.webservice.app.services.IUsuarioRolService;
@@ -96,17 +98,18 @@ public class UsuarioRolController {
 	}
 
 	@GetMapping("/usuarioRol/export/pdf")
-	public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
+	public void exportToPDF(Map<String, Object> model, Document document, PdfWriter writer, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		response.setContentType("application/pdf");
 
 		String headerKey = "Content-Disposition";
-		String headerValue = "attachment; filename=usuarioRol.pdf";
+		String headerValue = "attachment; filename=Roles.pdf";
 		response.setHeader(headerKey, headerValue);
 
 		List<UsuarioRol> lstRoles = usuarioRolService.findAll();
 
 		RolPDF exporter = new RolPDF(lstRoles);
-		exporter.export(response);
+		exporter.export(model, document, writer, request, response);
 
 	}
 

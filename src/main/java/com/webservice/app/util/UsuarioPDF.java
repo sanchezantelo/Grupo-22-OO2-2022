@@ -1,17 +1,17 @@
 package com.webservice.app.util;
 
 import java.awt.Color;
-import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
+import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.FontFactory;
 import com.lowagie.text.PageSize;
-import com.lowagie.text.Paragraph;
 import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
@@ -26,49 +26,115 @@ public class UsuarioPDF {
 		this.lstusuarios = lstusuarios;
 	}
 
-	private void writeTableHeader(PdfPTable table) {
-		PdfPCell cell = new PdfPCell();
+	public void export(Map<String, Object> model, Document document, PdfWriter writer,
+			HttpServletRequest request, HttpServletResponse response) throws Exception{
+		
+		document = new Document(PageSize.A4);
+		PdfWriter.getInstance(document, response.getOutputStream());
+		
+		
+		/* Fuentes, tamaños y colores para cada seccion */
+		Font fuenteTitulo = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 20, Color.BLUE);
+		Font fuenteTituloColumnas = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10, Color.BLUE);
+		Font fuenteDataCeldas = FontFactory.getFont(FontFactory.COURIER, 10, Color.BLACK);
 
-		cell.setPhrase(new Phrase("Usuario"));
+		document.setPageSize(PageSize.LETTER.rotate());
+		document.setMargins(-20, -20, 30, 20);
+		document.open();
+		PdfPCell celda = null;
 
-		table.addCell(cell);
+		/* Tabla Para El Titulo del PDF */
+		PdfPTable tablaTitulo = new PdfPTable(1);
 
-	}
+		celda = new PdfPCell(new Phrase("LISTADO GENERAL DE USUARIOS", fuenteTitulo));
+		celda.setBorder(0);
+		celda.setBackgroundColor(new Color(40, 190, 138));
+		celda.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+		celda.setVerticalAlignment(PdfPCell.ALIGN_CENTER);
+		celda.setPadding(30);
 
-	private void writeTableData(PdfPTable table) {
+		tablaTitulo.addCell(celda);
+		tablaTitulo.setSpacingAfter(15);
+
+		/*Tabla Para Mostrar Listado de Usuarios*/
+		PdfPTable tablaUsuario = new PdfPTable(6);
+		tablaUsuario.setWidths(new float[] { 2f, 2f, 2f, 1.5f, 3.5f, 1.5f });
+
+		celda = new PdfPCell(new Phrase("NOMBRE", fuenteTituloColumnas));
+		celda.setBackgroundColor(Color.lightGray);
+		celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+		celda.setVerticalAlignment(Element.ALIGN_CENTER);
+		celda.setPadding(10);
+		tablaUsuario.addCell(celda);
+
+		celda = new PdfPCell(new Phrase("APELLIDO", fuenteTituloColumnas));
+		celda.setBackgroundColor(Color.lightGray);
+		celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+		celda.setVerticalAlignment(Element.ALIGN_CENTER);
+		celda.setPadding(10);
+		tablaUsuario.addCell(celda);
+
+		celda = new PdfPCell(new Phrase("TIPO DOCUMENTO", fuenteTituloColumnas));
+		celda.setBackgroundColor(Color.lightGray);
+		celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+		celda.setVerticalAlignment(Element.ALIGN_CENTER);
+		celda.setPadding(10);
+		tablaUsuario.addCell(celda);
+
+		celda = new PdfPCell(new Phrase("DNI", fuenteTituloColumnas));
+		celda.setBackgroundColor(Color.lightGray);
+		celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+		celda.setVerticalAlignment(Element.ALIGN_CENTER);
+		celda.setPadding(10);
+		tablaUsuario.addCell(celda);
+
+		celda = new PdfPCell(new Phrase("EMAIL", fuenteTituloColumnas));
+		celda.setBackgroundColor(Color.lightGray);
+		celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+		celda.setVerticalAlignment(Element.ALIGN_CENTER);
+		celda.setPadding(10);
+		tablaUsuario.addCell(celda);
+
+		celda = new PdfPCell(new Phrase("ROL", fuenteTituloColumnas));
+		celda.setBackgroundColor(Color.lightGray);
+		celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+		celda.setVerticalAlignment(Element.ALIGN_CENTER);
+		celda.setPadding(10);
+		tablaUsuario.addCell(celda);
+
+		/* Bucle For, mostrar todos los datos de los usuarios */
+
 		for (Usuario user : lstusuarios) {
-			table.addCell(user.getNombre());
-			table.addCell(user.getApellido());
-			table.addCell(user.getTipoDocumento().toString());
-			table.addCell(user.getDni().toString());
-			table.addCell(user.getEmail());
-			table.addCell(user.getRol().getRol());
+			celda = new PdfPCell(new Phrase(user.getNombre().toString(), fuenteDataCeldas));
+			celda.setPadding(5);
+			tablaUsuario.addCell(celda);
+
+			celda = new PdfPCell(new Phrase(user.getApellido().toString(), fuenteDataCeldas));
+			celda.setPadding(5);
+			tablaUsuario.addCell(celda);
+
+			celda = new PdfPCell(new Phrase(user.getTipoDocumento().toString(), fuenteDataCeldas));
+			celda.setPadding(5);
+			tablaUsuario.addCell(celda);
+
+			celda = new PdfPCell(new Phrase(user.getDni().toString(), fuenteDataCeldas));
+			celda.setPadding(5);
+			tablaUsuario.addCell(celda);
+
+			celda = new PdfPCell(new Phrase(user.getEmail().toString(), fuenteDataCeldas));
+			celda.setPadding(5);
+			tablaUsuario.addCell(celda);
+
+			celda = new PdfPCell(new Phrase(user.getRol().getRol().toString(), fuenteDataCeldas));
+			celda.setPadding(5);
+			tablaUsuario.addCell(celda);
 
 		}
-	}
 
-	public void export(HttpServletResponse response) throws DocumentException, IOException {
-		Document document = new Document(PageSize.A4);
-		PdfWriter.getInstance(document, response.getOutputStream());
+		/*Anexamos las Tablas al Documento*/
 
-		document.open();
-		Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
-		font.setSize(18);
-		font.setColor(Color.BLUE);
-
-		Paragraph p = new Paragraph("Lista de Usuarios", font);
-		p.setAlignment(Paragraph.ALIGN_CENTER);
-
-		document.add(p);
-
-		PdfPTable table = new PdfPTable(6);
-		table.setWidthPercentage(100f);
-
-		writeTableHeader(table);
-		writeTableData(table);
-
-		document.add(table);
-
+		document.add(tablaTitulo);
+		document.add(tablaUsuario);
 		document.close();
 
 	}

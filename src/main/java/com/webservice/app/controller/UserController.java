@@ -1,12 +1,13 @@
 
 package com.webservice.app.controller;
 
-import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -27,7 +28,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.lowagie.text.DocumentException;
+import com.lowagie.text.pdf.PdfWriter;
+import com.lowagie.text.Document;
 import com.webservice.app.entities.Usuario;
 import com.webservice.app.models.UsuarioModel;
 import com.webservice.app.services.IUsuarioRolService;
@@ -107,7 +109,7 @@ public class UserController {
 	}
 
 	@PostMapping("/modificacionUsuario")
-	public String modificacionUsuario(@Valid@ModelAttribute("usuarioModelUpdate") UsuarioModel usuarioModelUpdate,
+	public String modificacionUsuario(@Valid @ModelAttribute("usuarioModelUpdate") UsuarioModel usuarioModelUpdate,
 			RedirectAttributes redirectAttrs) {
 		logger.info("/modificacionUsuario" + usuarioModelUpdate);
 		try {
@@ -151,17 +153,18 @@ public class UserController {
 	}
 
 	@GetMapping("/usuario/export/pdf")
-	public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
+	public void exportToPDF(Map<String, Object> model, Document document, PdfWriter writer, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		response.setContentType("application/pdf");
 
 		String headerKey = "Content-Disposition";
-		String headerValue = "attachment; filename=usuarios.pdf";
+		String headerValue = "attachment; filename=Usuarios.pdf";
 		response.setHeader(headerKey, headerValue);
 
 		List<Usuario> lstusuarios = usuarioService.findAll();
 
 		UsuarioPDF exporter = new UsuarioPDF(lstusuarios);
-		exporter.export(response);
+		exporter.export(model, document, writer, request, response);
 
 	}
 }
