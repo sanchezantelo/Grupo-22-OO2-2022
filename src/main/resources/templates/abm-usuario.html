@@ -227,11 +227,6 @@
 									<td colspan="2">Sin usuarios en el sistema</td>
 								</tr>
 								<tr th:each="usuario: ${lstUsuarios}">
-									<td><span th:text="${usuario.persona.nombre}"></td>
-									<td><span th:text="${usuario.persona.apellido}"></td>
-									<td><span th:text="${usuario.persona.tipoDocumento}"></td>
-									<td><span th:text="${usuario.persona.dni}"></td>
-									<td><span th:text="${usuario.persona.email}"></td>
 									<td><span th:text="${usuario.nombre}"></td>
 									<td><span th:text="${usuario.apellido}"></td>
 									<td><span th:text="${usuario.tipoDocumento}"></td>
