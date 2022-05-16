@@ -14,9 +14,11 @@ public interface IUsuarioRepository extends JpaRepository<Usuario, Serializable>
 
 	public abstract Usuario findByUsuario(@Param("usuario") String usuario);
 
+	public abstract Usuario findByDni(long dni);
+
 	public abstract Usuario findById(@Param("id") int id);
 
-	@Query("SELECT u FROM Usuario u JOIN FETCH u.rol JOIN FETCH u.persona WHERE u.id=:id")
+	@Query("SELECT u FROM Usuario u JOIN FETCH u.rol WHERE u.id=:id")
 	public abstract Usuario findByIdRol(@Param("id") int id);
 
 	public abstract List<Usuario> findAll();
@@ -24,7 +26,7 @@ public interface IUsuarioRepository extends JpaRepository<Usuario, Serializable>
 	@Query("SELECT u FROM Usuario u JOIN FETCH u.rol WHERE u.enabled=true")
 	public abstract List<Usuario> findByEnabled();
 
-	@Query("SELECT u FROM Usuario u  JOIN FETCH u.rol JOIN FETCH u.persona WHERE (u.usuario LIKE :usuario AND u.clave LIKE :clave) OR (u.persona.email LIKE :email AND u.clave LIKE :clave)")
+	@Query("SELECT u FROM Usuario u  JOIN FETCH u.rol WHERE (u.usuario LIKE :usuario AND u.clave LIKE :clave) OR (u.email LIKE :email AND u.clave LIKE :clave)")
 	public abstract Usuario validarCredenciales(@Param("usuario") String usuario, @Param("email") String email,
 			@Param("clave") String clave);
 

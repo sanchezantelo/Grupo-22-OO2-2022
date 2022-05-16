@@ -37,11 +37,11 @@ public class UsuarioPDF {
 
 	private void writeTableData(PdfPTable table) {
 		for (Usuario user : lstusuarios) {
-			table.addCell(user.getPersona().getNombre());
-			table.addCell(user.getPersona().getApellido());
-			table.addCell(user.getPersona().getTipoDocumento().toString());
-			table.addCell(user.getPersona().getDni().toString());
-			table.addCell(user.getPersona().getEmail());
+			table.addCell(user.getNombre());
+			table.addCell(user.getApellido());
+			table.addCell(user.getTipoDocumento().toString());
+			table.addCell(user.getDni().toString());
+			table.addCell(user.getEmail());
 			table.addCell(user.getRol().getRol());
 
 		}
