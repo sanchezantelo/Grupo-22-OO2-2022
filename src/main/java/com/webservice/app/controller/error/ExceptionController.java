@@ -15,7 +15,7 @@ public class ExceptionController {
 	public String validarFormulriosException(BindException exception, RedirectAttributes redirectAttrs) {
 
 		if (exception.getObjectName().startsWith("usuarioModel")) {
-			if (exception.hasFieldErrors("persona.dni")) {
+			if (exception.hasFieldErrors("dni")) {
 				redirectAttrs.addFlashAttribute("errorDNI", exception.getFieldError().getDefaultMessage())
 						.addFlashAttribute("clase", "alert alert-danger");
 				return "redirect:/admin/usuario/abm-usuario";

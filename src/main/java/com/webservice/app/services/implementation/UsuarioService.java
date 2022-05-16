@@ -9,12 +9,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
-import com.webservice.app.converters.PersonaConverter;
 import com.webservice.app.converters.UsuarioConverter;
-import com.webservice.app.entities.Persona;
 import com.webservice.app.entities.Usuario;
 import com.webservice.app.models.UsuarioModel;
-import com.webservice.app.repositories.IPersonaRepository;
 import com.webservice.app.repositories.IUsuarioRepository;
 import com.webservice.app.services.IUsuarioService;
 
@@ -26,16 +23,8 @@ public class UsuarioService implements IUsuarioService {
 	private IUsuarioRepository usuarioRepository;
 
 	@Autowired
-	@Qualifier("personaRepository")
-	private IPersonaRepository personaRepository;
-
-	@Autowired
 	@Qualifier("usuarioModel")
 	private UsuarioConverter usuarioModel;
-
-	@Autowired
-	@Qualifier("personaModel")
-	private PersonaConverter personaModel;
 
 	public Usuario findByUsuario(String usuario) {
 		return usuarioRepository.findByUsuario(usuario);
@@ -45,8 +34,8 @@ public class UsuarioService implements IUsuarioService {
 		return usuarioRepository.findById(id);
 	}
 
-	public Persona findByDni(long dni) {
-		return personaRepository.findByDni(dni);
+	public Usuario findByDni(long dni) {
+		return usuarioRepository.findByDni(dni);
 	}
 
 	public UsuarioModel traerUsuario(int id) {
