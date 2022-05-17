@@ -32,13 +32,12 @@ public class UsuarioPDF {
 		document = new Document(PageSize.A4);
 		PdfWriter.getInstance(document, response.getOutputStream());
 		
-		
 		/* Fuentes, tamaños y colores para cada seccion */
 		Font fuenteTitulo = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 20, Color.BLUE);
 		Font fuenteTituloColumnas = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10, Color.BLUE);
 		Font fuenteDataCeldas = FontFactory.getFont(FontFactory.COURIER, 10, Color.BLACK);
 
-		document.setPageSize(PageSize.LETTER.rotate());
+		//document.setPageSize(PageSize.LETTER.rotate());
 		document.setMargins(-20, -20, 30, 20);
 		document.open();
 		PdfPCell celda = null;
@@ -58,7 +57,7 @@ public class UsuarioPDF {
 
 		/*Tabla Para Mostrar Listado de Usuarios*/
 		PdfPTable tablaUsuario = new PdfPTable(6);
-		tablaUsuario.setWidths(new float[] { 2f, 2f, 2f, 1.5f, 3.5f, 1.5f });
+		tablaUsuario.setWidths(new float[] { 2.5f, 2.5f, 3f, 2.5f, 4.3f, 2.7f });
 
 		celda = new PdfPCell(new Phrase("NOMBRE", fuenteTituloColumnas));
 		celda.setBackgroundColor(Color.lightGray);
@@ -132,7 +131,7 @@ public class UsuarioPDF {
 		}
 
 		/*Anexamos las Tablas al Documento*/
-
+        
 		document.add(tablaTitulo);
 		document.add(tablaUsuario);
 		document.close();

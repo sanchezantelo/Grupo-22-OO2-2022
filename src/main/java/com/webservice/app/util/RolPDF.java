@@ -38,7 +38,7 @@ public class RolPDF {
 		Font fuenteTituloColumnas = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10, Color.BLUE);
 		Font fuenteDataCeldas = FontFactory.getFont(FontFactory.COURIER, 10, Color.BLACK);
 
-		document.setPageSize(PageSize.LETTER.rotate());
+		//document.setPageSize(PageSize.LETTER.rotate());
 		document.setMargins(-20, -20, 30, 20);
 		document.open();
 		PdfPCell celda = null;
