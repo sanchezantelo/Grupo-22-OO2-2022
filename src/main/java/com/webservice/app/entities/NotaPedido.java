@@ -18,12 +18,13 @@ import javax.validation.constraints.NotEmpty;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
+@Getter @Setter @NoArgsConstructor
 @Inheritance(strategy= InheritanceType.JOINED)
-@Data @NoArgsConstructor // Getter, Setter, toString, equals, hash, constructor
 @Table(name="nota_pedido")
 public abstract class NotaPedido implements Serializable {
 	private static final long serialVersionUID = 1L;
