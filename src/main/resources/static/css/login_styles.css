@@ -3,12 +3,12 @@
 header.masthead {
 	padding-top: 10rem;
 	padding-bottom: calc(10rem - 4.5rem);
-	background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%,
-		rgba(92, 77, 66, 0.8) 100%), url("../assets/img/bg-masthead.jpg");
+	background: url("../assets/img/bg-masthead.jpg");
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-size: cover;
+	background-position: center center;
 }
 
 header.masthead h1, header.masthead .h1 {
@@ -40,8 +40,7 @@ body {
 	margin: 0;
 	padding: 0;
 	font-family: 'montserrat';
-	background-image: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%,
-		rgba(92, 77, 66, 0.8) 100%), url("../assets/img/bg-masthead.jpg");
+	background-image: blur(8px), url("../assets/img/bg-masthead.jpg");
 	box-sizing: border-box;
 }
 
@@ -61,17 +60,14 @@ body {
 	background-position: center center;
 	background-size: cover;
 	background-attachment: fixed;
-	
 }
 
 .login-form {
-	background: #1a11117a;
-	margin-top: 30px;
-	margin-bottom: 100px;
-	padding: 40px;
-	border-radius: 50px;
-	color: white;
-	box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+	background: #FFFFFF;
+	margin-top: 50px;
+	margin-bottom: 20px;
+	padding: 70px;
+	color: #CACFD2;
 }
 
 .login-heading {
@@ -79,6 +75,32 @@ body {
 	margin-top: 20px;
 }
 
-.btn-primary {
-	width: 100%;
+.btn-login {
+	background-color: #641E16;
+	color: rgb(255, 255, 255);
+}
+
+
+.form-group input{
+    height: 42px;
+    font-size: 17px;
+    padding-left: 45px;
+    border-radius: 5px;
+}
+
+
+.form-group::before {
+	font-family: "Font Awesome\ 5 Free";
+	position: absolute;
+	left: 95px;
+	font-size: 22px;
+	padding-top: 4px;
+}
+
+.form-group#user-group::before {
+	content: "\f007";
+}
+
+.form-group#contrasena-group::before {
+	content: "\f023";
 }
