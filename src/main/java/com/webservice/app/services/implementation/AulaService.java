@@ -10,10 +10,11 @@ import com.webservice.app.entities.Aula;
 import com.webservice.app.repositories.IAulaRepository;
 import com.webservice.app.repositories.ILaboratorioRepository;
 import com.webservice.app.repositories.ITradicionalRepository;
+import com.webservice.app.services.IAulaService;
 
 
 @Service("aulaService")
-public class AulaService {
+public class AulaService implements IAulaService{
 	
 	@Autowired
 	@Qualifier("aulaRepository")
