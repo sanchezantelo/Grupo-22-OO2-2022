@@ -1,297 +1,255 @@
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Usuario</title>
-
+<title>Website Grupo 22</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <link href='https://unpkg.com/boxicons@2.0.5/css/boxicons.min.css'
 	rel='stylesheet'>
-
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css"
-	integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy"
-	crossorigin="anonymous">
-
-<link rel="stylesheet" type="text/css" href="/css/formulario_styles.css">
-
-<!-- Google fonts-->
-<link
-	href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700"
-	rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="/css/index_styles.css">
 
 </head>
 
-<body id="page-top" class="cabecera">
 
-	<nav class="navbar navbar-expand-lg navbar-light fixed-top py-3"
-		id="mainNav">
-		<div class="container px-4">
-			<button class="navbar-toggler navbar-toggler-right" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
-				aria-controls="navbarResponsive" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarResponsive">
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a class="nav-link" th:href="@{'/index'}">Inicio
-							<i class='bx bxs-log-out-circle'></i>
-					</a></li>
-
-				</ul>
-			</div>
-		</div>
+<body>
+	<div class="form-outline mb-4">
+              <img src="/images/unla-logo.png" alt="Smiley face" style="vertical-align:Stickman;margin:0px 10px">
+            </div>
+<nav class="navbar navbar-expand-lg navbar-dark nav-bk">
+<img src="/images/home-icon.png" alt="Smiley face" style="vertical-align:Stickman;margin:0px 10px">
+		<a class="navbar-brand" th:href="@{'/index'}">Inicio</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#collapsibleNavbar">
+			<span class="navbar-toggler-icon"></span>
+		</button>
 	</nav>
-	<header class="masthead">
 
+	<main role="main" class="container">		
+	
+        	
+		<div class="alert alert-success" role="alert" th:if="${mensaje}" th:unless="${error}" th:text="${mensaje}"></div>
+		<div class="alert alert-danger" role="alert" th:if="${error}" th:text="${error}"></div>
+        <div th:object=${user}></div>
+		<div class="row mb-3 w3-example">
+			<div class="col-4" th:if="${user.hasRole('ROL_ADMIN')}">
+				<h3>Datos del Usuario</h3>
+				<div class="form-group">
 
-		<main role="main" class="container">
-
-			<div class="alert alert-success" role="alert" th:if="${mensaje}"
-				th:unless="${error}" th:text="${mensaje}"></div>
-			<div class="alert alert-danger" role="alert" th:if="${error}"
-				th:text="${error}"></div>
-			<div th:object=${user}></div>
-			<div class="row mb-3">
-				<div class="col-4" th:if="${user.hasRole('ROL_ADMIN')}">
-					<h3>Datos del Usuario</h3>
-					<div class="form-group">
-
-						<form th:action="@{/admin/usuario/altaUsuario}"
-							th:if="${usuarioModel}" th:unless="${usuarioModelUpdate}"
-							th:object="${usuarioModel}" method="post">
-							<div class="form-group">
-								<label>Usuario </label> <input type="text"
-									class="form-control form-control-sm" th:field="*{usuario}"
-									required>
-							</div>
-
-							<div class="form-group">
-								<label>Clave</label> <input type="text"
-									class="form-control form-control-sm" th:field="*{clave}"
-									required>
-							</div>
-
-
-							<div class="form-group">
-								<label>Nombre</label> <input type="text"
-									class="form-control form-control-sm" th:field="*{nombre}"
-									required>
-							</div>
-
-							<div class="form-group">
-								<label>Apellido</label> <input type="text"
-									class="form-control form-control-sm" th:field="*{apellido}"
-									required>
-							</div>
-
-							<div class="form-group">
-								<label>Tipo de Documento</label> <select name="tipoDocumento"
-									class="form-control form-control-sm"
-									th:field="*{tipoDocumento}">
-									<option
-										th:each="tipoDocumento : ${T(com.webservice.app.entities.TipoDocumento).values()}"
-										th:value="${tipoDocumento}" th:text="${tipoDocumento}"></option>
-								</select>
-							</div>
-
-							<div class="form-group">
-								<label>Numero de Documento</label> <input type="text"
-									class="form-control form-control-sm" th:field="*{dni}" required>
-								<div class="alert alert-danger" th:if="${errorDNI}"
-									th:text="${errorDNI}"></div>
-							</div>
-
-							<div class="form-group">
-								<label>Email</label> <input type="email"
-									class="form-control form-control-sm" th:field="*{email}"
-									required>
-							</div>
-
-							<div class="form-group">
-								<label>Rol</label> <select class="form-control form-control-sm"
-									th:field="*{rol.id}">
-									<option th:each="i : ${lstRoles}" th:value="${i.id}"
-										th:text="${i.rol}"></option>
-								</select>
-							</div>
-
-							<div class="form-group">
-								<input type="hidden" class="form-control form-control-sm"
-									th:field="*{enabled}">
-							</div>
-
-							<div class="form-group">
-								<input type="submit"
-									class="btn-success form-control form-control-sm" />
-							</div>
-
-
-						</form>
-
-
-
-						<form th:action="@{/admin/usuario/modificacionUsuario}"
-							th:if="${usuarioModelUpdate}" th:object="${usuarioModelUpdate}"
-							method="post">
-							<div class="form-group">
-								<input type="hidden" class="form-control form-control-sm"
-									th:field="*{id}">
-							</div>
-							<div class="form-group">
-								<label>Usuario </label> <input type="text"
-									class="form-control form-control-sm" th:field="*{usuario}">
-							</div>
-
-							<div class="form-group">
-								<label>Clave</label> <input type="text"
-									class="form-control form-control-sm" th:field="*{clave}">
-							</div>
-
-							<div class="form-group">
-								<label>Nombre</label> <input type="text"
-									class="form-control form-control-sm" th:field="*{nombre}">
-							</div>
-
-							<div class="form-group">
-								<label>Apellido</label> <input type="text"
-									class="form-control form-control-sm" th:field="*{apellido}">
-							</div>
-
-							<div class="form-group">
-								<select class="form-control form-control-sm"
-									name="tipoDocumento" th:field="*{tipoDocumento}">
-									<option
-										th:each="tipoDocumento : ${T(com.webservice.app.entities.TipoDocumento).values()}"
-										th:value="${tipoDocumento}" th:text="${tipoDocumento}"></option>
-								</select>
-							</div>
-
-							<div class="form-group">
-								<label>Numero de Documento</label> <input type="text"
-									class="form-control form-control-sm" th:field="*{dni}">
-								<div class="alert alert-danger" th:if="${errorDNI}"
-									th:text="${errorDNI}"></div>
-							</div>
-
-							<div class="form-group">
-								<label>Email</label> <input type="email"
-									class="form-control form-control-sm" th:field="*{email}">
-							</div>
-
-							<div class="form-group">
-								<select class="form-control form-control-sm"
-									th:field="*{rol.id}">
-									<option th:each="i : ${lstRoles}" th:value="${i.id}"
-										th:text="${i.rol}"></option>
-								</select> <input type="hidden" class="form-control form-control-sm"
-									th:field="*{rol.rol}">
-							</div>
-
-							<div class="form-group">
-								<input type="hidden" class="form-control form-control-sm"
-									th:field="*{enabled}">
-							</div>
-
-							<div class="form-group">
-								<input type="submit"
-									class="btn-success form-control form-control-sm" />
-							</div>
-
-						</form>
-
-					</div>
-				</div>
-
-				<div class="col-8">
-					<h3>Usuarios</h3>
-					<!--tabla-->
-					<div style="overflow-x: auto;">
-						<table class="table table-striped">
-							<thead>
-								<tr>
-									<th scope="col">Nombre</th>
-									<th scope="col">Apellido</th>
-									<th scope="col">Tipo Documento</th>
-									<th scope="col">Num Documento</th>
-									<th scope="col">Email</th>
-									<th scope="col">Rol</th>
-									<th scope="col">Activo</th>
-									<th scope="col"></th>
-									<th scope="col"></th>
-
-								</tr>
-							</thead>
-
-							<tbody>
-								<tr th:if="${lstUsuarios.empty}">
-									<td colspan="2">Sin usuarios en el sistema</td>
-								</tr>
-								<tr th:each="usuario: ${lstUsuarios}">
-									<td><span th:text="${usuario.nombre}"></td>
-									<td><span th:text="${usuario.apellido}"></td>
-									<td><span th:text="${usuario.tipoDocumento}"></td>
-									<td><span th:text="${usuario.dni}"></td>
-									<td><span th:text="${usuario.email}"></td>
-									<td><span th:text="${usuario.rol.rol}"></td>
-									<td><span th:text="${usuario.enabled}"></td>
-									<td><a th:if="${user.hasRole('ROL_ADMIN')}"
-										th:href="@{'/admin/usuario/bajaUsuario?id=' + ${usuario.id}}"
-										class="btn btn-danger btn-sm"> <img
-											th:src="@{'/images/trash.svg'}" th:text="Eliminar" /></td>
-									<td><a th:if="${user.hasRole('ROL_ADMIN')}"
-										th:href="@{'/admin/usuario/traerUsuario?id=' + ${usuario.id}}"
-										class="btn btn-warning btn-sm"> <img
-											th:src="@{'/images/pencil-square.svg'}" th:text="Editar" /></td>
-									<td><input type="hidden" th:value="${usuario.id}" /></td>
-									<td><input type="hidden" th:value="${usuario.rol.id}" /></td>
-								</tr>
-							</tbody>
-						</table>
-						<div class="row" th:fragment="pagination">
-							<div class="col-md-2"></div>
-							<div class="col-md-8">
-								<nav aria-label="Pagination">
-									<ul class="pagination justify-content-end">
-										<li class="page-item" th:each="pageNumber : ${pageNumbers}">
-											<a class="page-link"
-											th:href="@{|/admin/usuario/abm-usuario?page=${pageNumber}|}"
-											th:text=${pageNumber}>1</a>
-
-										</li>
-
-									</ul>
-
-								</nav>
-
-							</div>
-
+					<form th:action="@{/admin/usuario/altaUsuario}" th:if="${usuarioModel}" th:unless="${usuarioModelUpdate}" th:object="${usuarioModel}"
+						method="post">
+						<div class="form-group">
+							<label>Usuario </label> <input type="text"
+								class="form-control form-control-sm" th:field="*{usuario}" required>
 						</div>
-					</div>
 
-					<div class="form-group">
+						<div class="form-group">
+							<label>Clave</label> <input type="text"
+								class="form-control form-control-sm" th:field="*{clave}"required>
+						</div>
 
-						<a th:if="${user.hasRole('ROL_AUDITOR')}"
-							th:href="@{usuario/export/pdf}"><img
-							th:src="@{'/images/icons8-pdf-30.png'}" th:text="GenerarPDF" />
-						</a>
-					</div>
-				</div>
 
-			</div>
+						<div class="form-group">
+							<label>Nombre</label> <input type="text"
+								class="form-control form-control-sm"
+								th:field="*{nombre}"required>
+						</div>
 
-		</main>
-	</header>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"></script>
-	<script src="js/scripts.js"></script>
-	<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+						<div class="form-group">
+							<label>Apellido</label> <input type="text"
+								class="form-control form-control-sm"
+								th:field="*{apellido}"required>
+						</div>
 
-</body>
+                      <div class="form-group">
+                      <label>Tipo de Documento</label>	
+							<select name="tipoDocumento" class="form-control form-control-sm" th:field="*{tipoDocumento}">
+    						<option th:each="tipoDocumento : ${T(com.webservice.app.entities.TipoDocumento).values()}" 
+        					th:value="${tipoDocumento}" th:text="${tipoDocumento}"></option>
+							</select>
+						</div>
 
-</html>
+						<div class="form-group">
+							<label>Numero de Documento</label> <input type="text"
+								class="form-control form-control-sm" th:field="*{dni}"required>	
+								<div class="alert alert-danger" th:if="${errorDNI}" th:text="${errorDNI}"></div>					
+                          </div>
+
+						<div class="form-group">
+							<label>Email</label> <input type="email"
+								class="form-control form-control-sm" th:field="*{email}"required>
+						</div>
+
+						<div class="form-group">
+						<label>Rol</label>	
+							<select class="form-control form-control-sm" th:field="*{rol.id}">
+							 <option th:each="i : ${lstRoles}" th:value="${i.id}" th:text="${i.rol}">
+                              </option>
+							</select>
+						</div>
+
+						<div class="form-group">
+							<input type="hidden"
+								class="form-control form-control-sm" th:field="*{enabled}">
+						</div>
+
+						<div class="form-group">
+							<input type="submit" class="btn-success form-control form-control-sm"/>
+						</div>
+						
+
+					</form>
+					
+					
+					
+					<form th:action="@{/admin/usuario/modificacionUsuario}"  th:if="${usuarioModelUpdate}" th:object="${usuarioModelUpdate}"
+						method="post">
+						<div class="form-group">
+							 <input type="hidden"
+								class="form-control form-control-sm" th:field="*{id}">
+						</div>
+						<div class="form-group">
+							<label>Usuario </label> <input type="text"
+								class="form-control form-control-sm" th:field="*{usuario}">
+						</div>
+
+						<div class="form-group">
+							<label>Clave</label> <input type="text"
+								class="form-control form-control-sm" th:field="*{clave}">
+						</div>
+
+                       <div class="form-group">
+							 <input type="hidden"
+								class="form-control form-control-sm" th:field="*{persona.id}">
+						</div>
+						<div class="form-group">
+							<label>Nombre</label> <input type="text"
+								class="form-control form-control-sm"
+								th:field="*{nombre}">
+						</div>
+
+						<div class="form-group">
+							<label>Apellido</label> <input type="text"
+								class="form-control form-control-sm"
+								th:field="*{apellido}">
+						</div>
+						
+						  <div class="form-group">
+							<select  class="form-control form-control-sm" name="tipoDocumento" th:field="*{tipoDocumento}">
+    						<option th:each="tipoDocumento : ${T(com.webservice.app.entities.TipoDocumento).values()}" 
+        					th:value="${tipoDocumento}" th:text="${tipoDocumento}"></option>
+							</select>
+						</div>
+
+						<div class="form-group">
+							<label>Numero de Documento</label> <input type="text"
+								class="form-control form-control-sm" th:field="*{dni}">
+								<div class="alert alert-danger" th:if="${errorDNI}" th:text="${errorDNI}"></div>					
+						</div>
+
+						<div class="form-group">
+							<label>Email</label> <input type="email"
+								class="form-control form-control-sm" th:field="*{email}">
+						</div>
+
+						<div class="form-group">
+							<select class="form-control form-control-sm" th:field="*{rol.id}">
+							 <option th:each="i : ${lstRoles}" th:value="${i.id}" th:text="${i.rol}">
+                              </option>
+							</select>
+							<input type="hidden"
+								class="form-control form-control-sm" th:field="*{rol.rol}">
+						</div>
+
+						<div class="form-group">
+							<input type="hidden"
+								class="form-control form-control-sm" th:field="*{enabled}">
+						</div>
+
+						<div class="form-group">
+							<input type="submit" class="btn-success form-control form-control-sm"/>
+						</div>
+
+					</form>
+			
+		</div>
+		</div>
+		
+		<div class="col-8">
+			<h3>Usuarios</h3>
+			<!--tabla-->
+			<div style="overflow-x: auto;">
+				<table class="table table-striped" >
+					<thead>
+						<tr>
+							<th scope="col">Nombre</th>
+							<th scope="col">Apellido</th>
+							<th scope="col">Tipo Documento</th>
+							<th scope="col">Num Documento</th>
+							<th scope="col">Email</th>
+							<th scope="col">Rol</th>
+							<th scope="col">Activo</th>
+							<th scope="col"></th>
+							<th scope="col"></th>
+							
+						</tr>
+					</thead>
+					<tbody >
+						<tr th:if="${lstUsuarios.empty}">
+							<td colspan="2">Sin usuarios en el sistema</td>
+						</tr>
+						<tr th:each="usuario: ${lstUsuarios}">
+							<td><span th:text="${usuario.nombre}"></td>
+							<td><span th:text="${usuario.apellido}"></td>
+							<td><span th:text="${usuario.tipoDocumento}"></td>
+							<td><span th:text="${usuario.dni}"></td>
+							<td><span th:text="${usuario.email}"></td>
+							<td><span th:text="${usuario.rol.rol}"></td>
+							<td><span th:text="${usuario.enabled}"></td>							
+							<td>
+							<a th:if="${user.hasRole('ROL_ADMIN')}" th:href="@{'/admin/usuario/bajaUsuario?id=' + ${usuario.id}}" class="btn-danger btn-sm">
+							<img th:src="@{'/images/trash.svg'}" th:text="Eliminar"/></td>
+							<td>
+							<a th:if="${user.hasRole('ROL_ADMIN')}" th:href="@{'/admin/usuario/traerUsuario?id=' + ${usuario.id}}" class="btn-warning btn-sm">
+							<img th:src="@{'/images/pencil-square.svg'}" th:text="Editar"/></td>
+						    <td><input type="hidden" th:value="${usuario.id}"/></td>
+						    <td><input type="hidden" th:value="${usuario.rol.id}"/></td>
+						</tr>
+					</tbody>
+				</table>
+		 	   <div class="row" th:fragment="pagination">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <nav aria-label="Pagination">
+                <ul class="pagination justify-content-end">
+                    <li class="page-item" th:each="pageNumber : ${pageNumbers}" >
+                        <a class="page-link" th:href="@{|/admin/usuario/abm-usuario?page=${pageNumber}|}" th:text=${pageNumber}>1</a>
+                  
+                    </li>
+                  
+                </ul>
+            
+            </nav>
+            
+        </div> 
+              
+		</div>
+	</div>	
+	<div class="form-group">
+                    
+			<a th:if="${user.hasRole('ROL_AUDITOR')}" th:href="@{usuario/export/pdf}"><img th:src="@{'/images/icons8-pdf-30.png'}" th:text="GenerarPDF"/></td></a>
+		</div>
+	</div>
+	</div>
+	</main>
+
+</body> 
+
+</html>  
+

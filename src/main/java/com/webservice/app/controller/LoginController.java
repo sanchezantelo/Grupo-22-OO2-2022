@@ -29,6 +29,7 @@ public class LoginController {
 	private IUsuarioService usuarioService;
 
 	Logger logger = LoggerFactory.getLogger(LoginController.class);
+	
 
 	@GetMapping("/login")
 	public String login(Model model, @RequestParam(name = "error", required = false) String error,
