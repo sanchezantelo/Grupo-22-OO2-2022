@@ -21,3 +21,11 @@ Footer
 .nav-bk {
 	background: #000000;
 }
+
+.forgot{
+    padding: 5px 0;
+}
+
+.forgot a{
+    color: #800000;
+}

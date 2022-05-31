@@ -1,23 +1,15 @@
-<!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
 <head>
 <title>Website Grupo 22</title>
-<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <link href='https://unpkg.com/boxicons@2.0.5/css/boxicons.min.css'
 	rel='stylesheet'>
 <link rel="stylesheet" type="text/css" href="/css/index_styles.css">
-
+<link rel="stylesheet" type="text/css" href="/css/formularios.css">
 </head>
-
 
 <body>
 
@@ -119,12 +111,15 @@
 				</table>
 			
 			</div>
-  	<a th:if="${user.hasRole('ROL_AUDITOR')}" th:href="@{usuarioRol/export/pdf}"><img th:src="@{'/images/icons8-pdf-30.png'}" th:text="GenerarPDF"/></td></a>			
+	<div class="col-12 forgot">
+  	<a th:if="${user.hasRole('ROL_AUDITOR')}" th:href="@{usuarioRol/export/pdf}"><img th:src="@{'/images/pdf-icono.png'}" th:text="GenerarPDF"/></a>			
 		</div>
 		
 	</div>
 	
 	</div>
+		</div>
+	
 
 </body>
 </html>
