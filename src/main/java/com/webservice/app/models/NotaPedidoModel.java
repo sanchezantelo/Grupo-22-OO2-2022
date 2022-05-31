@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.webservice.app.entities.Aula;
 import com.webservice.app.entities.Usuario;
 
 import lombok.NoArgsConstructor;
@@ -22,12 +23,12 @@ public abstract class NotaPedidoModel {
 	protected String observaciones;
 	protected String tipoAula;
 	protected boolean asignada;
-	//protected Aula aulaAsignada;
+	protected Aula aulaAsignada;
 	protected Usuario solicitante;
 	
 	public NotaPedidoModel(int id, LocalDate fecha, int cantEstudiantes, 
 							Set<Usuario> docentes, String observaciones, String tipoAula,
-							boolean asignada, Usuario solicitante) {
+							boolean asignada, Aula aulaAsignada, Usuario solicitante) {
 		this.setId(id);
 		this.fecha = fecha;
 		this.cantEstudiantes = cantEstudiantes;
@@ -35,6 +36,7 @@ public abstract class NotaPedidoModel {
 		this.observaciones = observaciones;
 		this.tipoAula = tipoAula;
 		this.asignada = asignada;
+		this.aulaAsignada = aulaAsignada;
 		this.solicitante = solicitante;
 	}
 }

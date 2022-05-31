@@ -2,6 +2,7 @@ package com.webservice.app.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,18 +13,20 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter @Setter @NoArgsConstructor
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
 @Inheritance(strategy= InheritanceType.JOINED)
 @Table(name="nota_pedido")
 public abstract class NotaPedido implements Serializable {
@@ -41,10 +44,9 @@ public abstract class NotaPedido implements Serializable {
 	@NotEmpty()
 	private int cantEstudiantes;
 	
-	/* TODO: Tabla Intermedia 
-	@
+	@ManyToOne
+	@JoinColumn(name="id_usuario")
 	private Set<Usuario> docentes;
-	*/
 	
 	/*
 	@ManyToOne(cascade= CascadeType.PERSIST)
@@ -61,10 +63,9 @@ public abstract class NotaPedido implements Serializable {
 	@Column(name= "asignada", nullable = false)
 	private boolean asignada;
 	
-	/* TODO: JoinColumn idEspacio o idAula
-	@
+	@ManyToOne
+	@JoinColumn(name="id_aula")
 	private Aula aulaAsignada;
-	*/
 	
 	@OneToOne(cascade= CascadeType.PERSIST)
 	@JoinColumn(name= "idUsuario")
