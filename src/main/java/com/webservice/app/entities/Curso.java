@@ -10,12 +10,13 @@ import javax.validation.constraints.NotEmpty;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter @Setter @NoArgsConstructor
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
 @PrimaryKeyJoinColumn(referencedColumnName= "idNotaPedido", name= "idCurso")
 @Table(name= "curso")
 public class Curso extends NotaPedido {
