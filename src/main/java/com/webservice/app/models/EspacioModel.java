@@ -1,7 +1,6 @@
 package com.webservice.app.models;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 import com.webservice.app.entities.Aula;
 

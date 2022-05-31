@@ -1,9 +1,5 @@
 package com.webservice.app.models;
 
-import java.time.LocalDate;
-import java.util.Objects;
-
-import com.webservice.app.entities.Aula;
 import com.webservice.app.entities.Edificio;
 
 import lombok.Getter;
@@ -30,8 +26,5 @@ public class LaboratorioModel extends AulaModel{
 		this.cantSillas = cantSillas;
 		this.cantPC = cantPC;	
 	}
-
-
-	
 	
 }

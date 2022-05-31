@@ -1,7 +1,5 @@
 package com.webservice.app.entities;
 
-import java.util.Objects;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Table;
@@ -51,9 +49,5 @@ public abstract class Aula {
 		this.numero = numero;
 		this.edificio = edificio;
 	}
-
-	
-	
-	
 	
 }

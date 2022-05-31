@@ -1,9 +1,5 @@
 package com.webservice.app.models;
 
-import java.time.LocalDate;
-import java.util.Objects;
-
-import com.webservice.app.entities.Aula;
 import com.webservice.app.entities.Edificio;
 
 import lombok.Getter;
@@ -30,6 +26,5 @@ public class TradicionalModel extends AulaModel{
 			this.pizarron = pizarron;
 			this.tieneProyector = tieneProyector;
 		}
-
 		
 }
