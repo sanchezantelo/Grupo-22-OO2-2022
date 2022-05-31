@@ -1,7 +1,6 @@
 package com.webservice.app.entities;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
