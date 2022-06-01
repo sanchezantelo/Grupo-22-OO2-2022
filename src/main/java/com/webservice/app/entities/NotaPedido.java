@@ -50,11 +50,11 @@ public abstract class NotaPedido implements Serializable {
 	@JoinColumn(name = "usuario_id", nullable = true)
 	private Usuario docentes;
 	
-	/*
+	
 	@ManyToOne(cascade= CascadeType.PERSIST)
 	@JoinColumn(name= "idMateria")
 	private Materia materia;
-	*/
+	
 	
 	@Column(name= "observaciones")
 	private String observaciones;
