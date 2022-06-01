@@ -31,7 +31,7 @@ public class LoginController {
 	Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
 
-	@GetMapping("/login")
+	@GetMapping({"login",""})
 	public String login(Model model, @RequestParam(name = "error", required = false) String error,
 			@RequestParam(name = "logout", required = false) String logout) {
 		model.addAttribute("logout", logout);
@@ -59,8 +59,8 @@ public class LoginController {
 
 		return "redirect:/index";
 	}
-	
-	@GetMapping({"/index",""})
+
+	@GetMapping("/index")
 	public String index(Model model, HttpSession sesion) {
 		model.addAttribute("user",sesion.getAttribute("user"));
 		return "index";
