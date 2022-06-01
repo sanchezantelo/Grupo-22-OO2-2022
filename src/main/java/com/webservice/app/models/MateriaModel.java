@@ -5,11 +5,11 @@ import com.webservice.app.entities.Carrera;
 
 public class MateriaModel {
 	private int idMateria;
-	private int codigo;
+	private String codigo;
 	private String materia;
 	private Carrera carrera;
 	
-	public MateriaModel(int idMateria, int codigo, String materia, Carrera carrera) {
+	public MateriaModel(int idMateria, String codigo, String materia, Carrera carrera) {
 		super();
 		this.idMateria = idMateria;
 		this.codigo = codigo;
@@ -17,7 +17,7 @@ public class MateriaModel {
 		this.carrera = carrera;
 	}
 
-	public MateriaModel(int codigo, String materia, Carrera carrera) {
+	public MateriaModel(String codigo, String materia, Carrera carrera) {
 		super();
 		this.codigo = codigo;
 		this.materia = materia;

@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,13 +23,12 @@ import lombok.Setter;
 public class Materia {
 
 	@Id
-	@Column(name="id_materia")
+	@Column(name = "id_materia")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idMateria;
 
 	@Column(name = "codigo", nullable = false, length = 45)
-	@NotNull
-	private int codigo;
+	private String codigo;
 
 	@Column(name = "materia", nullable = false, length = 45)
 	private String materia;
@@ -39,9 +37,16 @@ public class Materia {
 	@JoinColumn(name = "idCarrera")
 	private Carrera carrera;
 
-	public Materia(int idMateria, @NotNull int codigo, String materia, Carrera carrera) {
+	public Materia(int idMateria, String codigo, String materia, Carrera carrera) {
 		super();
 		this.idMateria = idMateria;
+		this.codigo = codigo;
+		this.materia = materia;
+		this.carrera = carrera;
+	}
+
+	public Materia(String codigo, String materia, Carrera carrera) {
+		super();
 		this.codigo = codigo;
 		this.materia = materia;
 		this.carrera = carrera;
