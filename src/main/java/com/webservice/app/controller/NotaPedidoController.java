@@ -42,16 +42,7 @@ public class NotaPedidoController {
     @Qualifier("aulaService")
     private IAulaService aulaService;
 
-    @GetMapping("/notasPedido")
-    public String NotasPedido(Model model) {
-    	logger.info("CONTROLLER [NotasPedido]");
-    	logger.debug("METHOD [NotasPedido]");
+	private ModelMapper modelMapper = new ModelMapper();
 
-        List<NotaPedido> notasPedido = notaPedidoService.findAll();
-
-        model.addAttribute("notaPedidoService", notasPedido);
-
-        return "notasPedido";
-    }
 
 }
