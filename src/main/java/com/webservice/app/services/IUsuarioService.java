@@ -12,17 +12,17 @@ public interface IUsuarioService {
 
 	Usuario findByUsuario(String usuarioModel);
 
-	Usuario findById(int id);
+	Usuario findById(int idUsuario);
 
 	Usuario findByDni(long dni);
 
-	UsuarioModel traerUsuario(int id);
+	UsuarioModel traerUsuario(int idUsuario);
 
 	List<Usuario> findAll();
 
 	void altaUsuario(UsuarioModel usuarioModel) throws Exception;
 
-	void bajaUsuario(int id) throws Exception;
+	void bajaUsuario(int idUsuario) throws Exception;
 
 	void modificacionUsuario(UsuarioModel usuarioModel) throws Exception;
 

@@ -105,7 +105,7 @@
 						method="post">
 						<div class="form-group">
 							 <input type="hidden"
-								class="form-control form-control-sm" th:field="*{id}">
+								class="form-control form-control-sm" th:field="*{idUsuario}">
 						</div>
 						<div class="form-group">
 							<label>Usuario </label> <input type="text"
@@ -202,12 +202,12 @@
 							<td><span th:text="${usuario.rol.rol}"></td>
 							<td><span th:text="${usuario.enabled}"></td>							
 							<td>
-							<a th:if="${user.hasRole('ROL_ADMIN')}" th:href="@{'/admin/usuario/bajaUsuario?id=' + ${usuario.id}}" class="btn-danger btn-sm">
+							<a th:if="${user.hasRole('ROL_ADMIN')}" th:href="@{'/admin/usuario/bajaUsuario?id_usuario=' + ${usuario.idUsuario}}" class="btn-danger btn-sm">
 							<img th:src="@{'/images/trash.svg'}" th:text="Eliminar"/></td>
 							<td>
-							<a th:if="${user.hasRole('ROL_ADMIN')}" th:href="@{'/admin/usuario/traerUsuario?id=' + ${usuario.id}}" class="btn-warning btn-sm">
+							<a th:if="${user.hasRole('ROL_ADMIN')}" th:href="@{'/admin/usuario/traerUsuario?id_usuario=' + ${usuario.idUsuario}}" class="btn-warning btn-sm">
 							<img th:src="@{'/images/pencil-square.svg'}" th:text="Editar"/></td>
-						    <td><input type="hidden" th:value="${usuario.id}"/></td>
+						    <td><input type="hidden" th:value="${usuario.idUsuario}"/></td>
 						    <td><input type="hidden" th:value="${usuario.rol.id}"/></td>
 						</tr>
 					</tbody>

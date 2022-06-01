@@ -16,10 +16,10 @@ public interface IUsuarioRepository extends JpaRepository<Usuario, Serializable>
 
 	public abstract Usuario findByDni(long dni);
 
-	public abstract Usuario findById(@Param("id") int id);
+	public abstract Usuario findByIdUsuario(@Param("idUsuario") int idUsuario);
 
-	@Query("SELECT u FROM Usuario u JOIN FETCH u.rol WHERE u.id=:id")
-	public abstract Usuario findByIdRol(@Param("id") int id);
+	@Query("SELECT u FROM Usuario u JOIN FETCH u.rol WHERE u.idUsuario=:idUsuario")
+	public abstract Usuario findByIdRol(@Param("idUsuario") int idUsuario);
 
 	public abstract List<Usuario> findAll();
 
