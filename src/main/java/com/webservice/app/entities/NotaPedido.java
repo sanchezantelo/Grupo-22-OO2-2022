@@ -2,11 +2,13 @@ package com.webservice.app.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -44,9 +46,9 @@ public abstract class NotaPedido implements Serializable {
 	@NotEmpty()
 	private int cantEstudiantes;
 	
-	@ManyToOne
-	@JoinColumn(name="id_usuario")
-	private Set<Usuario> docentes;
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "usuario_id", nullable = true)
+	private Usuario docentes;
 	
 	/*
 	@ManyToOne(cascade= CascadeType.PERSIST)

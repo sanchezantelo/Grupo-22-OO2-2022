@@ -33,7 +33,7 @@ public class AulaService implements IAulaService{
 	
 	public Aula traerAula(int idAula) {
 		Aula aula = aulaRepository.findByIdAula(idAula);
-		Hibernate.initialize(aula.getEdificio());
+		//Hibernate.initialize(aula.getEdificio());
 		return aula;
 	}
 }

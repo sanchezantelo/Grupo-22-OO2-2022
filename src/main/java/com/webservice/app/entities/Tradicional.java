@@ -17,6 +17,11 @@ import lombok.Setter;
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class Tradicional extends Aula {
 	
+	public Tradicional(int numero, Edificio edificio) {
+		super(numero, edificio);
+		// TODO Auto-generated constructor stub
+	}
+
 	@Column(name="cant_bancos")
 	@NotNull
 	private int cantBancos;

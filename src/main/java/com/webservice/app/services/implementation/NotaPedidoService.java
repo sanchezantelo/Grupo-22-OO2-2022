@@ -7,8 +7,10 @@ import com.webservice.app.repositories.INotaPedidoRepository;
 import com.webservice.app.services.INotaPedidoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Service("notaPedidoService")
 public class NotaPedidoService implements INotaPedidoService {
 
     @Autowired()

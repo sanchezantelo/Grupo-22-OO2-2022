@@ -1,27 +1,34 @@
 package com.webservice.app.controller;
 
+import com.webservice.app.entities.NotaPedido;
 import com.webservice.app.services.IAulaService;
 import com.webservice.app.services.INotaPedidoService;
 import com.webservice.app.services.IUsuarioService;
 
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.var;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-// @RequestMapping("/notaPedido")
+@RequestMapping("/notaPedido")
 @Slf4j
 public class NotaPedidoController {
-    
+	Logger logger = LoggerFactory.getLogger(NotaPedidoController.class);
+
     @Autowired
     @Qualifier("notaPedidoService")
-    private INotaPedidoService service;
+    private INotaPedidoService notaPedidoService;
 
     @Autowired
     @Qualifier("usuarioService")
@@ -35,18 +42,14 @@ public class NotaPedidoController {
     @Qualifier("aulaService")
     private IAulaService aulaService;
 
-    @Autowired
-    @Qualifier("modelMapper")
-    private ModelMapper modelMapper = new ModelMapper();
-
     @GetMapping("/notasPedido")
     public String NotasPedido(Model model) {
-        log.info("CONTROLLER [NotasPedido]");
-        log.debug("METHOD [NotasPedido]");
+    	logger.info("CONTROLLER [NotasPedido]");
+    	logger.debug("METHOD [NotasPedido]");
 
-        var notasPedido = service.findAll();
+        List<NotaPedido> notasPedido = notaPedidoService.findAll();
 
-        model.addAttribute("notasPedido", notasPedido);
+        model.addAttribute("notaPedidoService", notasPedido);
 
         return "notasPedido";
     }
