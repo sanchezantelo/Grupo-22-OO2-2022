@@ -21,20 +21,17 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import lombok.Getter;
-import lombok.Setter;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import lombok.Data;
 
 @Entity
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Data @NoArgsConstructor
 @Inheritance(strategy= InheritanceType.JOINED)
 @Table(name="nota_pedido")
 public abstract class NotaPedido implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@Column(name="id_nota_pedido")
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private int idNotaPedido;
 	
@@ -49,11 +46,11 @@ public abstract class NotaPedido implements Serializable {
 	private int cantEstudiantes;
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_usuario", nullable = true)
+	@JoinColumn(name = "idUsuario", nullable = true)
 	private Usuario docentes;
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.PERSIST)
-	@JoinColumn(name= "id_materia")
+	@JoinColumn(name= "idMateria")
 	private Materia materia;
 	
 	@Column(name= "observaciones")
@@ -62,19 +59,16 @@ public abstract class NotaPedido implements Serializable {
 	@Column(name= "tipo_aula")
 	private String tipoAula;
 	
-	@Column(name= "asignada", nullable = false)
-	private boolean asignada;
-	
 	@OneToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name="id_aula")
+	@JoinColumn(name="idAula")
 	private Aula aulaAsignada;
 	
 	@OneToOne(cascade= CascadeType.PERSIST)
-	@JoinColumn(name= "id_usuario")
+	@JoinColumn(name= "idUsuario")
 	private Usuario solicitante;
 
 	// Constructor sin id
-	public NotaPedido(LocalDate fecha, int cantEstudiantes, Usuario docentes, Materia materia, String observaciones, String tipoAula, boolean asignada, Aula aulaAsignada, Usuario solicitante) {
+	public NotaPedido(LocalDate fecha, int cantEstudiantes, Usuario docentes, Materia materia, String observaciones, String tipoAula, Aula aulaAsignada, Usuario solicitante) {
 		super();
 		this.fecha = fecha;
 		this.cantEstudiantes = cantEstudiantes;
@@ -82,7 +76,6 @@ public abstract class NotaPedido implements Serializable {
 		this.materia = materia;
 		this.observaciones = observaciones;
 		this.tipoAula = tipoAula;
-		this.asignada = asignada;
 		this.aulaAsignada = aulaAsignada;
 		this.solicitante = solicitante;
 	}

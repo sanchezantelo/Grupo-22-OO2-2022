@@ -6,18 +6,14 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import lombok.Getter;
-import lombok.Setter;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Table(name = "tradicional")
 @PrimaryKeyJoinColumn(referencedColumnName = "id_aula")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data @NoArgsConstructor @EqualsAndHashCode(callSuper = false)
 public class Tradicional extends Aula {
 	
 	@Column(name="cant_bancos")

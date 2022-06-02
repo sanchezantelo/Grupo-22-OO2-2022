@@ -5,9 +5,8 @@ import javax.persistence.FetchType;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,11 +21,10 @@ import javax.persistence.OneToMany;
 
 @Entity
 @Table(name = "edificio")
-@Getter @Setter @NoArgsConstructor
+@Data @NoArgsConstructor
 public class Edificio {
 	
 	@Id
-	@Column(name="idEdificio")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idEdificio;
 	

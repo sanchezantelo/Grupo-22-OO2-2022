@@ -10,16 +10,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
-@Getter @Setter @NoArgsConstructor
+@Data @NoArgsConstructor
 @Table(name = "carrera")
 public class Carrera {
 	@Id
-	@Column(name="id_carrera")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idCarrera;
 

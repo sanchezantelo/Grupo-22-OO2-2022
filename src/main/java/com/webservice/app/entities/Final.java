@@ -7,13 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 
 @Entity
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Data @NoArgsConstructor @EqualsAndHashCode(callSuper = false)
 @PrimaryKeyJoinColumn(referencedColumnName= "id_nota_pedido", name= "id_final")
 @Table(name= "final")
 public class Final extends NotaPedido {

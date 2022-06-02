@@ -10,20 +10,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "materia")
-@Getter
-@Setter
-@NoArgsConstructor
-
+@Data @NoArgsConstructor
 public class Materia {
 
 	@Id
-	@Column(name = "id_materia")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idMateria;
 

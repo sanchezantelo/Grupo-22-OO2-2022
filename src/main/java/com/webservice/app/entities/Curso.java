@@ -10,14 +10,13 @@ import javax.validation.constraints.NotEmpty;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 
 @Entity
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
-@PrimaryKeyJoinColumn(referencedColumnName= "id_nota_pedido", name= "id_curso")
+@Data @NoArgsConstructor @EqualsAndHashCode(callSuper = false)
+@PrimaryKeyJoinColumn(referencedColumnName= "idNotaPedido", name= "idCurso")
 @Table(name= "curso")
 public class Curso extends NotaPedido {
 	private static final long serialVersionUID = 1L;

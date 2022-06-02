@@ -13,17 +13,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "espacio")
-@Getter @Setter @NoArgsConstructor
+@Data @NoArgsConstructor
 public class Espacio {
 	
 	@Id
-	@Column(name="id_espacio")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idEspacio;
 	

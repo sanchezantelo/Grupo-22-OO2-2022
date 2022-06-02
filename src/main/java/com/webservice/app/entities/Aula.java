@@ -5,9 +5,8 @@ import javax.persistence.FetchType;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -22,11 +21,10 @@ import javax.persistence.ManyToOne;
 @Entity
 @Table(name = "aula")
 @Inheritance(strategy = InheritanceType.JOINED)
-@Getter @Setter @NoArgsConstructor
+@Data @NoArgsConstructor
 public abstract class Aula {
 	
 	@Id
-	@Column(name="id_aula")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idAula;
 	
