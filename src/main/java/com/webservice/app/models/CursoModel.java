@@ -39,4 +39,10 @@ public class CursoModel extends NotaPedidoModel {
 		this.presencialidad = presencialidad;
 	}
 
+	@Override
+	public String toString() {
+		return "CursoModel [codigo=" + codigo + ", turno=" + turno + ", fechaInicio=" + fechaInicio + ", fechaFin="
+				+ fechaFin + ", cuatrimestre=" + cuatrimestre + ", presencialidad=" + presencialidad + "]";
+	}
+
 }

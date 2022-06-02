@@ -30,4 +30,9 @@ public class FinalModel extends NotaPedidoModel {
 		this.fechaExamen = fechaExamen;
 	}
 
+	@Override
+	public String toString() {
+		return "FinalModel [mesa=" + mesa + ", fechaExamen=" + fechaExamen + "]";
+	}
+
 }

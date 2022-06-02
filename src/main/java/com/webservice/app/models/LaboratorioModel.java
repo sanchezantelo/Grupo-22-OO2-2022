@@ -6,25 +6,29 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter @NoArgsConstructor
-public class LaboratorioModel extends AulaModel{
+@Getter
+@Setter
+@NoArgsConstructor
+public class LaboratorioModel extends AulaModel {
 
 	private int cantSillas;
 	private int cantPC;
-	
-	
-	public LaboratorioModel(int numero, Edificio edificio,int cantSillas, int cantPC) {
+
+	public LaboratorioModel(int numero, Edificio edificio, int cantSillas, int cantPC) {
 		super(numero, edificio);
 		this.cantSillas = cantSillas;
 		this.cantPC = cantPC;
 	}
-	
-	
 
-	public LaboratorioModel(int idAula, int numero, Edificio edificio,int cantSillas, int cantPC) {
+	public LaboratorioModel(int idAula, int numero, Edificio edificio, int cantSillas, int cantPC) {
 		super(idAula, numero, edificio);
 		this.cantSillas = cantSillas;
-		this.cantPC = cantPC;	
+		this.cantPC = cantPC;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "LaboratorioModel [cantSillas=" + cantSillas + ", cantPC=" + cantPC + "]";
+	}
+
 }

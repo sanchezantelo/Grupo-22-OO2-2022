@@ -31,4 +31,9 @@ public class EdificioModel {
 		this.aulas = aulas;
 	}
 
+	@Override
+	public String toString() {
+		return "EdificioModel [idEdificio=" + idEdificio + ", edificio=" + edificio + ", aulas=" + aulas + "]";
+	}
+
 }
