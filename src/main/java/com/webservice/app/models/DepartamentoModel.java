@@ -1,5 +1,10 @@
 package com.webservice.app.models;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter @Setter @NoArgsConstructor
 public class DepartamentoModel {
 	private int idDepartamento;
 	private String departamento;

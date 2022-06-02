@@ -15,11 +15,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@Getter @Setter @NoArgsConstructor
 @Table(name = "carrera")
-@Getter
-@Setter
-@NoArgsConstructor
-
 public class Carrera {
 	@Id
 	@Column(name="id_carrera")

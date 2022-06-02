@@ -36,7 +36,7 @@ public class Materia {
 	private String materia;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "idCarrera")
+	@JoinColumn(name = "id_carrera")
 	private Carrera carrera;
 
 	public Materia(int idMateria, @NotNull int codigo, String materia, Carrera carrera) {

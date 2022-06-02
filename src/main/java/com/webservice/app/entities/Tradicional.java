@@ -6,10 +6,10 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 @Entity
 @Table(name="tradicional")
@@ -17,11 +17,6 @@ import lombok.Setter;
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class Tradicional extends Aula {
 	
-	public Tradicional(int numero, Edificio edificio) {
-		super(numero, edificio);
-		// TODO Auto-generated constructor stub
-	}
-
 	@Column(name="cant_bancos")
 	@NotNull
 	private int cantBancos;

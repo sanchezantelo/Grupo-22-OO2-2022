@@ -23,7 +23,7 @@ import lombok.Setter;
 public class Espacio {
 	
 	@Id
-	@Column(name="idEspacio")
+	@Column(name="id_espacio")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idEspacio;
 	
@@ -36,32 +36,32 @@ public class Espacio {
 	private char turno;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idAula")
+	@JoinColumn(name = "id_aula")
 	private Aula aula;
 	
 	@Column(name="libre")
 	@NotNull
 	private boolean libre;
 	
-	/*@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idNotaPedido")
-	private NotaPedido notaPedido;*/
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_nota_pedido")
+	private NotaPedido notaPedido;
 	
-	public Espacio(int idEspacio,LocalDate fecha, char turno, Aula aula, boolean libre /*, NotaPedido notaPedido*/) {
+	public Espacio(int idEspacio,LocalDate fecha, char turno, Aula aula, boolean libre , NotaPedido notaPedido) {
 		this.idEspacio=idEspacio;
 		this.fecha = fecha;
 		this.turno = turno;
 		this.aula = aula;
 		this.libre = libre;
-		//this.notaPedido = notaPedido;
+		this.notaPedido = notaPedido;
 	}
 	
-	public Espacio(LocalDate fecha, char turno, Aula aula, boolean libre /*, NotaPedido notaPedido*/) {
+	public Espacio(LocalDate fecha, char turno, Aula aula, boolean libre, NotaPedido notaPedido) {
 		this.fecha = fecha;
 		this.turno = turno;
 		this.aula = aula;
 		this.libre = libre;
-		//this.notaPedido = notaPedido;
+		this.notaPedido = notaPedido;
 	}
 	
 

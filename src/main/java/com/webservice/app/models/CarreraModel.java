@@ -2,6 +2,11 @@ package com.webservice.app.models;
 
 import com.webservice.app.entities.Departamento;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter @Setter @NoArgsConstructor
 public class CarreraModel {
 	private int idCarrera;
 	private String carrera;
