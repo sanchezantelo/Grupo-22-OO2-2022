@@ -20,4 +20,9 @@ public class CarreraModel {
 		this.departamento = departamento;
 	}
 
+	@Override
+	public String toString() {
+		return "CarreraModel [idCarrera=" + idCarrera + ", carrera=" + carrera + ", departamento=" + departamento + "]";
+	}
+
 }

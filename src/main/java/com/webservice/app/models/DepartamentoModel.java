@@ -15,4 +15,9 @@ public class DepartamentoModel {
 		this.departamento = departamento;
 	}
 
+	@Override
+	public String toString() {
+		return "DepartamentoModel [idDepartamento=" + idDepartamento + ", departamento=" + departamento + "]";
+	}
+
 }

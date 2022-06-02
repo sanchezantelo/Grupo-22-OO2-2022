@@ -2,13 +2,12 @@ package com.webservice.app.models;
 
 import com.webservice.app.entities.Carrera;
 
-
 public class MateriaModel {
 	private int idMateria;
 	private String codigo;
 	private String materia;
 	private Carrera carrera;
-	
+
 	public MateriaModel(int idMateria, String codigo, String materia, Carrera carrera) {
 		super();
 		this.idMateria = idMateria;
@@ -23,9 +22,11 @@ public class MateriaModel {
 		this.materia = materia;
 		this.carrera = carrera;
 	}
-	
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "MateriaModel [idMateria=" + idMateria + ", codigo=" + codigo + ", materia=" + materia + ", carrera="
+				+ carrera + "]";
+	}
 
 }
