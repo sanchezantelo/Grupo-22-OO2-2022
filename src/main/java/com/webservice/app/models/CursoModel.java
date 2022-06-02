@@ -6,8 +6,11 @@ import java.util.Set;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.webservice.app.entities.Aula;
+import com.webservice.app.entities.Edificio;
 import com.webservice.app.entities.Usuario;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,6 +18,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper=false)
+@Data
 public class CursoModel extends NotaPedidoModel {
 	protected int codigo;
 	protected char turno;

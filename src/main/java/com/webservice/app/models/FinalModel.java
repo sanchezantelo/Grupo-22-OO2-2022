@@ -8,6 +8,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.webservice.app.entities.Aula;
 import com.webservice.app.entities.Usuario;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,6 +17,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper=false)
+@Data
 public class FinalModel extends NotaPedidoModel {
 	protected int mesa;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
