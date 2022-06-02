@@ -9,12 +9,14 @@ import com.webservice.app.entities.Aula;
 import com.webservice.app.entities.Usuario;
 
 import lombok.NoArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@Data
 public abstract class NotaPedidoModel {
 	protected int id;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")

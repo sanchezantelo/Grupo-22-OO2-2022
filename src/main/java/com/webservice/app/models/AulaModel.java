@@ -2,6 +2,7 @@ package com.webservice.app.models;
 
 import com.webservice.app.entities.Edificio;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,6 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@Data
 public class AulaModel {
 
 	private int idAula;
@@ -25,10 +27,4 @@ public class AulaModel {
 		this.numero = numero;
 		this.edificio = edificio;
 	}
-
-	@Override
-	public String toString() {
-		return "AulaModel [idAula=" + idAula + ", numero=" + numero + ", edificio=" + edificio + "]";
-	}
-
 }

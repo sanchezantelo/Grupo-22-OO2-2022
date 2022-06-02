@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import com.webservice.app.entities.Aula;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@Data
 public class EspacioModel {
 
 	private int idEspacio;
@@ -33,11 +35,4 @@ public class EspacioModel {
 		this.aula = aula;
 		this.libre = libre;
 	}
-
-	@Override
-	public String toString() {
-		return "EspacioModel [idEspacio=" + idEspacio + ", fecha=" + fecha + ", turno=" + turno + ", aula=" + aula
-				+ ", libre=" + libre + "]";
-	}
-
 }

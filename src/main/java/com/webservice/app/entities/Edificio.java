@@ -17,7 +17,7 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 
 @Entity
@@ -34,8 +34,8 @@ public class Edificio {
 	@NotNull
 	private String edificio;
 	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	protected Set<Aula> aulas = new HashSet<Aula>();
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Aula> aulas = new HashSet<Aula>();
 	
 	public Edificio(int idEdificio,String edificio) {
 		this.idEdificio=idEdificio;

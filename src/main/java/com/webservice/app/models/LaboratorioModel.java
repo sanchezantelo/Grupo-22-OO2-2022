@@ -2,6 +2,7 @@ package com.webservice.app.models;
 
 import com.webservice.app.entities.Edificio;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,6 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@Data
 public class LaboratorioModel extends AulaModel {
 
 	private int cantSillas;
@@ -25,10 +27,4 @@ public class LaboratorioModel extends AulaModel {
 		this.cantSillas = cantSillas;
 		this.cantPC = cantPC;
 	}
-
-	@Override
-	public String toString() {
-		return "LaboratorioModel [cantSillas=" + cantSillas + ", cantPC=" + cantPC + "]";
-	}
-
 }

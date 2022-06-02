@@ -2,6 +2,15 @@ package com.webservice.app.models;
 
 import com.webservice.app.entities.Departamento;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@Data
 public class CarreraModel {
 	private int idCarrera;
 	private String carrera;
@@ -19,10 +28,4 @@ public class CarreraModel {
 		this.carrera = carrera;
 		this.departamento = departamento;
 	}
-
-	@Override
-	public String toString() {
-		return "CarreraModel [idCarrera=" + idCarrera + ", carrera=" + carrera + ", departamento=" + departamento + "]";
-	}
-
 }

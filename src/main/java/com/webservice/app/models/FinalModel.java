@@ -9,6 +9,7 @@ import com.webservice.app.entities.Aula;
 import com.webservice.app.entities.Usuario;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,6 +18,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class FinalModel extends NotaPedidoModel {
 	protected int mesa;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -29,10 +31,4 @@ public class FinalModel extends NotaPedidoModel {
 		this.mesa = mesa;
 		this.fechaExamen = fechaExamen;
 	}
-
-	@Override
-	public String toString() {
-		return "FinalModel [mesa=" + mesa + ", fechaExamen=" + fechaExamen + "]";
-	}
-
 }

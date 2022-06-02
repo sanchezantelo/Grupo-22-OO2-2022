@@ -2,6 +2,7 @@ package com.webservice.app.models;
 
 import com.webservice.app.entities.Edificio;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,6 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@Data
 public class TradicionalModel extends AulaModel {
 
 	private int cantBancos;
@@ -29,11 +31,4 @@ public class TradicionalModel extends AulaModel {
 		this.pizarron = pizarron;
 		this.tieneProyector = tieneProyector;
 	}
-
-	@Override
-	public String toString() {
-		return "TradicionalModel [cantBancos=" + cantBancos + ", pizarron=" + pizarron + ", tieneProyector="
-				+ tieneProyector + "]";
-	}
-
 }

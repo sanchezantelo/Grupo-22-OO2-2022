@@ -1,5 +1,14 @@
 package com.webservice.app.models;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@Data
 public class DepartamentoModel {
 	private int idDepartamento;
 	private String departamento;
@@ -14,10 +23,4 @@ public class DepartamentoModel {
 		super();
 		this.departamento = departamento;
 	}
-
-	@Override
-	public String toString() {
-		return "DepartamentoModel [idDepartamento=" + idDepartamento + ", departamento=" + departamento + "]";
-	}
-
 }
