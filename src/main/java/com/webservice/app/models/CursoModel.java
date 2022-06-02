@@ -10,6 +10,7 @@ import com.webservice.app.entities.Materia;
 import com.webservice.app.entities.Usuario;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +19,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class CursoModel extends NotaPedidoModel {
 	protected int codigo;
 	protected char turno;
@@ -38,6 +40,12 @@ public class CursoModel extends NotaPedidoModel {
 		this.fechaFin = fechaFin;
 		this.cuatrimestre = cuatrimestre;
 		this.presencialidad = presencialidad;
+	}
+
+	@Override
+	public String toString() {
+		return "CursoModel [codigo=" + codigo + ", turno=" + turno + ", fechaInicio=" + fechaInicio + ", fechaFin="
+				+ fechaFin + ", cuatrimestre=" + cuatrimestre + ", presencialidad=" + presencialidad + "]";
 	}
 
 }

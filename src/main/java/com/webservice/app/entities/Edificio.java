@@ -1,6 +1,7 @@
 package com.webservice.app.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -8,10 +9,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 
 @Entity
@@ -27,6 +33,9 @@ public class Edificio {
 	@Column(name="edificio")
 	@NotNull
 	private String edificio;
+	
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Aula> aulas = new HashSet<Aula>();
 	
 	public Edificio(int idEdificio,String edificio) {
 		this.idEdificio=idEdificio;

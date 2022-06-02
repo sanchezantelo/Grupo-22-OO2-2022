@@ -2,11 +2,11 @@ package com.webservice.app.models;
 
 import com.webservice.app.entities.Departamento;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter @Setter @NoArgsConstructor
+@NoArgsConstructor
+@Data
 public class CarreraModel {
 	private int idCarrera;
 	private String carrera;
@@ -24,5 +24,4 @@ public class CarreraModel {
 		this.carrera = carrera;
 		this.departamento = departamento;
 	}
-
 }

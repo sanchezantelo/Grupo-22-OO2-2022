@@ -12,9 +12,12 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
 @Entity
-@Table(name="tradicional")
+@Table(name = "tradicional")
 @PrimaryKeyJoinColumn(referencedColumnName = "id_aula")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Tradicional extends Aula {
 	
 	@Column(name="cant_bancos")
