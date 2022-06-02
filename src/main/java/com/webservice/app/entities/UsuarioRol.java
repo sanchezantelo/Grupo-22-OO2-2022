@@ -20,9 +20,9 @@ import lombok.NoArgsConstructor;
 @Table(name = "usuario_rol")
 @Data @NoArgsConstructor
 public class UsuarioRol implements Serializable {
-
+	
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -36,9 +36,16 @@ public class UsuarioRol implements Serializable {
 	@Column(name = "createdat", updatable = false)
 	@CreationTimestamp
 	private LocalDateTime createdAt;
-
+	
 	@Column(name = "updatedat", nullable = false)
 	@UpdateTimestamp
 	private LocalDateTime updatedAt;
+	
+	public UsuarioRol(int id, String rol, boolean enabled) {
+		super();
+		this.id = id;
+		this.rol = rol;
+		this.enabled = enabled;
+    }
 
 }
