@@ -49,7 +49,7 @@ public abstract class NotaPedido implements Serializable {
 	private int cantEstudiantes;
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "usuario_id", nullable = true)
+	@JoinColumn(name = "id_usuario", nullable = true)
 	private Usuario docentes;
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.PERSIST)
@@ -70,7 +70,7 @@ public abstract class NotaPedido implements Serializable {
 	private Aula aulaAsignada;
 	
 	@OneToOne(cascade= CascadeType.PERSIST)
-	@JoinColumn(name= "idUsuario")
+	@JoinColumn(name= "id_usuario")
 	private Usuario solicitante;
 
 	// Constructor sin id
