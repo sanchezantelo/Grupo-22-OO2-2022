@@ -41,5 +41,5 @@ public class Curso extends NotaPedido {
 	private String cuatrimestre;
 	
 	@Column(name= "presencialidad")
-	private String presencialidad;
+	private int presencialidad;
 }
