@@ -8,7 +8,7 @@ import com.webservice.app.entities.TipoDocumento;
 import com.webservice.app.entities.UsuarioRol;
 
 public class UsuarioModel {
-	private int id;
+	private int idUsuario;
 	private String usuario;
 	private String clave;
 	private boolean enabled;
@@ -26,10 +26,10 @@ public class UsuarioModel {
 		super();
 	}
 
-	public UsuarioModel(int id, String usuario, String clave, boolean enabled, UsuarioRol rol, String nombre,
+	public UsuarioModel(int idUsuario, String usuario, String clave, boolean enabled, UsuarioRol rol, String nombre,
 			String apellido, TipoDocumento tipoDocumento, String dni, String email) {
 		super();
-		this.id = id;
+		this.idUsuario = idUsuario;
 		this.usuario = usuario;
 		this.clave = clave;
 		this.enabled = enabled;
@@ -41,12 +41,12 @@ public class UsuarioModel {
 		this.email = email;
 	}
 
-	public int getId() {
-		return id;
+	public int getIdUsuario() {
+		return idUsuario;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
 	public String getUsuario() {
@@ -123,9 +123,9 @@ public class UsuarioModel {
 
 	@Override
 	public String toString() {
-		return "UsuarioModel [id=" + id + ", usuario=" + usuario + ", clave=" + clave + ", enabled=" + enabled
-				+ ", rol=" + rol + ", nombre=" + nombre + ", apellido=" + apellido + ", tipoDocumento=" + tipoDocumento
-				+ ", dni=" + dni + ", email=" + email + "]";
+		return "UsuarioModel [idUsuario=" + idUsuario + ", usuario=" + usuario + ", clave=" + clave + ", enabled="
+				+ enabled + ", rol=" + rol + ", nombre=" + nombre + ", apellido=" + apellido + ", tipoDocumento="
+				+ tipoDocumento + ", dni=" + dni + ", email=" + email + "]";
 	}
 
 	public String nombreApellido() {

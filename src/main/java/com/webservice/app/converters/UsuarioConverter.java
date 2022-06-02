@@ -10,13 +10,13 @@ import com.webservice.app.models.UsuarioModel;
 public class UsuarioConverter {
 
 	public UsuarioModel entityToModel(Usuario usuario) {
-		return new UsuarioModel(usuario.getId(), usuario.getUsuario(), usuario.getClave(), true, usuario.getRol(),
+		return new UsuarioModel(usuario.getIdUsuario(), usuario.getUsuario(), usuario.getClave(), true, usuario.getRol(),
 				usuario.getNombre(), usuario.getApellido(), usuario.getTipoDocumento(),
 				String.valueOf(usuario.getDni()), usuario.getEmail());
 	}
 
 	public Usuario modelToEntity(UsuarioModel usuarioModel) {
-		return new Usuario(usuarioModel.getId(), usuarioModel.getUsuario(), usuarioModel.getClave(),
+		return new Usuario(usuarioModel.getIdUsuario(), usuarioModel.getUsuario(), usuarioModel.getClave(),
 				usuarioModel.getRol(), usuarioModel.getNombre(), usuarioModel.getApellido(),
 				usuarioModel.getTipoDocumento(), Long.valueOf(usuarioModel.getDni()), usuarioModel.getEmail(), true);
 	}

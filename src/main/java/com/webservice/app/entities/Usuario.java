@@ -27,10 +27,9 @@ public class Usuario implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int idUsuario;
 
 	@Column(name = "usuario", unique = true, nullable = false, length = 45)
 	private String usuario;
@@ -72,10 +71,10 @@ public class Usuario implements Serializable {
 	public Usuario() {
 	}
 
-	public Usuario(int id, String usuario, String clave, UsuarioRol rol, String nombre, String apellido,
+	public Usuario(int idUsuario, String usuario, String clave, UsuarioRol rol, String nombre, String apellido,
 			TipoDocumento tipoDocumento, Long dni, String email, boolean enabled) {
 		super();
-		this.id = id;
+		this.idUsuario = idUsuario;
 		this.usuario = usuario;
 		this.clave = DigestUtils.md5DigestAsHex(clave.getBytes());
 		this.rol = rol;
@@ -87,12 +86,12 @@ public class Usuario implements Serializable {
 		this.enabled = enabled;
 	}
 
-	public int getId() {
-		return id;
+	public int getIdUsuario() {
+		return idUsuario;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
 	public String getUsuario() {

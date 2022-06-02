@@ -95,10 +95,10 @@ public class UserController {
 	}
 
 	@GetMapping("/bajaUsuario")
-	public String bajaUsuario(@RequestParam("id") int id, RedirectAttributes redirectAttrs) {
-		logger.info("/bajaUsuario" + id);
+	public String bajaUsuario(@RequestParam("id_usuario") int idUsuario, RedirectAttributes redirectAttrs) {
+		logger.info("/bajaUsuario" + idUsuario);
 		try {
-			usuarioService.bajaUsuario(id);
+			usuarioService.bajaUsuario(idUsuario);
 			redirectAttrs.addFlashAttribute("mensaje", "Usuario dado de baja exitosamente!").addFlashAttribute("clase",
 					"alert alert-success");
 		} catch (Exception e) {
@@ -124,10 +124,10 @@ public class UserController {
 	}
 
 	@GetMapping("/traerUsuario")
-	public String traerUsuario(@RequestParam("id") int id, Model model, RedirectAttributes redirectAttrs) {
-		logger.info("/traerUsuario" + id);
+	public String traerUsuario(@RequestParam("id_usuario") int idUsuario, Model model, RedirectAttributes redirectAttrs) {
+		logger.info("/traerUsuario" + idUsuario);
 		model.addAttribute("editar", true);
-		redirectAttrs.addFlashAttribute("usuarioModelUpdate", usuarioService.traerUsuario(id))
+		redirectAttrs.addFlashAttribute("usuarioModelUpdate", usuarioService.traerUsuario(idUsuario))
 				.addFlashAttribute("clase", "alert alert-success");
 		return "redirect:/admin/usuario/abm-usuario";
 	}

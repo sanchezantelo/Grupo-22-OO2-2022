@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `usuario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `usuario` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id_usuario` int NOT NULL AUTO_INCREMENT,
   `apellido` varchar(45) NOT NULL,
   `clave` varchar(60) NOT NULL,
   `createdat` datetime(6) DEFAULT NULL,
@@ -37,7 +37,7 @@ CREATE TABLE `usuario` (
   `updatedat` datetime(6) NOT NULL,
   `usuario` varchar(45) NOT NULL,
   `rol_id` int NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`id_usuario`),
   UNIQUE KEY `UK_ma71x4n4tydibsd9qt0m71le7` (`dni`),
   UNIQUE KEY `UK_5171l57faosmj8myawaucatdw` (`email`),
   UNIQUE KEY `UK_i02kr8ui5pqddyd7pkm3v4jbt` (`usuario`),

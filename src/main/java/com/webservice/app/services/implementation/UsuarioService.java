@@ -30,17 +30,17 @@ public class UsuarioService implements IUsuarioService {
 		return usuarioRepository.findByUsuario(usuario);
 	}
 
-	public Usuario findById(int id) {
-		return usuarioRepository.findById(id);
+	public Usuario findById(int idUsuario) {
+		return usuarioRepository.findByIdUsuario(idUsuario);
 	}
 
 	public Usuario findByDni(long dni) {
 		return usuarioRepository.findByDni(dni);
 	}
 
-	public UsuarioModel traerUsuario(int id) {
+	public UsuarioModel traerUsuario(int idUsuario) {
 
-		return usuarioModel.entityToModel(usuarioRepository.findByIdRol(id));
+		return usuarioModel.entityToModel(usuarioRepository.findByIdRol(idUsuario));
 	}
 
 	public void altaUsuario(UsuarioModel usuario) throws Exception {
@@ -52,8 +52,8 @@ public class UsuarioService implements IUsuarioService {
 		}
 	}
 
-	public void bajaUsuario(int id) throws Exception {
-		Usuario usuario = usuarioRepository.findById(id);
+	public void bajaUsuario(int idUsuario) throws Exception {
+		Usuario usuario = usuarioRepository.findByIdUsuario(idUsuario);
 		usuario.setEnabled(false);
 		try {
 			usuarioRepository.saveAndFlush(usuario);
