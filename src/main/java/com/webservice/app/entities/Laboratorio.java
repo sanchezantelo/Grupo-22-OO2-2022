@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name="laboratorio")
-@PrimaryKeyJoinColumn(referencedColumnName = "idAula")
+@PrimaryKeyJoinColumn(name = "id_laboratorio", referencedColumnName = "idAula")
 @Data @NoArgsConstructor @EqualsAndHashCode(callSuper = false)
 public class Laboratorio extends Aula{
 				

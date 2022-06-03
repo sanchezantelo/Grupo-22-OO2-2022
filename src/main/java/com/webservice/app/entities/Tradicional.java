@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
 
 @Entity
 @Table(name = "tradicional")
-@PrimaryKeyJoinColumn(referencedColumnName = "idAula")
+@PrimaryKeyJoinColumn(name = "id_tradicional", referencedColumnName = "idAula")
 @Data @NoArgsConstructor @EqualsAndHashCode(callSuper = false)
 public class Tradicional extends Aula {
 	
@@ -27,4 +27,14 @@ public class Tradicional extends Aula {
 	@Column(name="tiene_proyector")
 	@NotNull
 	private boolean tieneProyector;
+
+	public Tradicional(int idAula, int numero, Edificio edificio, @NotNull int cantBancos, @NotNull String pizarron,
+			@NotNull boolean tieneProyector) {
+		super(idAula, numero, edificio);
+		this.cantBancos = cantBancos;
+		this.pizarron = pizarron;
+		this.tieneProyector = tieneProyector;
+	}
+	
+	
 }
