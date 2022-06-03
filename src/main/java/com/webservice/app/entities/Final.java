@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data @NoArgsConstructor @EqualsAndHashCode(callSuper = false)
-@PrimaryKeyJoinColumn(referencedColumnName= "id_nota_pedido", name= "id_final")
+@PrimaryKeyJoinColumn(referencedColumnName= "idNotaPedido", name= "idFinal")
 @Table(name= "final")
 public class Final extends NotaPedido {
 	private static final long serialVersionUID = 1L;

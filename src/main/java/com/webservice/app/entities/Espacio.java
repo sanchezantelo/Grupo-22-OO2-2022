@@ -34,7 +34,7 @@ public class Espacio {
 	private char turno;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_aula")
+	@JoinColumn(name = "idAula")
 	private Aula aula;
 	
 	@Column(name="libre")
@@ -42,7 +42,7 @@ public class Espacio {
 	private boolean libre;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_nota_pedido")
+	@JoinColumn(name = "idNotaPedido")
 	private NotaPedido notaPedido;
 	
 	public Espacio(int idEspacio,LocalDate fecha, char turno, Aula aula, boolean libre , NotaPedido notaPedido) {
