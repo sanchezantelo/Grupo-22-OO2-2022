@@ -3,8 +3,7 @@ package com.webservice.app.models;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
-@Data
+@Data @NoArgsConstructor
 public class DepartamentoModel {
 	private int idDepartamento;
 	private String departamento;

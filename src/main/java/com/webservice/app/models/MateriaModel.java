@@ -5,8 +5,7 @@ import com.webservice.app.entities.Carrera;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
-@Data
+@Data @NoArgsConstructor
 public class MateriaModel {
 	private int idMateria;
 	private String codigo;

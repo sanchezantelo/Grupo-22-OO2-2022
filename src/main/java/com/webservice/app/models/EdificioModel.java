@@ -3,14 +3,9 @@ package com.webservice.app.models;
 import java.util.Set;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@Data
+@Data @NoArgsConstructor
 public class EdificioModel {
 
 	private int idEdificio;

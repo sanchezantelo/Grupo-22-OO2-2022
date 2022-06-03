@@ -1,25 +1,14 @@
 package com.webservice.app.models;
 
 import java.time.LocalDate;
-import java.util.Set;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.webservice.app.entities.Aula;
-import com.webservice.app.entities.Materia;
-import com.webservice.app.entities.Usuario;
-
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
+@Data @NoArgsConstructor @EqualsAndHashCode(callSuper=false)
 public class CursoModel extends NotaPedidoModel {
 	protected int codigo;
 	protected char turno;
@@ -29,23 +18,4 @@ public class CursoModel extends NotaPedidoModel {
 	protected LocalDate fechaFin;
 	protected String cuatrimestre;
 	protected int presencialidad;
-
-	public CursoModel(int id, LocalDate fecha, int cantEstudiantes, Set<Usuario> docentes, Materia materia, String observaciones,
-			String tipoAula, boolean asignada, Aula aulaAsignada, Usuario solicitante, int codigo, char turno,
-			LocalDate fechaInicio, LocalDate fechaFin, String cuatrimestre, int presencialidad) {
-		super(id, fecha, cantEstudiantes, docentes, materia, observaciones, tipoAula, asignada, aulaAsignada, solicitante);
-		this.codigo = codigo;
-		this.turno = turno;
-		this.fechaInicio = fechaInicio;
-		this.fechaFin = fechaFin;
-		this.cuatrimestre = cuatrimestre;
-		this.presencialidad = presencialidad;
-	}
-
-	@Override
-	public String toString() {
-		return "CursoModel [codigo=" + codigo + ", turno=" + turno + ", fechaInicio=" + fechaInicio + ", fechaFin="
-				+ fechaFin + ", cuatrimestre=" + cuatrimestre + ", presencialidad=" + presencialidad + "]";
-	}
-
 }

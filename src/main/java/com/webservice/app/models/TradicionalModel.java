@@ -3,14 +3,10 @@ package com.webservice.app.models;
 import com.webservice.app.entities.Edificio;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.EqualsAndHashCode;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@Data
+@Data @NoArgsConstructor @EqualsAndHashCode(callSuper = false)
 public class TradicionalModel extends AulaModel {
 
 	private int cantBancos;
