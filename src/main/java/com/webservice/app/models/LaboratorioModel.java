@@ -3,16 +3,10 @@ package com.webservice.app.models;
 import com.webservice.app.entities.Edificio;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.EqualsAndHashCode;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@EqualsAndHashCode(callSuper = false)
-@Data
+@Data @NoArgsConstructor @EqualsAndHashCode(callSuper = false)
 public class LaboratorioModel extends AulaModel {
 
 	private int cantSillas;

@@ -2,6 +2,7 @@ package com.webservice.app.controller;
 
 import com.webservice.app.entities.NotaPedido;
 import com.webservice.app.services.IAulaService;
+import com.webservice.app.services.IMateriaService;
 import com.webservice.app.services.INotaPedidoService;
 import com.webservice.app.services.IUsuarioService;
 
@@ -22,10 +23,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/notaPedido")
-@Slf4j
+@Slf4j // Logger
 public class NotaPedidoController {
-	Logger logger = LoggerFactory.getLogger(NotaPedidoController.class);
-
     @Autowired
     @Qualifier("notaPedidoService")
     private INotaPedidoService notaPedidoService;
@@ -34,9 +33,9 @@ public class NotaPedidoController {
     @Qualifier("usuarioService")
     private IUsuarioService usuarioService;
 
-    // @Autowired
-    // @Qualifier("materiaService")
-    // private IMateriaService materiaService;
+    @Autowired
+    @Qualifier("materiaService")
+    private IMateriaService materiaService;
 
     @Autowired
     @Qualifier("aulaService")

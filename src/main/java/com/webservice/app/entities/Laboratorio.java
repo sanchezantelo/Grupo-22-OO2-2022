@@ -6,14 +6,14 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import lombok.Getter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name="laboratorio")
-@PrimaryKeyJoinColumn(referencedColumnName = "id_aula")
-@Getter @Setter @NoArgsConstructor
+@PrimaryKeyJoinColumn(referencedColumnName = "idAula")
+@Data @NoArgsConstructor @EqualsAndHashCode(callSuper = false)
 public class Laboratorio extends Aula{
 				
 		@Column(name="cant_sillas")

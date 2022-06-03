@@ -13,15 +13,16 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
 @Table(name = "usuario_rol")
+@Data @NoArgsConstructor
 public class UsuarioRol implements Serializable {
-
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -35,64 +36,16 @@ public class UsuarioRol implements Serializable {
 	@Column(name = "createdat", updatable = false)
 	@CreationTimestamp
 	private LocalDateTime createdAt;
-
+	
 	@Column(name = "updatedat", nullable = false)
 	@UpdateTimestamp
 	private LocalDateTime updatedAt;
-
-	public UsuarioRol() {
-	}
-
-	public UsuarioRol(String rol) {
-		super();
-		this.rol = rol;
-	}
-
+	
 	public UsuarioRol(int id, String rol, boolean enabled) {
 		super();
 		this.id = id;
 		this.rol = rol;
 		this.enabled = enabled;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getRol() {
-		return rol;
-	}
-
-	public void setRol(String rol) {
-		this.rol = rol;
-	}
-
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public LocalDateTime getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(LocalDateTime updatedAt) {
-		this.updatedAt = updatedAt;
-	}
+    }
 
 }

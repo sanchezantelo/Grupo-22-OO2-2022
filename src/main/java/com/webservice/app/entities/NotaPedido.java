@@ -2,8 +2,6 @@ package com.webservice.app.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -19,16 +17,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
 @Entity
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Data @NoArgsConstructor
 @Inheritance(strategy= InheritanceType.JOINED)
 @Table(name="nota_pedido")
 public abstract class NotaPedido implements Serializable {
@@ -38,6 +35,8 @@ public abstract class NotaPedido implements Serializable {
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private int idNotaPedido;
 	
+	@NotNull
+	@NotEmpty
 	@DateTimeFormat(pattern= "yyyy-MM-dd")
 	@Column(name= "fecha")
 	private LocalDate fecha;
@@ -47,14 +46,12 @@ public abstract class NotaPedido implements Serializable {
 	private int cantEstudiantes;
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "usuario_id", nullable = true)
+	@JoinColumn(name = "idUsuario", insertable = false, updatable = false)
 	private Usuario docentes;
 	
-	
-	@ManyToOne(cascade= CascadeType.PERSIST)
+	@ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.PERSIST)
 	@JoinColumn(name= "idMateria")
 	private Materia materia;
-	
 	
 	@Column(name= "observaciones")
 	private String observaciones;
@@ -62,14 +59,24 @@ public abstract class NotaPedido implements Serializable {
 	@Column(name= "tipo_aula")
 	private String tipoAula;
 	
-	@Column(name= "asignada", nullable = false)
-	private boolean asignada;
-	
-	@ManyToOne
-	@JoinColumn(name="id_aula")
+	@OneToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name="idAula")
 	private Aula aulaAsignada;
 	
 	@OneToOne(cascade= CascadeType.PERSIST)
-	@JoinColumn(name= "idUsuario")
+	@JoinColumn(name= "idUsuario", insertable = false, updatable = false)
 	private Usuario solicitante;
+
+	// Constructor sin id
+	public NotaPedido(LocalDate fecha, int cantEstudiantes, Usuario docentes, Materia materia, String observaciones, String tipoAula, Aula aulaAsignada, Usuario solicitante) {
+		super();
+		this.fecha = fecha;
+		this.cantEstudiantes = cantEstudiantes;
+		this.docentes = docentes;
+		this.materia = materia;
+		this.observaciones = observaciones;
+		this.tipoAula = tipoAula;
+		this.aulaAsignada = aulaAsignada;
+		this.solicitante = solicitante;
+	}
 }

@@ -13,17 +13,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "espacio")
-@Getter @Setter @NoArgsConstructor
+@Data @NoArgsConstructor
 public class Espacio {
 	
 	@Id
-	@Column(name="idEspacio")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idEspacio;
 	
@@ -43,25 +41,25 @@ public class Espacio {
 	@NotNull
 	private boolean libre;
 	
-	/*@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idNotaPedido")
-	private NotaPedido notaPedido;*/
+	private NotaPedido notaPedido;
 	
-	public Espacio(int idEspacio,LocalDate fecha, char turno, Aula aula, boolean libre /*, NotaPedido notaPedido*/) {
+	public Espacio(int idEspacio,LocalDate fecha, char turno, Aula aula, boolean libre , NotaPedido notaPedido) {
 		this.idEspacio=idEspacio;
 		this.fecha = fecha;
 		this.turno = turno;
 		this.aula = aula;
 		this.libre = libre;
-		//this.notaPedido = notaPedido;
+		this.notaPedido = notaPedido;
 	}
 	
-	public Espacio(LocalDate fecha, char turno, Aula aula, boolean libre /*, NotaPedido notaPedido*/) {
+	public Espacio(LocalDate fecha, char turno, Aula aula, boolean libre, NotaPedido notaPedido) {
 		this.fecha = fecha;
 		this.turno = turno;
 		this.aula = aula;
 		this.libre = libre;
-		//this.notaPedido = notaPedido;
+		this.notaPedido = notaPedido;
 	}
 	
 

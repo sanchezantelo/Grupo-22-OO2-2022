@@ -10,13 +10,12 @@ import javax.validation.constraints.NotEmpty;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.EqualsAndHashCode;
 
 @Entity
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Data @NoArgsConstructor @EqualsAndHashCode(callSuper = false)
 @PrimaryKeyJoinColumn(referencedColumnName= "idNotaPedido", name= "idCurso")
 @Table(name= "curso")
 public class Curso extends NotaPedido {
@@ -41,5 +40,5 @@ public class Curso extends NotaPedido {
 	private String cuatrimestre;
 	
 	@Column(name= "presencialidad")
-	private String presencialidad;
+	private int presencialidad;
 }

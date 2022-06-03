@@ -2,47 +2,94 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
     <title>Website Grupo 22</title>
-    <meta charset="utf-8"> 
-    <link rel="stylesheet" type="text/css" href="/css/login_styles.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous"> 
-       <!-- Los iconos tipo Solid de Fontawesome-->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
-    <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script> 
-  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"> </script>  
-  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"> </script>  
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="/css/login_styles.css" />
+    <link rel="icon" href="/images/favicon.png" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css"
+      integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy"
+      crossorigin="anonymous"
+    />
+    <!-- Los iconos tipo Solid de Fontawesome-->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css"
+    />
+    <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
   </head>
   <body>
-        <header class="masthead">
-    <div class="container">  
-      <div class="row d-flex justify-content-center align-items-center h-100">  
-        <div class="col-12 col-md-8 col-lg-6 col-xl-5">          
-          <div class="login-form">  
-    <form th:action="@{/autenticar}" method="post" th:object="${usuarioModel}"> 
-              <div class="form-outline mb-4">
-              <img src="/images/unla-logo.png" alt="Smiley face" style="vertical-align:Stickman;margin:0px 90px">
-              <div class="alert alert-danger text-center" th:if="${error}">
-  				<strong>Error!</strong> El nombre de usuario o contraseña son incorrectos.
-			  </div>
-			  </div>
-              <div class="form-group" id="user-group">                
-                <input type="text" class="form-control" name="username"  aria-describedby="emailHelp" placeholder="Nombre de usuario"  required  autofocus="autofocus" th:field="*{usuario}">  
-              </div>  
-              <div class="form-group" id="contrasena-group">  
-                <input type="password" class="form-control" id="password" name="password"  th:field="*{clave}" placeholder="Contraseña" >  
-              </div>  
-	           <div class="pt-1 mb-4">  
-              <button type="submit" class="btn btn-block btn-login"> <i class="fas fa-sign-in-alt"></i> Ingresar </button>  
-              </div>
-            </form>  
-          </div>  
-        </div>  
-      </div>  
-    </div>  
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"> </script>  
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"> </script>  
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"> </script>  
-    <script>  
-    </script>  
-        </header>
+    <header class="masthead">
+      <div class="container">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="login-form">
+              <form
+                th:action="@{/autenticar}"
+                method="post"
+                th:object="${usuarioModel}"
+              >
+                <div class="form-outline mb-4">
+                  <img
+                    src="/images/unla-logo.png"
+                    alt="Smiley face"
+                    style="vertical-align: Stickman; margin: 0px 90px"
+                  />
+                  <div class="alert alert-danger text-center" th:if="${error}">
+                    <strong>Error!</strong> El nombre de usuario o contraseña
+                    son incorrectos.
+                  </div>
+                </div>
+                <div class="form-group" id="user-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="username"
+                    aria-describedby="emailHelp"
+                    placeholder="Nombre de usuario"
+                    required
+                    autofocus="autofocus"
+                    th:field="*{usuario}"
+                  />
+                </div>
+                <div class="form-group" id="contrasena-group">
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    name="password"
+                    th:field="*{clave}"
+                    placeholder="Contraseña"
+                  />
+                </div>
+                <div class="pt-1 mb-4">
+                  <button type="submit" class="btn btn-block btn-login">
+                    <i class="fas fa-sign-in-alt"></i> Ingresar
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script
+        src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"
+      ></script>
+      <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"
+      ></script>
+      <script
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"
+      ></script>
+      <script></script>
+    </header>
   </body>
 </html>

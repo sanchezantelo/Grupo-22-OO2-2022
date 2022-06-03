@@ -3,14 +3,9 @@ package com.webservice.app.models;
 import com.webservice.app.entities.Carrera;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@Data
+@Data @NoArgsConstructor
 public class MateriaModel {
 	private int idMateria;
 	private String codigo;

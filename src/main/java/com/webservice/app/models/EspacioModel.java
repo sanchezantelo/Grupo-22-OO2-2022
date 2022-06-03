@@ -5,14 +5,9 @@ import java.time.LocalDate;
 import com.webservice.app.entities.Aula;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@Data
+@Data @NoArgsConstructor
 public class EspacioModel {
 
 	private int idEspacio;
