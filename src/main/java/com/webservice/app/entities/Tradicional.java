@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
 
 @Entity
 @Table(name = "tradicional")
-@PrimaryKeyJoinColumn(referencedColumnName = "id_aula")
+@PrimaryKeyJoinColumn(referencedColumnName = "idAula")
 @Data @NoArgsConstructor @EqualsAndHashCode(callSuper = false)
 public class Tradicional extends Aula {
 	
