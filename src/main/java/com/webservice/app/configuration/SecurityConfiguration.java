@@ -24,6 +24,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	        .and().authorizeRequests().antMatchers("/admin/usuario/listUsuarios").hasAuthority("ROL_ADMIN")
 	        .and().authorizeRequests().antMatchers("/buscador.html").hasAuthority("ROL_AUDITOR")
 	        .and().authorizeRequests().antMatchers("/admin/rol/abm-rol.html").hasAuthority("ROL_ADMIN");
+	    
+	        
 
 }
 	

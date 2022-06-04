@@ -36,4 +36,11 @@ public class Laboratorio extends Aula{
 			this.cantSillas = cantSillas;
 			this.cantPC = cantPC;
 		}
+/*		
+		@Override
+		public String toString() {
+			return "Numero=" + getNumero() + "";
+		}
+*/		
+		
 }

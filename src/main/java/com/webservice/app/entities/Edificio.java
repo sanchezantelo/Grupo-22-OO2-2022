@@ -11,37 +11,33 @@ import lombok.NoArgsConstructor;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-
 @Entity
 @Table(name = "edificio")
-@Data @NoArgsConstructor
+@Data
+@NoArgsConstructor
 public class Edificio {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idEdificio;
-	
-	@Column(name="edificio")
+
+	@Column(name = "edificio")
 	@NotNull
 	private String edificio;
-	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+
+	@OneToMany(fetch = FetchType.LAZY,mappedBy="edificio")
 	private Set<Aula> aulas = new HashSet<Aula>();
-	
-	public Edificio(int idEdificio,String edificio) {
-		this.idEdificio=idEdificio;
+
+	public Edificio(int idEdificio, @NotNull String edificio) {
+		super();
+		this.idEdificio = idEdificio;
 		this.edificio = edificio;
 	}
-	
-	public Edificio(String edificio) {
-		this.edificio = edificio;
-	}
-	
+
 }

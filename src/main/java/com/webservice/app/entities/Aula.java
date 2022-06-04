@@ -33,7 +33,7 @@ public abstract class Aula {
 	private int numero;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idEdificio")
+	@JoinColumn(name = "id_edificio",nullable=false)
 	private Edificio edificio;
 	
 	

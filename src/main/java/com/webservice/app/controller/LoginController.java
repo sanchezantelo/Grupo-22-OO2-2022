@@ -18,6 +18,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.webservice.app.helpers.ViewRouteHelper;
 import com.webservice.app.models.UsuarioModel;
+import com.webservice.app.services.IAulaService;
+import com.webservice.app.services.IEdificioService;
 import com.webservice.app.services.IUsuarioService;
 
 @Controller
@@ -27,6 +29,15 @@ public class LoginController {
 	@Autowired
 	@Qualifier("usuarioService")
 	private IUsuarioService usuarioService;
+	
+	@Autowired
+	@Qualifier("edificioService")
+	private IEdificioService edificioService;
+	
+	@Autowired
+	@Qualifier("aulaService")
+	private IAulaService aulaService;
+
 
 	Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
@@ -61,8 +72,12 @@ public class LoginController {
 	}
 
 	@GetMapping("/index")
-	public String index(Model model, HttpSession sesion) {
+	public String index(Model model, HttpSession sesion) {	
+		logger.info("/edificio" + edificioService.findAll());
 		model.addAttribute("user",sesion.getAttribute("user"));
+		model.addAttribute("lstEdificios", edificioService.findAll());
 		return "index";
 	}
+	
+	
 }

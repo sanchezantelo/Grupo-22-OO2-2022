@@ -35,6 +35,14 @@ public class Tradicional extends Aula {
 		this.pizarron = pizarron;
 		this.tieneProyector = tieneProyector;
 	}
+
+	/*
+	@Override
+	public String toString() {
+		return "Numero=" + getNumero() + "";
+	}
+	*/
+	
 	
 	
 }
