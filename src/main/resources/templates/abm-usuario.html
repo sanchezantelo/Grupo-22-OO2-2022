@@ -1,201 +1,177 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <!DOCTYPE html>
+
 <head>
-<title>Website Grupo 22</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" href="/images/favicon.png">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<link href='https://unpkg.com/boxicons@2.0.5/css/boxicons.min.css'
-	rel='stylesheet'>
-<link rel="stylesheet" type="text/css" href="/css/index_styles.css">
-<link rel="stylesheet" type="text/css" href="/css/formularios.css">
+    <title>Website Grupo 22</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/images/favicon.png">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href='https://unpkg.com/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href="/css/index_styles.css">
+    <link rel="stylesheet" type="text/css" href="/css/formularios.css">
 </head>
 
 <body>
-	<div class="form-outline">
-              <img src="/images/unla-logo.png" alt="Smiley face" style="vertical-align:Stickman;margin:0px;padding:16px;">
-            </div>
-<nav class="navbar navbar-expand-lg navbar-dark nav-bk">
-<img src="/images/home-icon.png" alt="Smiley face" style="vertical-align:Stickman;margin:0px 10px">
-		<a class="navbar-brand" th:href="@{'/index'}">Inicio</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#collapsibleNavbar">
+    <div class="form-outline">
+        <img src="/images/unla-logo.png" alt="Smiley face" style="vertical-align:Stickman;margin:0px;padding:16px;">
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-dark nav-bk">
+        <img src="/images/home-icon.png" alt="Smiley face" style="vertical-align:Stickman;margin:0px 10px">
+        <a class="navbar-brand" th:href="@{'/index'}">Inicio</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-	</nav>
+    </nav>
 
-	<main role="main" class="container">		
-	
-        	
-		<div class="alert alert-success" role="alert" th:if="${mensaje}" th:unless="${error}" th:text="${mensaje}"></div>
-		<div class="alert alert-danger" role="alert" th:if="${error}" th:text="${error}"></div>
+    <main role="main" class="container">
+
+
+        <div class="alert alert-success" role="alert" th:if="${mensaje}" th:unless="${error}" th:text="${mensaje}"></div>
+        <div class="alert alert-danger" role="alert" th:if="${error}" th:text="${error}"></div>
         <div th:object=${user}></div>
-		<div class="row mb-3 w3-example">
-			<div class="col-4" th:if="${user.hasRole('ROL_ADMIN')}">
-				<h3>Datos del Usuario</h3>
-				<div class="form-group">
+        <div class="row mb-3 w3-example">
+            <div class="col-4" th:if="${user.hasRole('ROL_ADMIN')}">
+                <h3>Datos del Usuario</h3>
+                <div class="form-group">
 
-					<form th:action="@{/admin/usuario/altaUsuario}" th:if="${usuarioModel}" th:unless="${usuarioModelUpdate}" th:object="${usuarioModel}"
-						method="post">
-						<div class="form-group">
-							<label>Usuario </label> <input type="text"
-								class="form-control form-control-sm" th:field="*{usuario}" required>
-						</div>
+                    <form th:action="@{/admin/usuario/altaUsuario}" th:if="${usuarioModel}" th:unless="${usuarioModelUpdate}" th:object="${usuarioModel}" method="post">
+                        <div class="form-group">
+                            <label>Usuario </label> <input type="text" class="form-control form-control-sm" th:field="*{usuario}" required>
+                        </div>
 
-						<div class="form-group">
-							<label>Clave</label> <input type="password"
-								class="form-control form-control-sm" th:field="*{clave}"required>
-						</div>
+                        <div class="form-group">
+                            <label>Clave</label> <input type="password" class="form-control form-control-sm" th:field="*{clave}" required>
+                        </div>
 
 
-						<div class="form-group">
-							<label>Nombre</label> <input type="text"
-								class="form-control form-control-sm"
-								th:field="*{nombre}"required>
-						</div>
+                        <div class="form-group">
+                            <label>Nombre</label> <input type="text" class="form-control form-control-sm" th:field="*{nombre}" required>
+                        </div>
 
-						<div class="form-group">
-							<label>Apellido</label> <input type="text"
-								class="form-control form-control-sm"
-								th:field="*{apellido}"required>
-						</div>
+                        <div class="form-group">
+                            <label>Apellido</label> <input type="text" class="form-control form-control-sm" th:field="*{apellido}" required>
+                        </div>
 
-                      <div class="form-group">
-                      <label>Tipo de Documento</label>	
-							<select name="tipoDocumento" class="form-control form-control-sm" th:field="*{tipoDocumento}">
+                        <div class="form-group">
+                            <label>Tipo de Documento</label>
+                            <select name="tipoDocumento" class="form-control form-control-sm" th:field="*{tipoDocumento}">
     						<option th:each="tipoDocumento : ${T(com.webservice.app.entities.TipoDocumento).values()}" 
         					th:value="${tipoDocumento}" th:text="${tipoDocumento}"></option>
 							</select>
-						</div>
+                        </div>
 
-						<div class="form-group">
-							<label>Numero de Documento</label> <input type="text"
-								class="form-control form-control-sm" th:field="*{dni}"required>	
-								<div class="alert alert-danger" th:if="${errorDNI}" th:text="${errorDNI}"></div>					
-                          </div>
+                        <div class="form-group">
+                            <label>Numero de Documento</label> <input type="text" class="form-control form-control-sm" th:field="*{dni}" required>
+                            <div class="alert alert-danger" th:if="${errorDNI}" th:text="${errorDNI}"></div>
+                        </div>
 
-						<div class="form-group">
-							<label>Email</label> <input type="email"
-								class="form-control form-control-sm" th:field="*{email}"required>
-						</div>
+                        <div class="form-group">
+                            <label>Email</label> <input type="email" class="form-control form-control-sm" th:field="*{email}" required>
+                        </div>
 
-						<div class="form-group">
-						<label>Rol</label>	
-							<select class="form-control form-control-sm" th:field="*{rol.id}">
+                        <div class="form-group">
+                            <label>Rol</label>
+                            <select class="form-control form-control-sm" th:field="*{rol.id}">
 							 <option th:each="i : ${lstRoles}" th:value="${i.id}" th:text="${i.rol}">
                               </option>
 							</select>
-						</div>
+                        </div>
 
-						<div class="form-group">
-							<input type="hidden"
-								class="form-control form-control-sm" th:field="*{enabled}">
-						</div>
+                        <div class="form-group">
+                            <input type="hidden" class="form-control form-control-sm" th:field="*{enabled}">
+                        </div>
 
-						<div class="form-group">
-							<input type="submit" class="btn-success form-control form-control-sm"/>
-						</div>
-						
+                        <div class="form-group">
+                            <input type="submit" class="btn-success form-control form-control-sm" />
+                        </div>
 
-					</form>
-					
-					
-					
-					<form th:action="@{/admin/usuario/modificacionUsuario}"  th:if="${usuarioModelUpdate}" th:object="${usuarioModelUpdate}"
-						method="post">
-						<div class="form-group">
-							 <input type="hidden"
-								class="form-control form-control-sm" th:field="*{idUsuario}">
-						</div>
-						<div class="form-group">
-							<label>Usuario </label> <input type="text"
-								class="form-control form-control-sm" th:field="*{usuario}">
-						</div>
 
-						<div class="form-group">
-							<label>Clave</label> <input type="text"
-								class="form-control form-control-sm" th:field="*{clave}">
-						</div>
+                    </form>
 
-						<div class="form-group">
-							<label>Nombre</label> <input type="text"
-								class="form-control form-control-sm"
-								th:field="*{nombre}">
-						</div>
 
-						<div class="form-group">
-							<label>Apellido</label> <input type="text"
-								class="form-control form-control-sm"
-								th:field="*{apellido}">
-						</div>
-						
-						  <div class="form-group">
-							<select  class="form-control form-control-sm" name="tipoDocumento" th:field="*{tipoDocumento}">
+
+                    <form th:action="@{/admin/usuario/modificacionUsuario}" th:if="${usuarioModelUpdate}" th:object="${usuarioModelUpdate}" method="post">
+                        <div class="form-group">
+                            <input type="hidden" class="form-control form-control-sm" th:field="*{idUsuario}">
+                        </div>
+                        <div class="form-group">
+                            <label>Usuario </label> <input type="text" class="form-control form-control-sm" th:field="*{usuario}">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Clave</label> <input type="text" class="form-control form-control-sm" th:field="*{clave}">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Nombre</label> <input type="text" class="form-control form-control-sm" th:field="*{nombre}">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Apellido</label> <input type="text" class="form-control form-control-sm" th:field="*{apellido}">
+                        </div>
+
+                        <div class="form-group">
+                            <select class="form-control form-control-sm" name="tipoDocumento" th:field="*{tipoDocumento}">
     						<option th:each="tipoDocumento : ${T(com.webservice.app.entities.TipoDocumento).values()}" 
         					th:value="${tipoDocumento}" th:text="${tipoDocumento}"></option>
 							</select>
-						</div>
+                        </div>
 
-						<div class="form-group">
-							<label>Numero de Documento</label> <input type="text"
-								class="form-control form-control-sm" th:field="*{dni}">
-								<div class="alert alert-danger" th:if="${errorDNI}" th:text="${errorDNI}"></div>					
-						</div>
+                        <div class="form-group">
+                            <label>Numero de Documento</label> <input type="text" class="form-control form-control-sm" th:field="*{dni}">
+                            <div class="alert alert-danger" th:if="${errorDNI}" th:text="${errorDNI}"></div>
+                        </div>
 
-						<div class="form-group">
-							<label>Email</label> <input type="email"
-								class="form-control form-control-sm" th:field="*{email}">
-						</div>
+                        <div class="form-group">
+                            <label>Email</label> <input type="email" class="form-control form-control-sm" th:field="*{email}">
+                        </div>
 
-						<div class="form-group">
-							<select class="form-control form-control-sm" th:field="*{rol.id}">
+                        <div class="form-group">
+                            <select class="form-control form-control-sm" th:field="*{rol.id}">
 							 <option th:each="i : ${lstRoles}" th:value="${i.id}" th:text="${i.rol}">
                               </option>
 							</select>
-							<input type="hidden"
-								class="form-control form-control-sm" th:field="*{rol.rol}">
-						</div>
+                            <input type="hidden" class="form-control form-control-sm" th:field="*{rol.rol}">
+                        </div>
 
-						<div class="form-group">
-							<input type="hidden"
-								class="form-control form-control-sm" th:field="*{enabled}">
-						</div>
+                        <div class="form-group">
+                            <input type="hidden" class="form-control form-control-sm" th:field="*{enabled}">
+                        </div>
 
-						<div class="form-group">
-							<input type="submit" class="btn-success form-control form-control-sm"/>
-						</div>
+                        <div class="form-group">
+                            <input type="submit" class="btn-success form-control form-control-sm" />
+                        </div>
 
-					</form>
-			
-		</div>
-		</div>
-		
-		<div class="col-8">
-			<h3>Usuarios</h3>
-			<!--tabla-->
-			<div style="overflow-x: auto;">
-				<table class="table table-striped" >
-					<thead>
-						<tr>
-							<th scope="col">Nombre</th>
-							<th scope="col">Apellido</th>
-							<th scope="col">Tipo Documento</th>
-							<th scope="col">Num Documento</th>
-							<th scope="col">Email</th>
-							<th scope="col">Rol</th>
-							<th scope="col">Activo</th>
-							<th scope="col"></th>
-							<th scope="col"></th>
-							
-						</tr>
-					</thead>
-					<tbody >
-						<tr th:if="${lstUsuarios.empty}">
-							<td colspan="2">Sin usuarios en el sistema</td>
-						</tr>
-						<tr th:each="usuario: ${lstUsuarios}">
-							<td><span th:text="${usuario.nombre}"></td>
+                    </form>
+
+                </div>
+            </div>
+
+            <div class="col-8">
+                <h3>Usuarios</h3>
+                <!--tabla-->
+                <div style="overflow-x: auto;">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Apellido</th>
+                                <th scope="col">Tipo Documento</th>
+                                <th scope="col">Num Documento</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Rol</th>
+                                <th scope="col">Activo</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:if="${lstUsuarios.empty}">
+                                <td colspan="2">Sin usuarios en el sistema</td>
+                            </tr>
+                            <tr th:each="usuario: ${lstUsuarios}">
+                                <td><span th:text="${usuario.nombre}"></td>
 							<td><span th:text="${usuario.apellido}"></td>
 							<td><span th:text="${usuario.tipoDocumento}"></td>
 							<td><span th:text="${usuario.dni}"></td>
@@ -243,5 +219,4 @@
 
 </body> 
 
-</html>  
-
+</html>

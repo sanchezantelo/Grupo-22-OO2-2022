@@ -1,29 +1,18 @@
 package com.webservice.app.controller;
 
-import com.webservice.app.entities.NotaPedido;
 import com.webservice.app.services.IAulaService;
 import com.webservice.app.services.IMateriaService;
 import com.webservice.app.services.INotaPedidoService;
 import com.webservice.app.services.IUsuarioService;
 
-import java.util.List;
-
-import org.modelmapper.ModelMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+// import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import lombok.var;
-import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/notaPedido")
-@Slf4j // Logger
 public class NotaPedidoController {
     @Autowired
     @Qualifier("notaPedidoService")
@@ -41,7 +30,7 @@ public class NotaPedidoController {
     @Qualifier("aulaService")
     private IAulaService aulaService;
 
-	private ModelMapper modelMapper = new ModelMapper();
+	// private ModelMapper modelMapper = new ModelMapper();
 
-
+    
 }
