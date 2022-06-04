@@ -19,10 +19,10 @@ public class FinalModel extends NotaPedidoModel {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	protected LocalDate fechaExamen;
 
-	public FinalModel(int id, LocalDate fecha, int cantEstudiantes, Set<Usuario> docentes, Materia materia, String observaciones,
+	public FinalModel(int id, LocalDate fecha, char turno, int cantEstudiantes, Set<Usuario> docentes, Materia materia, String observaciones,
 			String tipoAula, Aula aulaAsignada, Usuario solicitante, int mesa,
 			LocalDate fechaExamen) {
-		super(id, fecha, cantEstudiantes, docentes, materia, observaciones, tipoAula, aulaAsignada, solicitante);
+		super(id, fecha, turno, cantEstudiantes, docentes, materia, observaciones, tipoAula, aulaAsignada, solicitante);
 		this.mesa = mesa;
 		this.fechaExamen = fechaExamen;
 	}

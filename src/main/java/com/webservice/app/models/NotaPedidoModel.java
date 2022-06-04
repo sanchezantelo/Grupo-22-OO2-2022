@@ -17,6 +17,7 @@ public abstract class NotaPedidoModel {
 	protected int id;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	protected LocalDate fecha;
+	protected char turno;
 	protected int cantEstudiantes;
 	protected Set<Usuario> docentes;
 	protected Materia materia;
@@ -25,11 +26,12 @@ public abstract class NotaPedidoModel {
 	protected Aula aulaAsignada;
 	protected Usuario solicitante;
 
-	public NotaPedidoModel(int id, LocalDate fecha, int cantEstudiantes, Set<Usuario> docentes, Materia materia, String observaciones,
+	public NotaPedidoModel(int id, LocalDate fecha, char turno, int cantEstudiantes, Set<Usuario> docentes, Materia materia, String observaciones,
 			String tipoAula, Aula aulaAsignada, Usuario solicitante) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
+		this.turno = turno;
 		this.cantEstudiantes = cantEstudiantes;
 		this.docentes = docentes;
 		this.materia = materia;
@@ -39,10 +41,11 @@ public abstract class NotaPedidoModel {
 		this.solicitante = solicitante;
 	}
 
-	public NotaPedidoModel(LocalDate fecha, int cantEstudiantes, Set<Usuario> docentes, Materia materia, String observaciones,
+	public NotaPedidoModel(LocalDate fecha, char turno, int cantEstudiantes, Set<Usuario> docentes, Materia materia, String observaciones,
 			String tipoAula, Aula aulaAsignada, Usuario solicitante) {
 		super();
 		this.fecha = fecha;
+		this.turno = turno;
 		this.cantEstudiantes = cantEstudiantes;
 		this.docentes = docentes;
 		this.materia = materia;
