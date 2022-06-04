@@ -3,8 +3,6 @@ package com.webservice.app.controller;
 
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -21,8 +19,13 @@ import com.webservice.app.models.UsuarioModel;
 import com.webservice.app.services.IAulaService;
 import com.webservice.app.services.IEdificioService;
 import com.webservice.app.services.IUsuarioService;
+import com.webservice.app.services.INotaPedidoService;
+
+import lombok.var;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@Slf4j // Logger
 @RequestMapping("/")
 public class LoginController {
 
@@ -38,9 +41,9 @@ public class LoginController {
 	@Qualifier("aulaService")
 	private IAulaService aulaService;
 
-
-	Logger logger = LoggerFactory.getLogger(LoginController.class);
-	
+	@Autowired
+	@Qualifier("notaPedidoService")
+	private INotaPedidoService notaPedidoService;
 
 	@GetMapping({"login",""})
 	public String login(Model model, @RequestParam(name = "error", required = false) String error,
@@ -59,7 +62,7 @@ public class LoginController {
 
 	@PostMapping("/autenticar")
 	public String loginCheck(@ModelAttribute("usuarioModel") UsuarioModel usuarioModel,RedirectAttributes redirectAttrs, HttpSession sesion) {
-		logger.info("/autenticar" + usuarioModel);
+		log.info("/autenticar" + usuarioModel);
 		try {
 			sesion.setAttribute("user", usuarioService.validarCredenciales(usuarioModel));
 			redirectAttrs.addFlashAttribute("user", usuarioService.validarCredenciales(usuarioModel));
@@ -73,11 +76,12 @@ public class LoginController {
 
 	@GetMapping("/index")
 	public String index(Model model, HttpSession sesion) {	
-		logger.info("/edificio" + edificioService.findAll());
+		log.info("/edificio" + edificioService.findAll());
+		log.info("/notaPedido" + notaPedidoService.findAll());
+		var notasPedido = notaPedidoService.findAll();
 		model.addAttribute("user",sesion.getAttribute("user"));
 		model.addAttribute("lstEdificios", edificioService.findAll());
+		model.addAttribute("notasPedido", notasPedido);
 		return "index";
 	}
-	
-	
 }
