@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="/images/favicon.png">
     <meta charset="utf-8">
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href='https://unpkg.com/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" type="text/css" href="/css/index_styles.css">
@@ -18,7 +18,7 @@
 </div>
 
 <nav class="navbar navbar-expand-lg navbar-dark nav-bk">
-    <img src="/images/home-icon.png" alt="Smiley face" style="vertical-align: Stickman; margin: 0px 10px"> <a class="navbar-brand" href="#">Inicio</a>
+    <a class="navbar-brand d-flex gap-lg-1 mx-lg-3" href="#"><i class="bi bi-house-fill text-white"></i>Inicio</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 		<span class="navbar-toggler-icon"></span>
 	</button>
@@ -34,7 +34,7 @@
             </li>
 
             <li class="nav-item" th:if="${user}"><a class="nav-link" th:href="@{/logout}">Cerrar Sesión <i
-					class='bx bxs-log-out'></i></a></li>
+					class='bi bi-box-arrow-left' style="vertical-align: -1px"></i></a></li>
         </ul>
     </div>
 
@@ -51,14 +51,14 @@
 
 <main role="main" class="container">
 
-    <div class="col-lg-6 m-lg-5">
+    <div class="col-lg-5 m-lg-5">
         <table class="table">
             <thead>
-                <tr>
-                    <th>Notas Pedido</th>
-                    <th class="text-right">
-                        <button type="button" class="btn btn-aulas btn-sm align-content-center" style="text-decoration: none;" data-bs-toggle="modal" data-bs-target="#modalNotaPedido">
-							<i class="bx bx-plus-circle" style="vertical-align: -1px;"></i>
+                <tr class="d-flex align-items-center justify-content-between">
+                    <th class="border-0">Notas Pedido</th>
+                    <th class="text-right border-0">
+                        <button type="button" class="btn btn-aulas btn-sm d-inline-flex align-items-center gap-1" data-bs-toggle="modal" data-bs-target="#modalNotaPedido">
+							<i class="bi bi-plus-circle"></i>
 							Crear Nota Pedido
 						</button>
                     </th>
@@ -67,7 +67,7 @@
             <tbody>
                 <!-- Si no hay notas pedido -->
                 <tr th:if="${notasPedido.empty}">
-                    <td colspan="2">Sin notas en el sistema</td>
+                    <td colspan="2"><i class="bi bi-slash-circle px-lg-1" style="color: var(--burntUmber)"></i>Sin notas en el sistema</td>
                 </tr>
                 <!-- Si hay notas pedido -->
                 <tr th:each="notaPedido : ${notasPedido}" th:key="notaPedido.id">
@@ -85,65 +85,59 @@
         </table>
     </div>
 
-    <div class="col-lg-6 m-lg-5">
+    <div class="col-lg-5 m-lg-5">
         <table class="table">
             <thead>
                 <tr>
-                    <th>Edificios</th>
-                    <th>Aulas</th>
+                    <th class="border-0">Edificios</th>
+                    <th class="border-0">Aulas</th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:if="${lstEdificios.empty}">
-                    <td colspan="2">Sin edificios en el sistema</td>
+                    <td colspan="2"><i class="bi bi-slash-circle px-lg-1" style="color: var(--burntUmber)"></i>Sin edificios en el sistema</td>
                 </tr>
                 <tr th:each="edificio: ${lstEdificios}">
-                    <td><span th:text="${edificio.edificio}"></td>
-						<td th:each="aulaslst: ${edificio.aulas}">
-							<a 
-							th:href="@{'/aula/buscarPorId?idAula=' + ${aulaslst.idAula}}"
-							class="btn btn-aulas btn-sm"
-							style="color: #FFFFFF"
-							th:text="${aulaslst.numero}"
-						/>
-					</td>
-					<td><input type="hidden" th:value="${edificio.idEdificio}" /></td>
-				</tbody>
+                    <td style="width:40%" th:text="${edificio.edificio}"></td>
+                    <td style="width:10%" th:each="aulaslst: ${edificio.aulas}">
+                        <a th:href="@{'/aula/buscarPorId?idAula=' + ${aulaslst.idAula}}" class="btn btn-aulas btn-sm" style="color: #FFFFFF" th:text="${aulaslst.numero}" />
+                    </td>
+                    <td><input type="hidden" th:value="${edificio.idEdificio}" /></td>
+            </tbody>
 
-		</table>
+        </table>
 
-		<div th:if="${aulaModel}">
-			<span th:text="${aulaModel}">
+        <div th:if="${aulaModel}">
+            <span th:text="${aulaModel}">
 		</div>
 		<!-- Nota Pedido Modal -->
 		<div class="modal fade" id="modalNotaPedido" tabindex="-1" aria-labelledby="modalNotaPedido" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title">Crear Nota Pedido</h5>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-                        </button>
-    </div>
-    <div class="modal-body">
-        <from class="form-horizontal" role="form">
-            <div class="form-group">
-                <label for="nombre" class="col-form-label">Turno</label>
-                <select class="form-select" aria-label="Turno">
+						<h5 class="modal-title"><i class="bi bi-journal p-lg-1"></i>Crear Nota Pedido</h5>
+						<button type="button" class="btn btn-close btn-sm" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+            </button>
+        </div>
+        <div class="modal-body">
+            <from class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label for="nombre" class="col-form-label">Turno</label>
+                    <select class="form-select" aria-label="Turno">
 									<option selected>Seleccione un turno...</option>
 									<option value="M">Mañana</option>
 									<option value="T">Tarde</option>
 									<option value="N">Noche</option>
 								</select>
-            </div>
-            <div class="form-group">
-                <label for="descripcion" class="col-form-label">Cantidad de Estudiantes</label>
-                <input type="number" class="form-control" id="cantidad" min="1" max="500" value="1" />
-            </div>
-            <div class="form-group">
-                <label for="dia" class="col-form-label">Día Hábil</label>
-                <select class="form-select" aria-label="Día">
+                </div>
+                <div class="form-group">
+                    <label for="descripcion" class="col-form-label">Cantidad de Estudiantes</label>
+                    <input type="number" class="form-control" id="cantidad" min="1" max="500" value="1" />
+                </div>
+                <div class="form-group">
+                    <label for="dia" class="col-form-label">Día Hábil</label>
+                    <select class="form-select" aria-label="Día">
 									<option selected>Seleccione un día...</option>
 									<option value="1">Lunes</option>
 									<option value="2">Martes</option>
@@ -151,13 +145,13 @@
 									<option value="4">Jueves</option>
 									<option value="5">Viernes</option>
 								</select>
-            </div>
-            </form>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-aulas">Crear</button>
-    </div>
+                </div>
+                </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-aulas">Crear</button>
+        </div>
     </div>
     </div>
     </div>
