@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +21,7 @@ public class Curso extends NotaPedido {
 	@Column(name= "codigo")
 	private String codigo;
 	
+	@Min(1) @Max(5)
 	@Column(name= "dia_semana")
 	private int diaSemana;
 
