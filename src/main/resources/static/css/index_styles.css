@@ -4,35 +4,37 @@
 Footer 
 *********************************/
 .social-media-icon {
-	color: #000000;
+  color: #000000;
 }
 
 .social-media-icon i {
-	font-size: 30px;
-	line-height: 60px;
+  font-size: 30px;
+  line-height: 60px;
 }
 
 .center {
-	display: block;
-	margin-left: 200px;
-	margin-right: 200px;
-	width: 70%;
+  display: block;
+  margin-left: 200px;
+  margin-right: 200px;
+  width: 70%;
 }
 
 .nav-bk {
-	background: #000000;
+  background: #000000;
 }
 
 .btn-aulas {
-	background-color: #641E16;
-	color: rgb(255, 255, 255);
+  background-color: #8e2836;
+  color: rgb(255, 255, 255);
+}
+
+.btn-aulas:hover {
+  background-color: #c7374a;
+  color: rgb(255, 255, 255);
 }
 
 .table {
   width: 100%;
   border: 1px solid;
-  border-color:#D8D6D6;
-  width:400px;
-  margin: 90px; 
-  margin-left: 10px;
+  border-color: #d8d6d6;
 }
