@@ -1,14 +1,9 @@
 package com.webservice.app.entities;
 
-import java.time.LocalDate;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,18 +19,9 @@ public class Curso extends NotaPedido {
 	@Column(name= "codigo")
 	private String codigo;
 	
-	@Column(name= "turno")
-	@NotEmpty()
-	private char turno;
-	
-	@DateTimeFormat(pattern= "yyyy-MM-dd")
-	@Column(name= "fecha_inicio")
-	private LocalDate fechaInicio;
-	
-	@DateTimeFormat(pattern= "yyyy-MM-dd")
-	@Column(name= "fecha_fin")
-	private LocalDate fechaFin;
-	
+	@Column(name= "dia_semana")
+	private int diaSemana;
+
 	@Column(name= "cuatrimestre")
 	private String cuatrimestre;
 	

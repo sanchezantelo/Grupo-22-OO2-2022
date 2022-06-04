@@ -40,6 +40,10 @@ public abstract class NotaPedido implements Serializable {
 	@DateTimeFormat(pattern= "yyyy-MM-dd")
 	@Column(name= "fecha")
 	private LocalDate fecha;
+
+	@Column(name= "turno")
+	@NotEmpty()
+	private char turno;
 	
 	@Column(name= "cantidad_estudiantes")
 	@NotEmpty()
@@ -68,9 +72,10 @@ public abstract class NotaPedido implements Serializable {
 	private Usuario solicitante;
 
 	// Constructor sin id
-	public NotaPedido(LocalDate fecha, int cantEstudiantes, Usuario docentes, Materia materia, String observaciones, String tipoAula, Aula aulaAsignada, Usuario solicitante) {
+	public NotaPedido(LocalDate fecha, char turno, int cantEstudiantes, Usuario docentes, Materia materia, String observaciones, String tipoAula, Aula aulaAsignada, Usuario solicitante) {
 		super();
 		this.fecha = fecha;
+		this.turno = turno;
 		this.cantEstudiantes = cantEstudiantes;
 		this.docentes = docentes;
 		this.materia = materia;
