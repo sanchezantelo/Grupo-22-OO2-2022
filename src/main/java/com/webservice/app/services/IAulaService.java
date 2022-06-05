@@ -8,8 +8,9 @@ import com.webservice.app.entities.Aula;
 
 @Service
 public interface IAulaService {
-	public Aula traerAula(int idAula);
 
-	public List<Aula> findAll();
+	public Aula traerAula(int idAula);
+	public List<Aula> traerAulas();
+
 
 }

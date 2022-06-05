@@ -1,11 +1,13 @@
 package com.webservice.app.services.implementation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
 
 import com.webservice.app.entities.Aula;
 import com.webservice.app.repositories.IAulaRepository;
@@ -30,13 +32,14 @@ public class AulaService implements IAulaService {
 
 	private ModelMapper modelMapper = new ModelMapper();
 
-	public List<Aula> findAll() {
+	public List<Aula> traerAulas() {
 		return aulaRepository.findAll();
 	}
 
 	public Aula traerAula(int idAula) {
 		Aula aula = aulaRepository.findByIdAula(idAula);
-		// Hibernate.initialize(aula.getEdificio());
 		return aula;
 	}
+	
+	
 }
