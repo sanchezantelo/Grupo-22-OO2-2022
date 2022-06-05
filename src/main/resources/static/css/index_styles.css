@@ -38,6 +38,18 @@ Footer
     color: rgb(255, 255, 255);
 }
 
+.btn-unla {
+    min-width: 8rem;
+    min-height: 4rem;
+    background-color: var(--burntUmber);
+    color: rgb(255, 255, 255);
+}
+
+.btn-unla:hover {
+    background-color: #c7374a;
+    color: rgb(255, 255, 255);
+}
+
 .table {
     border: 1px solid;
     border-color: #d8d6d6;
