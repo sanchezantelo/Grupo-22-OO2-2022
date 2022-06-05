@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.webservice.app.entities.Aula;
 import com.webservice.app.entities.Materia;
 import com.webservice.app.entities.Usuario;
+import com.webservice.app.helpers.StringHelper;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,5 +26,10 @@ public class FinalModel extends NotaPedidoModel {
 		super(id, fecha, turno, cantEstudiantes, docentes, materia, observaciones, tipoAula, aulaAsignada, solicitante);
 		this.mesa = mesa;
 		this.fechaExamen = fechaExamen;
+	}
+
+	public String getNombre() {
+		String turnoPalabra = StringHelper.getTurnoPalabra(this.turno);
+		return String.format("%d %s %s", this.mesa, this.materia.getMateria(), turnoPalabra);
 	}
 }
