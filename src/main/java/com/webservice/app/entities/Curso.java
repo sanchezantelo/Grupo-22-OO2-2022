@@ -21,13 +21,10 @@ public class Curso extends NotaPedido {
 	@Column(name= "codigo")
 	private String codigo;
 	
-	@Min(1) @Max(5)
+	@Min(1) @Max(6)
 	@Column(name= "dia_semana")
 	private int diaSemana;
 
-	@Column(name= "cuatrimestre")
-	private String cuatrimestre;
-	
 	@Column(name= "presencialidad")
 	private int presencialidad;
 }
