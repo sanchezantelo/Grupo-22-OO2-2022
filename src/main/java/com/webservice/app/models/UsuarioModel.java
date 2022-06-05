@@ -11,6 +11,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import com.webservice.app.helpers.StringHelper;
+
 @Data @NoArgsConstructor @AllArgsConstructor
 public class UsuarioModel {
 	private int idUsuario;
@@ -28,7 +30,9 @@ public class UsuarioModel {
 	private String email;
 
 	public String nombreApellido() {
-		return nombre + " " + apellido;
+		String caseNombre = StringHelper.capitalize(this.nombre);
+		String caseApellido = StringHelper.capitalize(this.apellido);
+		return String.format("%s %s", caseNombre, caseApellido);
 	}
 
 	public boolean hasRole(String rol) {
