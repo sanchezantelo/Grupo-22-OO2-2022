@@ -8,6 +8,7 @@ import com.webservice.app.entities.NotaPedido;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data @NoArgsConstructor
 public class EspacioModel {
 	
 	private int idEspacio;
