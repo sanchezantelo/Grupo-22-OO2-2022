@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -22,6 +24,7 @@ import lombok.NoArgsConstructor;
 public class Espacio {
 	
 	@Id
+	@Column(name="idEspacio")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idEspacio;
 	
@@ -45,21 +48,26 @@ public class Espacio {
 	@JoinColumn(name = "idNotaPedido")
 	private NotaPedido notaPedido;
 	
-	public Espacio(int idEspacio,LocalDate fecha, char turno, Aula aula, boolean libre , NotaPedido notaPedido) {
+	@Column(name="activo")
+	@NotNull
+	private boolean activo;
+
+	
+	public Espacio(int idEspacio,LocalDate fecha, char turno, Aula aula, boolean libre,boolean activo ) {
 		this.idEspacio=idEspacio;
 		this.fecha = fecha;
 		this.turno = turno;
 		this.aula = aula;
 		this.libre = libre;
-		this.notaPedido = notaPedido;
+		this.activo=activo;
 	}
 	
-	public Espacio(LocalDate fecha, char turno, Aula aula, boolean libre, NotaPedido notaPedido) {
+	public Espacio(LocalDate fecha, char turno, Aula aula, boolean libre,boolean activo ) {
 		this.fecha = fecha;
 		this.turno = turno;
 		this.aula = aula;
 		this.libre = libre;
-		this.notaPedido = notaPedido;
+		this.activo=activo;
 	}
 	
 
