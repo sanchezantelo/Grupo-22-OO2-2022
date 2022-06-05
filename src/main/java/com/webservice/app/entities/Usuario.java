@@ -84,7 +84,7 @@ public class Usuario implements Serializable {
 		this.email = email;
 		this.enabled = enabled;
 	}
-
+	// TODO: Desencriptar en vistas
 	public void setClave(String clave) {
 		this.clave = DigestUtils.md5DigestAsHex(clave.getBytes());
 	}

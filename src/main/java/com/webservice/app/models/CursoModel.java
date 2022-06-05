@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 public class CursoModel extends NotaPedidoModel {
 	protected int codigo;
 	protected int diaSemana;
-	protected String cuatrimestre; // TODO: Como?
+	protected String cuatrimestre;
 	protected int presencialidad;
 
 	public String getNombre() {
