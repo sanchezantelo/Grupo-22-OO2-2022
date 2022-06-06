@@ -158,28 +158,45 @@
                     </div>
                     <div class="modal-body mx-lg-2">
                         <form class="form-horizontal mb-lg-3 px-lg-4" role="form" th:action="@{/notaPedido/crearCursada}" th:if="${curso}" th:object="${curso}" method="post">
+                            <!-- Hidden form groups -->
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" th:field="*{idNotaPedido}" />
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" th:field="*{codigo}" />
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" th:field="*{docentes}" />
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" th:field="*{aulaAsignada}" />
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" th:field="*{solicitante}" />
+                            </div>
+                            <!-- Hidden form groups -->
                             <div class="form-group">
                                 <label for="materia" class="col-form-label">Materia</label>
-                                <select class="form-select" aria-label="Materia" th:field="*{materia}">
+                                <select class="form-select" id="materia" aria-label="Materia" th:field="*{materia}" required>
                                   <option value="" selected>Seleccione una materia...</option>
-                                  <option th:each="m : ${lstMaterias}" th:value="${m.idMateria}" th:text="${m.materia}"></option>
+                                  <option th:each="m : ${lstMaterias}" th:value="${m}" th:field="*{materia}" th:text="${m.codigo + ' - ' + m.materia}"></option>
                             </select>
                             </div>
                             <div class="form-group">
                                 <label for="turno" class="col-form-label">Turno</label>
-                                <select class="form-select" aria-label="Turno" th:field="*{turno}">
-                  <option value="N" selected>Seleccione un turno...</option>
+                                <select class="form-select" id="turno" aria-label="Turno" th:field="*{turno}" required>
+                  <option value="" selected>Seleccione un turno...</option>
                   <option th:each="turno : ${T(com.webservice.app.entities.TipoTurnos).values()}" th:value="${turno}" th:text="${turno}"></option>
                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="cantEstudiantes" class="col-form-label">Cantidad de Estudiantes</label>
-                                <input type="number" class="form-control" id="cantidad" min="1" max="500" value="1" th:field="*{cantEstudiantes}" />
+                                <input type="number" class="form-control" id="cantidad" min="1" max="500" value="1" th:field="*{cantEstudiantes}" required/>
                             </div>
                             <div class="form-group">
                                 <label for="diaSemana" class="col-form-label">Día de Cursada</label>
-                                <select class="form-select" aria-label="Día" th:field="*{diaSemana}">
-                  <option selected value="0">Seleccione un día...</option>
+                                <select class="form-select form-control" aria-label="Día" th:field="*{diaSemana}" min="1" max="6" required>
+                  <option selected value="-1">Seleccione un día...</option>
                   <option value="1">Lunes</option>
                   <option value="2">Martes</option>
                   <option value="3">Miércoles</option>
@@ -190,8 +207,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="presencialidad" class="col-form-label">Presencialidad</label>
-                                <select class="form-select" aria-label="Presencialidad" th:field="*{presencialidad}">
-                  <option value="0" selected>Seleccione un porcentaje...</option>
+                                <select class="form-select form-control" aria-label="Presencialidad" th:field="*{presencialidad}" required>
+                  <option value="-1" selected>Seleccione un porcentaje...</option>
                   <option value="25">25%</option>
                   <option value="50">50%</option>
                   <option value="100">100%</option>
@@ -202,21 +219,21 @@
                                 <textarea class="form-control" id="observaciones" rows="2" th:field="*{observaciones}"></textarea>
                             </div>
                             <div class="form-group">
-                                <label for="tipoAula " class="col-form-label">Tipo de Aula</label>
-                                <select class="form-select " aria-label="Tipo de Aula" th:field="*{tipoAula}">
-                <option value="N" selected>Seleccione un tipo de aula...</option>
+                                <label for="tipoAula" class="col-form-label">Tipo de Aula</label>
+                                <select class="form-select form-control" id="tipoAula" aria-label="Tipo de Aula" th:field="*{tipoAula}" required>
+                <option value="-1" selected>Seleccione un tipo de aula...</option>
                 <option th:each="tipoAula : ${T(com.webservice.app.entities.TipoAula).values()}" th:value="${tipoAula}" th:text="${tipoAula}"></option>
               </select>
                             </div>
-                        </form>
-                        <div class="modal-footer mt-lg-2 ">
-                            <button type="button " class="btn btn-secondary" data-bs-dismiss="modal">
-                Cerrar
-              </button>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-aulas">Crear</button>
+                            <div class="modal-footer mt-lg-2 ">
+                                <button type="button " class="btn btn-secondary" data-bs-dismiss="modal">
+                    Cerrar
+                  </button>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-aulas">Crear</button>
+                                </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -250,13 +267,13 @@
                                 <label for="dia" class="col-form-label ">Fecha de Examen</label>
                                 <input type="date" class="form-control" id="fecha" required />
                             </div>
+                            <div class="modal-footer mt-lg-2 ">
+                                <button type="button" class="btn btn-secondary " data-bs-dismiss="modal">
+                    Cerrar
+                  </button>
+                                <button type="submit" class="btn btn-aulas ">Crear</button>
+                            </div>
                         </form>
-                        <div class="modal-footer mt-lg-2 ">
-                            <button type="button" class="btn btn-secondary " data-bs-dismiss="modal">
-                Cerrar
-              </button>
-                            <button type="button" class="btn btn-aulas ">Crear</button>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -278,17 +295,17 @@
 							<p><strong>Edificio:</strong> <span th:text="*{edificio.edificio}"/></p>
 							
 							<div th:if="${aulaModel instanceof T( com.webservice.app.entities.Tradicional)}">
-							<p><strong>Tipo de aula:</strong>Tradicional</p> 
-							<p><strong>Cantidad de bancos:</strong> <span th:text="*{cantBancos}"/></p> 
-							<p><strong>Pizarron: </strong><span th:text="*{pizarron}"/></p> 
+							<p><strong>Tipo de Aula:</strong> Tradicional</p> 
+							<p><strong>Cantidad de Bancos:</strong> <span th:text="*{cantBancos}"/></p> 
+							<p><strong>Pizarron: </strong> <span th:text="*{pizarron}"/></p> 
 							<p><strong>Tiene proyector:</strong> <span th:text="${tieneProyector} ? 'Si' : 'No'" /></p> 
 							</div>
 							
 							
 							<div th:if="${aulaModel instanceof T( com.webservice.app.entities.Laboratorio)}">
-							<p><strong>Tipo de aula:</strong> Laboratorio</p>
-							<p><strong>Cantidad de pc:</strong> <span th:text="*{cantPC}"/></p> 
-							<p><strong>Cantidad de sillas:</strong> <span th:text="*{cantSillas}" /></p> 
+							<p><strong>Tipo de Aula:</strong> Laboratorio</p>
+							<p><strong>Cantidad de PCs:</strong> <span th:text="*{cantPC}"/></p> 
+							<p><strong>Cantidad de Sillas:</strong> <span th:text="*{cantSillas}" /></p> 
 							</div>
 						</div>
                         <div class="modal-footer mt-lg-2">
@@ -317,7 +334,7 @@
                         <div th:if="${espacios.empty}"> El aula no posee espacios </div>
                         <div th:each="espacio : ${espacios}">
                             <p>
-                                <span><strong>Fecha: </strong><span th:text="${espacio.fecha}"></span><strong> Turno: </strong><span th:text="${espacio.turno}"></span> <span th:text="${espacio.libre} ? 'Libre' : 'Ocupado'"></span></p>
+                                </span>Fecha:<span th:text="${espacio.fecha}"></span> Libre:<span th:text="${espacio.libre}"></span> Turno:<span th:text="${espacio.turno}"></span></p>
                         </div>
 
                         <div class="modal-footer mt-lg-2">
