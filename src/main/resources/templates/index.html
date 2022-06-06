@@ -76,10 +76,7 @@
                     </tr>
                     <!-- Si hay notas pedido -->
                     <tr th:each="notaPedido : ${notasPedido}" th:key="notaPedido.idNotaPedido">
-                        <td th:text="${notaPedido.idNotaPedido + ' | ' + notaPedido.materia.getMateria() + ' Turno ' + notaPedido.turno}">
-
-
-                        </td>
+                        <td th:text="${notaPedido.getClass().getSimpleName() + ' ' + notaPedido.materia.getCodigo() + ' | ' + notaPedido.materia.getMateria() + ' Turno ' + notaPedido.turno}"></td>
                         <td class="text-right d-flex float-end gap-lg-3">
                             <a class="btn btn-aulas btn-sm">
                                 <i class="bx bx-edit-alt" style="vertical-align: -1px"></i>

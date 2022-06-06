@@ -57,5 +57,4 @@ public abstract class NotaPedidoModel {
 		this.solicitante = solicitante;
 	}
 
-	public abstract String getNombre();
 }

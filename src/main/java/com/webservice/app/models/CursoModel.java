@@ -10,7 +10,4 @@ public class CursoModel extends NotaPedidoModel {
 	protected int diaSemana;
 	protected int presencialidad;
 
-	public String getNombre() {
-		return String.format("%s %s Turno %s", this.codigo, this.materia.getMateria(), this.turno);
-	}
 }

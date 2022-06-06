@@ -29,7 +29,4 @@ public class FinalModel extends NotaPedidoModel {
 		this.fechaExamen = fechaExamen;
 	}
 
-	public String getNombre() {
-		return String.format("%d %s %s", this.mesa, this.materia.getMateria(), this.turno);
-	}
 }
