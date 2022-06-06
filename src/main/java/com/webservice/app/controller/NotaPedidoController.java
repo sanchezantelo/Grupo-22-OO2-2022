@@ -11,6 +11,7 @@ import com.webservice.app.services.INotaPedidoService;
 import com.webservice.app.services.IUsuarioService;
 
 import lombok.var;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
 
@@ -22,14 +23,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller("notaPedido")
-@RequestMapping("/")
+@Slf4j // Logger
+@RequestMapping("/notaPedido")
+@Validated
 public class NotaPedidoController {
     @Autowired
     @Qualifier("notaPedidoService")
@@ -49,7 +54,7 @@ public class NotaPedidoController {
 
 	private ModelMapper modelMapper = new ModelMapper();
 
-    @PostMapping("/notaPedido/crearFinal")
+    @PostMapping("/crearFinal")
     public String crearFinal(@Valid @ModelAttribute("final") FinalModel finalModel, HttpSession sesion) {
         Usuario user = (Usuario) sesion.getAttribute("user");
         Final final_ = modelMapper.map(finalModel, Final.class);
@@ -60,31 +65,39 @@ public class NotaPedidoController {
         return "redirect:/index";
     }
     
-    @PostMapping("/notaPedido/crearCursada")
-    public String crearCursada(@Valid @ModelAttribute("cursada") CursoModel curso, HttpSession sesion) {
+    @PostMapping("/crearCursada")
+    public String crearCursada(@Valid @ModelAttribute("curso") CursoModel curso, HttpSession sesion, RedirectAttributes redirAttr) {
+        log.info("/crearCursada" + curso);
         Usuario user = (Usuario) sesion.getAttribute("user");
-        Curso cursada = modelMapper.map(curso, Curso.class);
-        cursada.setSolicitante(user);
-        cursada.setFecha(LocalDate.now());
-        cursada.setCodigo(cursada.getMateria().getCodigo()+"-"+cursada.getIdNotaPedido());
-        notaPedidoService.insertOrUpdate(cursada);
+        try {
+            curso.setSolicitante(user);
+            curso.setFecha(LocalDate.now());
+            curso.setCodigo(curso.getMateria().getCodigo()+"-"+String.valueOf(curso.getIdNotaPedido()));
+            Curso cursada = modelMapper.map(curso, Curso.class);
+            notaPedidoService.insertOrUpdate(cursada);
+            redirAttr.addFlashAttribute("success", "Cursada creada correctamente");
+        } catch (Exception e) {
+            log.error("Error al crear cursada: " + e.getMessage());
+            redirAttr.addFlashAttribute("modalCursada", true);
+            redirAttr.addFlashAttribute("error", "Error al crear cursada");
+        }
         return "redirect:/index";
     }
 
-    @GetMapping("/notaPedido/{id}")
+    @GetMapping("/{id}")
     public String get(Model model, @PathVariable("id") int id) {
         var notaPedido = notaPedidoService.findById(id);
         if(notaPedido instanceof Final) {
             model.addAttribute("final", notaPedido);
-            return "notaPedido/updateFinal";
+            return "redirect:/index";
         } else {
             model.addAttribute("curso", notaPedido);
-            return "notaPedido/updateCurso";
+            return "redirect:/index";
         }
     }
 
-    @PostMapping("/notaPedido/updateFinal")
-    public String updateFinal(@Valid @ModelAttribute("final") Final finalModel) {
+    @PostMapping("/updateFinal")
+    public String updateFinal(@Valid @ModelAttribute("final") FinalModel finalModel) {
         Final final_ = modelMapper.map(finalModel, Final.class);
         if(final_.getIdNotaPedido() > 0) {
             Final finalViejo = (Final) notaPedidoService.findById(final_.getIdNotaPedido());
@@ -96,8 +109,8 @@ public class NotaPedidoController {
         return "redirect:/index";
     }
 
-    @PostMapping("/notaPedido/updateCurso")
-    public String updateCurso(@Valid @ModelAttribute("curso") Curso cursoModel) {
+    @PostMapping("/updateCurso")
+    public String updateCurso(@Valid @ModelAttribute("curso") CursoModel cursoModel) {
         Curso curso = modelMapper.map(cursoModel, Curso.class);
         if(curso.getIdNotaPedido() > 0) {
             Curso cursoViejo = (Curso) notaPedidoService.findById(curso.getIdNotaPedido());
@@ -109,13 +122,13 @@ public class NotaPedidoController {
         return "redirect:/index";
     }
 
-    @PostMapping("/notaPedido/eliminarFinal/{id}")
+    @PostMapping("/eliminarFinal/{id}")
     public String eliminarFinal(@PathVariable("id") int id) {
         notaPedidoService.remove(id);
         return "redirect:/index";
     }
 
-    @PostMapping("/notaPedido/eliminarCurso/{id}")
+    @PostMapping("/eliminarCurso/{id}")
     public String eliminarCurso(@PathVariable("id") int id) {
         notaPedidoService.remove(id);
         return "redirect:/index";
