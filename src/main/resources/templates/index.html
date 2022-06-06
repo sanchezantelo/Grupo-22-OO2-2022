@@ -274,12 +274,27 @@
                     </div>
                     <div class="modal-body">
 
-                        <span th:text="${aulaModel}"></span>
-
+                        <div th:object="${aulaModel}" class="mb-lg-3 px-lg-4">
+							<p><strong>Edificio:</strong> <span th:text="*{edificio.edificio}"/></p>
+							
+							<div th:if="${aulaModel instanceof T( com.webservice.app.entities.Tradicional)}">
+							<p><strong>Tipo de aula:</strong>Tradicional</p> 
+							<p><strong>Cantidad de bancos:</strong> <span th:text="*{cantBancos}"/></p> 
+							<p><strong>Pizarron: </strong><span th:text="*{pizarron}"/></p> 
+							<p><strong>Tiene proyector:</strong> <span th:text="${tieneProyector} ? 'Si' : 'No'" /></p> 
+							</div>
+							
+							
+							<div th:if="${aulaModel instanceof T( com.webservice.app.entities.Laboratorio)}">
+							<p><strong>Tipo de aula:</strong> Laboratorio</p>
+							<p><strong>Cantidad de pc:</strong> <span th:text="*{cantPC}"/></p> 
+							<p><strong>Cantidad de sillas:</strong> <span th:text="*{cantSillas}" /></p> 
+							</div>
+						</div>
                         <div class="modal-footer mt-lg-2">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                  Cerrar
-                </button>
+                 				Cerrar
+                			</button>
                             <a th:href="@{/espacio/{id}(id=${aulaModel.idAula})}" class="btn btn-aulas">Ver Espacios</a>
                         </div>
                     </div>
@@ -317,41 +332,50 @@
         </div>
 
 
-        <!-- Modal Generar Espacios -->
-        <div class="modal fade" id="modalAddEspacios" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">
-                            <i class="bi bi-mortarboard-fill px-lg-1"></i>Generar espacios para cuatrimestre </span>
-                        </h5>
-                        <button type="button" class="btn btn-close btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="alert alert-danger" role="alert" th:if="${error}" th:text="${error}"></div>
-                        <form action="#" th:action="@{/espacio/add/}" method="post">
-                            <div class="form-group">
-                                <label class="col-form-label" for="desde">Inicio</label>
-                                <input class="form-control" type="date" name="desde" required>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-form-label" for="hasta">Fin</label>
-                                <input class="form-control" type="date" name="hasta" required>
-                            </div>
+           <!-- Modal Generar Espacios -->
+      <div
+        class="modal fade"
+        id="modalAddEspacios"
+        tabindex="-1"
+        aria-hidden="true" 
 
-
-                            <div class="modal-footer mt-lg-2">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                  Cancelar
-                </button>
-                                <input class="btn btn-aulas" type="submit" value="Enviar">
-
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+           	<div class="modal-header">
+              <h5 class="modal-title">
+                  <i class="bi bi-calendar3 p-lg-1"></i>Generar espacios para cuatrimestre </span> 
+                            </h5>
+                            <button type="button" class="btn btn-close btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
+        	</div>
+      		<div class="modal-body">
+	        	<div>
+		        		<div class="alert alert-danger" role="alert" th:if="${error}" th:text="${error}"></div>
+					<form class="form-horizontal mb-lg-3 px-lg-4" action="#" th:action="@{/espacio/add/}"  method="post">
+					<div class="form-group">
+	                    <label for="inicio" class="col-form-label">Inicio</label>
+	                  	<input type="date" name="desde" class="form-control" required>
+	                </div>
+	                <div class="form-group">
+	                    <label for="hasta" class="col-form-label">Fin</label>
+	                  	<input type="date" name="hasta" class="form-control" required>
+	                </div>
+				
+		
+		            <div class="modal-footer  mt-5">
+		                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+		                  Cancelar
+		                </button>
+		                <input type="submit" class="btn btn-aulas" value="Generar">
+		               
+		            </div>
+		            </form>
+	        	</div>
+        	 
+       		</div>
+          </div>
         </div>
+       </div>
     </main>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
