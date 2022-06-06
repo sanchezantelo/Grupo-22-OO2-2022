@@ -317,7 +317,7 @@
                         <div th:if="${espacios.empty}"> El aula no posee espacios </div>
                         <div th:each="espacio : ${espacios}">
                             <p>
-                                </span>fecha:<span th:text="${espacio.fecha}"></span> libre:<span th:text="${espacio.libre}"></span> turno:<span th:text="${espacio.turno}"></span></p>
+                                <span><strong>Fecha: </strong><span th:text="${espacio.fecha}"></span><strong> Turno: </strong><span th:text="${espacio.turno}"></span> <span th:text="${espacio.libre} ? 'Libre' : 'Ocupado'"></span></p>
                         </div>
 
                         <div class="modal-footer mt-lg-2">
