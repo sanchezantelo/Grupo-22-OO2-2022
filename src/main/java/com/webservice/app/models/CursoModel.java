@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 @Data @NoArgsConstructor @EqualsAndHashCode(callSuper=false)
 public class CursoModel extends NotaPedidoModel {
-	protected int codigo;
+	protected String codigo;
 	protected int diaSemana;
 	protected int presencialidad;
 
