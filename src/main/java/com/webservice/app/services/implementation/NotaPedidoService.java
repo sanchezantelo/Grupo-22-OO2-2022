@@ -3,15 +3,19 @@ package com.webservice.app.services.implementation;
 import java.util.List;
 
 import com.webservice.app.entities.NotaPedido;
+import com.webservice.app.models.NotaPedidoModel;
 import com.webservice.app.repositories.INotaPedidoRepository;
 import com.webservice.app.services.INotaPedidoService;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service("notaPedidoService")
 public class NotaPedidoService implements INotaPedidoService {
+
+    private ModelMapper modelMapper = new ModelMapper();
 
     @Autowired()
     private INotaPedidoRepository repository;
@@ -29,13 +33,9 @@ public class NotaPedidoService implements INotaPedidoService {
     }
 
     @Override
-    public boolean insertOrUpdate(NotaPedido notaPedido) {
-        try {
-            repository.save(notaPedido);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+    public NotaPedidoModel insertOrUpdate(NotaPedido notaPedido) {
+        NotaPedido newNotaPedido = repository.save(notaPedido);
+        return modelMapper.map(newNotaPedido, NotaPedidoModel.class);
     }
 
     @Override
