@@ -20,6 +20,7 @@ import com.webservice.app.models.FinalModel;
 import com.webservice.app.models.UsuarioModel;
 import com.webservice.app.services.IAulaService;
 import com.webservice.app.services.IEdificioService;
+import com.webservice.app.services.IMateriaService;
 import com.webservice.app.services.IUsuarioService;
 import com.webservice.app.services.INotaPedidoService;
 
@@ -38,6 +39,10 @@ public class LoginController {
 	@Autowired
 	@Qualifier("edificioService")
 	private IEdificioService edificioService;
+
+	@Autowired
+	@Qualifier("materiaService")
+	private IMateriaService materiaService;
 	
 	@Autowired
 	@Qualifier("aulaService")
@@ -83,6 +88,7 @@ public class LoginController {
 		var notasPedido = notaPedidoService.findAll();
 		model.addAttribute("user",sesion.getAttribute("user"));
 		model.addAttribute("lstEdificios", edificioService.findAll());
+		model.addAttribute("lstMaterias", materiaService.findAll());
 		model.addAttribute("notasPedido", notasPedido);
 		model.addAttribute("curso", new CursoModel());
 		model.addAttribute("final", new FinalModel());
