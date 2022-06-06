@@ -30,7 +30,12 @@ public class NotaPedidoService implements INotaPedidoService {
 
     @Override
     public boolean insertOrUpdate(NotaPedido notaPedido) {
-        return repository.save(notaPedido) != null ? true : false;
+        try {
+            repository.save(notaPedido);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override
@@ -43,5 +48,4 @@ public class NotaPedidoService implements INotaPedidoService {
             return false;
         }
     }
-    
 }
