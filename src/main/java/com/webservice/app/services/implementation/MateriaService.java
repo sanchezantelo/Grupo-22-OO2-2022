@@ -1,5 +1,7 @@
 package com.webservice.app.services.implementation;
 
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -23,6 +25,10 @@ public class MateriaService implements IMateriaService {
 		Materia materia = materiaRepository.findByIdMateria(idMateria);
 		// Hibernate.initialize(aula.getEdificio());
 		return materia;
+	}
+
+	public List<Materia> findAll() {
+		return materiaRepository.findAll();
 	}
 
 }
