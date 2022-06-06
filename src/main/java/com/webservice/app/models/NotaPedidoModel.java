@@ -16,7 +16,7 @@ import lombok.Data;
 
 @Data @NoArgsConstructor
 public abstract class NotaPedidoModel {
-	protected int id;
+	protected int idNotaPedido;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	protected LocalDate fecha;
 	protected TipoTurnos turno;
@@ -31,7 +31,7 @@ public abstract class NotaPedidoModel {
 	public NotaPedidoModel(int id, LocalDate fecha, TipoTurnos turno, int cantEstudiantes, Set<Usuario> docentes, Materia materia, String observaciones,
 			TipoAula tipoAula, Aula aulaAsignada, Usuario solicitante) {
 		super();
-		this.id = id;
+		this.idNotaPedido = id;
 		this.fecha = fecha;
 		this.turno = turno;
 		this.cantEstudiantes = cantEstudiantes;
