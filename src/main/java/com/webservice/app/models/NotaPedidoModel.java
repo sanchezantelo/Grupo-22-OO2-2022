@@ -7,6 +7,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.webservice.app.entities.Aula;
 import com.webservice.app.entities.Materia;
+import com.webservice.app.entities.TipoAula;
+import com.webservice.app.entities.TipoTurnos;
 import com.webservice.app.entities.Usuario;
 
 import lombok.NoArgsConstructor;
@@ -17,17 +19,17 @@ public abstract class NotaPedidoModel {
 	protected int id;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	protected LocalDate fecha;
-	protected char turno;
+	protected TipoTurnos turno;
 	protected int cantEstudiantes;
 	protected Set<Usuario> docentes;
 	protected Materia materia;
 	protected String observaciones;
-	protected String tipoAula;
+	protected TipoAula tipoAula;
 	protected Aula aulaAsignada;
 	protected Usuario solicitante;
 
-	public NotaPedidoModel(int id, LocalDate fecha, char turno, int cantEstudiantes, Set<Usuario> docentes, Materia materia, String observaciones,
-			String tipoAula, Aula aulaAsignada, Usuario solicitante) {
+	public NotaPedidoModel(int id, LocalDate fecha, TipoTurnos turno, int cantEstudiantes, Set<Usuario> docentes, Materia materia, String observaciones,
+			TipoAula tipoAula, Aula aulaAsignada, Usuario solicitante) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
@@ -41,8 +43,8 @@ public abstract class NotaPedidoModel {
 		this.solicitante = solicitante;
 	}
 
-	public NotaPedidoModel(LocalDate fecha, char turno, int cantEstudiantes, Set<Usuario> docentes, Materia materia, String observaciones,
-			String tipoAula, Aula aulaAsignada, Usuario solicitante) {
+	public NotaPedidoModel(LocalDate fecha, TipoTurnos turno, int cantEstudiantes, Set<Usuario> docentes, Materia materia, String observaciones,
+			TipoAula tipoAula, Aula aulaAsignada, Usuario solicitante) {
 		super();
 		this.fecha = fecha;
 		this.turno = turno;
@@ -55,4 +57,5 @@ public abstract class NotaPedidoModel {
 		this.solicitante = solicitante;
 	}
 
+	public abstract String getNombre();
 }

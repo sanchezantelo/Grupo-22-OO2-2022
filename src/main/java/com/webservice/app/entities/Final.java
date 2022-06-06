@@ -19,7 +19,7 @@ public class Final extends NotaPedido {
 	private static final long serialVersionUID = 1L;
 	
 	@Column(name= "mesa")
-	private int mesa;
+	private String mesa;
 	
 	@Column(name= "fecha_examen")
 	private LocalDate fechaExamen;

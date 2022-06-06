@@ -9,17 +9,17 @@ public class StringHelper {
     }
 
     public static String getTurnoPalabra(char turno) {
-        String turnoPalabra = "";
+        String turno_ = "";
         switch (turno) {
             case 'M':
-                turnoPalabra = "Mañana";
+                turno_ = "Mañana";
             case 'T':
-                turnoPalabra = "Tarde";
+                turno_ = "Tarde";
             case 'N':
-                turnoPalabra = "Noche";
+                turno_ = "Noche";
             default:
-                turnoPalabra = "";
+                turno_ = "";
         }
-        return turnoPalabra;
+        return turno_;
     }
 }

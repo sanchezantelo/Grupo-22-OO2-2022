@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -61,7 +63,8 @@ public abstract class NotaPedido implements Serializable {
 	private String observaciones;
 	
 	@Column(name= "tipo_aula")
-	private String tipoAula;
+	@Enumerated(value = EnumType.STRING)
+	private TipoAula tipoAula;
 	
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name="idAula")
@@ -72,7 +75,7 @@ public abstract class NotaPedido implements Serializable {
 	private Usuario solicitante;
 
 	// Constructor sin id
-	public NotaPedido(LocalDate fecha, char turno, int cantEstudiantes, Usuario docentes, Materia materia, String observaciones, String tipoAula, Aula aulaAsignada, Usuario solicitante) {
+	public NotaPedido(LocalDate fecha, char turno, int cantEstudiantes, Usuario docentes, Materia materia, String observaciones, TipoAula tipoAula, Aula aulaAsignada, Usuario solicitante) {
 		super();
 		this.fecha = fecha;
 		this.turno = turno;

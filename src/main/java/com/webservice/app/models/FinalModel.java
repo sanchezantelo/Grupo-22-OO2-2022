@@ -7,8 +7,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.webservice.app.entities.Aula;
 import com.webservice.app.entities.Materia;
+import com.webservice.app.entities.TipoAula;
+import com.webservice.app.entities.TipoTurnos;
 import com.webservice.app.entities.Usuario;
-import com.webservice.app.helpers.StringHelper;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,12 +17,12 @@ import lombok.NoArgsConstructor;
 
 @Data @NoArgsConstructor @EqualsAndHashCode(callSuper=true)
 public class FinalModel extends NotaPedidoModel {
-	protected int mesa;
+	protected String mesa;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	protected LocalDate fechaExamen;
 
-	public FinalModel(int id, LocalDate fecha, char turno, int cantEstudiantes, Set<Usuario> docentes, Materia materia, String observaciones,
-			String tipoAula, Aula aulaAsignada, Usuario solicitante, int mesa,
+	public FinalModel(int id, LocalDate fecha, TipoTurnos turno, int cantEstudiantes, Set<Usuario> docentes, Materia materia, String observaciones,
+			TipoAula tipoAula, Aula aulaAsignada, Usuario solicitante, String mesa,
 			LocalDate fechaExamen) {
 		super(id, fecha, turno, cantEstudiantes, docentes, materia, observaciones, tipoAula, aulaAsignada, solicitante);
 		this.mesa = mesa;
@@ -29,7 +30,6 @@ public class FinalModel extends NotaPedidoModel {
 	}
 
 	public String getNombre() {
-		String turnoPalabra = StringHelper.getTurnoPalabra(this.turno);
-		return String.format("%d %s %s", this.mesa, this.materia.getMateria(), turnoPalabra);
+		return String.format("%d %s %s", this.mesa, this.materia.getMateria(), this.turno);
 	}
 }

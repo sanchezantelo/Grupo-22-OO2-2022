@@ -1,7 +1,5 @@
 package com.webservice.app.models;
 
-import com.webservice.app.helpers.StringHelper;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -13,7 +11,6 @@ public class CursoModel extends NotaPedidoModel {
 	protected int presencialidad;
 
 	public String getNombre() {
-		String turnoPalabra = StringHelper.getTurnoPalabra(this.turno);
-		return String.format("%s %s Turno %s", this.codigo, this.materia.getMateria(), turnoPalabra);
+		return String.format("%s %s Turno %s", this.codigo, this.materia.getMateria(), this.turno);
 	}
 }
