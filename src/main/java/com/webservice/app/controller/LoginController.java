@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.webservice.app.helpers.ViewRouteHelper;
+import com.webservice.app.models.CursoModel;
+import com.webservice.app.models.FinalModel;
 import com.webservice.app.models.UsuarioModel;
 import com.webservice.app.services.IAulaService;
 import com.webservice.app.services.IEdificioService;
@@ -70,10 +72,10 @@ public class LoginController {
 			redirectAttrs.addFlashAttribute("error", e.getMessage()).addFlashAttribute("clase", "alert alert-danger");
 			return "redirect:/login";
 		}
-
+		
 		return "redirect:/index";
 	}
-
+	
 	@GetMapping("/index")
 	public String index(Model model, HttpSession sesion) {	
 		log.info("/edificio" + edificioService.findAll());
@@ -82,6 +84,8 @@ public class LoginController {
 		model.addAttribute("user",sesion.getAttribute("user"));
 		model.addAttribute("lstEdificios", edificioService.findAll());
 		model.addAttribute("notasPedido", notasPedido);
+		model.addAttribute("curso", new CursoModel());
+		model.addAttribute("final", new FinalModel());
 		return "index";
 	}
 }
