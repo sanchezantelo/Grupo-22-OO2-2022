@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import com.webservice.app.entities.Aula;
 import com.webservice.app.entities.NotaPedido;
+import com.webservice.app.entities.TipoTurnos;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,14 +14,14 @@ public class EspacioModel {
 	
 	private int idEspacio;
 	private LocalDate fecha;
-	private char turno;
+	private TipoTurnos turno;
 	private Aula aula;
 	private boolean libre;
 	private NotaPedido notaPedido;
 	private boolean activo;
 
 	
-	public EspacioModel(int idEspacio, LocalDate fecha, char turno, Aula aula, boolean libre, boolean activo) {
+	public EspacioModel(int idEspacio, LocalDate fecha, TipoTurnos turno, Aula aula, boolean libre, boolean activo) {
 		this.idEspacio = idEspacio;
 		this.fecha = fecha;
 		this.turno = turno;
@@ -29,7 +30,7 @@ public class EspacioModel {
 		this.activo=activo;
 	}
 	
-	public EspacioModel(LocalDate fecha, char turno, Aula aula, boolean libre, boolean activo) {
+	public EspacioModel(LocalDate fecha, TipoTurnos turno, Aula aula, boolean libre, boolean activo) {
 		this.fecha = fecha;
 		this.turno = turno;
 		this.aula = aula;

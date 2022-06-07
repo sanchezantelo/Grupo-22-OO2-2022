@@ -5,8 +5,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.webservice.app.entities.NotaPedido;
 import com.webservice.app.entities.Aula;
+import com.webservice.app.entities.Curso;
 import com.webservice.app.entities.Espacio;
+import com.webservice.app.entities.TipoTurnos;
 
 
 @Service
@@ -16,4 +19,10 @@ public interface IEspacioService {
     public boolean insertarOActualizar(Espacio espacio);  
     public boolean insertarOActualizar(List<Espacio> espacios);
 	public void DesactivarCalendarioAnterior(List<Espacio> espaciosActivos);
+	public List<Aula> traerAulasDisponiblesPorFecha(LocalDate fecha, List<Aula> aulas,TipoTurnos turno) throws Exception;
+	public List<Aula> traerAulasDisponiblesPorFecha(List<Aula> aulas,Curso curso) throws Exception;
+	public List<LocalDate> generarListadoDias(int presencialidad, int diaSolicitado);
+	public void AsignarEspacios(NotaPedido notaPedido, Aula aula);
+	public void ModificarEspacio(Espacio espacio,NotaPedido notaPedido,Aula aula);
+	public List<Espacio> traerEspacios(Curso curso,Aula aula);
 }
