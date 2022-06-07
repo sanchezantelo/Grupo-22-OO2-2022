@@ -179,10 +179,10 @@
 							<td><span th:text="${usuario.rol.rol}"></td>
 							<td><span th:text="${usuario.enabled}"></td>							
 							<td>
-							<a th:if="${user.hasRole('ROL_ADMIN')}" th:href="@{'/admin/usuario/bajaUsuario?id_usuario=' + ${usuario.idUsuario}}" class="btn-danger btn-sm">
+							<a th:if="${user.hasRole('ROL_ADMIN')}" th:href="@{'/admin/usuario/bajaUsuario?id_usuario=' + ${usuario.idUsuario}}" class="btn-danger btn-sm p-2" style="color: #000000">
 							<img th:src="@{'/images/trash.svg'}" th:text="Eliminar"/></td>
 							<td>
-							<a th:if="${user.hasRole('ROL_ADMIN')}" th:href="@{'/admin/usuario/traerUsuario?id_usuario=' + ${usuario.idUsuario}}" class="btn-warning btn-sm">
+							<a th:if="${user.hasRole('ROL_ADMIN')}" th:href="@{'/admin/usuario/traerUsuario?id_usuario=' + ${usuario.idUsuario}}" class="btn-warning btn-sm p-2">
 							<img th:src="@{'/images/pencil-square.svg'}" th:text="Editar"/></td>
 						    <td><input type="hidden" th:value="${usuario.idUsuario}"/></td>
 						    <td><input type="hidden" th:value="${usuario.rol.id}"/></td>
