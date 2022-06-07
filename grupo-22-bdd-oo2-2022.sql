@@ -318,11 +318,11 @@ UNLOCK TABLES;
     `turno` varchar(10) NOT NULL,
     `id_aula` int,
     `id_materia` int NOT NULL,
-    `id_usuario` int NOT NULL,
+    `id_usuario` int,
     PRIMARY KEY (`id_nota_pedido`),
     CONSTRAINT `fk_nota_pedido_1` FOREIGN KEY (`id_aula`) REFERENCES `Aula` (`id_aula`),
-    CONSTRAINT `fk_nota_pedido_2` FOREIGN KEY (`id_materia`) REFERENCES `Materia` (`id_materia`),
-    CONSTRAINT `fk_nota_pedido_3` FOREIGN KEY (`id_usuario`) REFERENCES `Usuario` (`id_usuario`)
+    CONSTRAINT `fk_nota_pedido_2` FOREIGN KEY (`id_materia`) REFERENCES `materia` (`id_materia`),
+    CONSTRAINT `fk_nota_pedido_3` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
   /*!40101 SET character_set_client = @saved_cs_client */;
 
