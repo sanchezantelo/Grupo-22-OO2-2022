@@ -218,6 +218,177 @@ INSERT INTO `Tradicional` VALUES (1,100,'fibron',0),(2,100,'tiza',0),(3,120,'fib
 /*!40000 ALTER TABLE `Tradicional` ENABLE KEYS */;
 UNLOCK TABLES;
 
+--
+-- Table structure for table `departamento`
+-- 
+
+  DROP TABLE IF EXISTS `departamento`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!50503 SET character_set_client = utf8mb4 */;
+  CREATE TABLE `departamento` (
+    `id_departamento` int NOT NULL AUTO_INCREMENT,
+    `departamento` varchar(45) NOT NULL,
+    PRIMARY KEY (`id_departamento`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  /*!40101 SET character_set_client  = @saved_cs_client */;
+
+--
+-- Dumping data for table `departamento`
+--
+
+  LOCK TABLES `departamento` WRITE;
+  /*!40000 ALTER TABLE `departamento` DISABLE KEYS */;
+  INSERT INTO `departamento` VALUES (1, 'Desarrollo de Producción y Tecnología');
+  /*!40000 ALTER TABLE `departamento` ENABLE KEYS */;
+  UNLOCK TABLES;
+
+--
+-- Table structure for table `carrera`
+--
+  
+  DROP TABLE IF EXISTS `carrera`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!50503 SET character_set_client = utf8mb4 */;
+  CREATE TABLE `carrera` (
+    `id_carrera` int NOT NULL AUTO_INCREMENT,
+    `carrera` varchar(75) NOT NULL,
+    `id_departamento` int NOT NULL,
+    PRIMARY KEY (`id_carrera`),
+    KEY `fk_carrera_1_idx` (`id_departamento`),
+    CONSTRAINT `fk_carrera_1` FOREIGN KEY (`id_departamento`) REFERENCES `departamento` (`id_departamento`) 
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  /*!40101 SET character_set_client   = @saved_cs_client */;
+
+--
+-- Dumping data for table `carrera`
+--
+  LOCK TABLES `carrera` WRITE;
+  /*!40000 ALTER TABLE `carrera` DISABLE KEYS */;
+  INSERT INTO `carrera` VALUES (1, 'Licenciatura en Sistemas', 1);
+  /*!40000 ALTER TABLE `carrera` ENABLE KEYS */;
+  UNLOCK TABLES;
+
+--
+-- Table structure for table `materia`
+--
+
+  DROP TABLE IF EXISTS `materia`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!50503 SET character_set_client = utf8mb4 */;
+  CREATE TABLE `materia` (
+    `id_materia` int NOT NULL AUTO_INCREMENT,
+    `codigo` varchar(10) NOT NULL,
+    `materia` varchar(75) NOT NULL,
+    `id_carrera` int NOT NULL,
+    PRIMARY KEY (`id_materia`),
+    KEY `fk_materia_1_idx` (`id_carrera`),
+    CONSTRAINT `fk_materia_1` FOREIGN KEY (`id_carrera`) REFERENCES `carrera` (`id_carrera`) 
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  /*!40101 SET character_set_client   = @saved_cs_client */;
+
+--
+-- Dumping data for table `materia`
+--
+  LOCK TABLES `materia` WRITE;
+  /*!40000 ALTER TABLE `materia` DISABLE KEYS */;
+  INSERT INTO `materia` VALUES 
+    (1, '8616', 'Orientación a Objetos II', 1),
+    (2, '8609', 'Algoritmos y Estructuras de Datos', 1),
+    (3, '8614', 'Programación Concurrente', 1),
+    (4, '8613', 'Matemática III', 1),
+    (5, '8604', 'Matemática II', 1),
+    (6, '8603', 'Matemática I', 1),
+    (7, '8612', 'Introducción a los Sistemas Operativos', 1);
+  /*!40000 ALTER TABLE `materia` ENABLE KEYS */;
+  UNLOCK TABLES;
+
+--
+-- Table structure for table `nota_pedido`
+-- 
+
+  DROP TABLE IF EXISTS `nota_pedido`;
+  /*!40101 SET @saved_cs_client     = @@character_set_client */;
+  /*!50503 SET character_set_client = utf8mb4 */;
+  CREATE TABLE `nota_pedido` (
+    `id_nota_pedido` int NOT NULL AUTO_INCREMENT,
+    `cantidad_estudiantes` int NOT NULL,
+    `fecha` date NOT NULL,
+    `observaciones` varchar(100),
+    `tipo_aula` varchar(20) NOT NULL,
+    `turno` varchar(10) NOT NULL,
+    `id_aula` int,
+    `id_materia` int NOT NULL,
+    `id_usuario` int,
+    PRIMARY KEY (`id_nota_pedido`),
+    CONSTRAINT `fk_nota_pedido_1` FOREIGN KEY (`id_aula`) REFERENCES `Aula` (`id_aula`),
+    CONSTRAINT `fk_nota_pedido_2` FOREIGN KEY (`id_materia`) REFERENCES `materia` (`id_materia`),
+    CONSTRAINT `fk_nota_pedido_3` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  /*!40101 SET character_set_client = @saved_cs_client */;
+
+  --
+  -- Dumping data for table `nota_pedido`
+  --
+
+  LOCK TABLES `nota_pedido` WRITE;
+  /*!40000 ALTER TABLE `nota_pedido` DISABLE KEYS */;
+  INSERT INTO `nota_pedido` VALUES 
+    (1, 55, '2022-05-06', 'Ninguna observación', 'Laboratorio', 'Tarde', 1, 1, 1),(2, 132, '2022-11-06', 'Ninguna observación', 'Tradicional', 'Mañana', 2, 1, 1);
+  /*!40000 ALTER TABLE `nota_pedido` ENABLE KEYS */;
+  UNLOCK TABLES;
+
+  --
+  -- Table structure for table `curso`
+  --
+
+  DROP TABLE IF EXISTS `curso`;
+  /*!40101 SET @scedule_client     = @@character_set_client */;
+  /*!50503 SET character_set_client = utf8mb4 */;
+  CREATE TABLE `curso` (
+    `id_curso` int NOT NULL,
+    `codigo` varchar(10) NOT NULL,
+    `dia_semana` int NOT NULL,
+    `presencialidad` int NOT NULL,
+    PRIMARY KEY (`id_curso`),
+    CONSTRAINT `fk_curso_1` FOREIGN KEY (`id_curso`) REFERENCES `nota_pedido` (`id_nota_pedido`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  /*!40101 SET character_set_client = @scedule_client */;
+
+  --
+  -- Dumping data for table `curso`
+  --
+
+  LOCK TABLES `curso` WRITE;
+  /*!40000 ALTER TABLE `curso` DISABLE KEYS */;
+  INSERT INTO `curso` VALUES (1, '8616-1', 3, 25);
+  /*!40000 ALTER TABLE `curso` ENABLE KEYS */;
+  UNLOCK TABLES;
+
+  --
+  -- Table structure for table `final`
+  --
+
+  DROP TABLE IF EXISTS `final`;
+  /*!40101 SET @scedule_client     = @@character_set_client */;
+  /*!50503 SET character_set_client = utf8mb4 */;
+  CREATE TABLE `final` (
+    `id_final` int NOT NULL,
+    `fecha_examen` date NOT NULL,
+    `mesa` varchar(25) NOT NULL,
+    PRIMARY KEY (`id_final`),
+    CONSTRAINT `fk_final_1` FOREIGN KEY (`id_final`) REFERENCES `nota_pedido` (`id_nota_pedido`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  /*!40101 SET character_set_client = @scedule_client */;
+
+  --
+  -- Dumping data for table `final`
+  --
+
+  LOCK TABLES `final` WRITE;
+  /*!40000 ALTER TABLE `final` DISABLE KEYS */;
+  INSERT INTO `final` VALUES (2, '2022-11-06', 'MESIST-8616-1');
+  UNLOCK TABLES;
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

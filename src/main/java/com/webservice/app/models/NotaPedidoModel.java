@@ -1,7 +1,6 @@
 package com.webservice.app.models;
 
 import java.time.LocalDate;
-import java.util.Set;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -21,21 +20,19 @@ public abstract class NotaPedidoModel {
 	protected LocalDate fecha;
 	protected TipoTurnos turno;
 	protected int cantEstudiantes;
-	protected Set<Usuario> docentes;
 	protected Materia materia;
 	protected String observaciones;
 	protected TipoAula tipoAula;
 	protected Aula aulaAsignada;
 	protected Usuario solicitante;
 
-	public NotaPedidoModel(int id, LocalDate fecha, TipoTurnos turno, int cantEstudiantes, Set<Usuario> docentes, Materia materia, String observaciones,
+	public NotaPedidoModel(int id, LocalDate fecha, TipoTurnos turno, int cantEstudiantes, Materia materia, String observaciones,
 			TipoAula tipoAula, Aula aulaAsignada, Usuario solicitante) {
 		super();
 		this.idNotaPedido = id;
 		this.fecha = fecha;
 		this.turno = turno;
 		this.cantEstudiantes = cantEstudiantes;
-		this.docentes = docentes;
 		this.materia = materia;
 		this.observaciones = observaciones;
 		this.tipoAula = tipoAula;
@@ -43,13 +40,12 @@ public abstract class NotaPedidoModel {
 		this.solicitante = solicitante;
 	}
 
-	public NotaPedidoModel(LocalDate fecha, TipoTurnos turno, int cantEstudiantes, Set<Usuario> docentes, Materia materia, String observaciones,
+	public NotaPedidoModel(LocalDate fecha, TipoTurnos turno, int cantEstudiantes, Materia materia, String observaciones,
 			TipoAula tipoAula, Aula aulaAsignada, Usuario solicitante) {
 		super();
 		this.fecha = fecha;
 		this.turno = turno;
 		this.cantEstudiantes = cantEstudiantes;
-		this.docentes = docentes;
 		this.materia = materia;
 		this.observaciones = observaciones;
 		this.tipoAula = tipoAula;

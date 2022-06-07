@@ -1,7 +1,6 @@
 package com.webservice.app.models;
 
 import java.time.LocalDate;
-import java.util.Set;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -21,10 +20,10 @@ public class FinalModel extends NotaPedidoModel {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	protected LocalDate fechaExamen;
 
-	public FinalModel(int id, LocalDate fecha, TipoTurnos turno, int cantEstudiantes, Set<Usuario> docentes, Materia materia, String observaciones,
+	public FinalModel(int id, LocalDate fecha, TipoTurnos turno, int cantEstudiantes, Materia materia, String observaciones,
 			TipoAula tipoAula, Aula aulaAsignada, Usuario solicitante, String mesa,
 			LocalDate fechaExamen) {
-		super(id, fecha, turno, cantEstudiantes, docentes, materia, observaciones, tipoAula, aulaAsignada, solicitante);
+		super(id, fecha, turno, cantEstudiantes, materia, observaciones, tipoAula, aulaAsignada, solicitante);
 		this.mesa = mesa;
 		this.fechaExamen = fechaExamen;
 	}

@@ -18,7 +18,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -38,22 +37,16 @@ public abstract class NotaPedido implements Serializable {
 	private int idNotaPedido;
 	
 	@NotNull
-	@NotEmpty
 	@DateTimeFormat(pattern= "yyyy-MM-dd")
 	@Column(name= "fecha")
 	private LocalDate fecha;
 
 	@Column(name= "turno")
-	@NotEmpty()
-	private char turno;
+	@Enumerated(value = EnumType.STRING)
+	private TipoTurnos turno;
 	
 	@Column(name= "cantidad_estudiantes")
-	@NotEmpty()
 	private int cantEstudiantes;
-	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "idUsuario", insertable = false, updatable = false)
-	private Usuario docentes;
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.PERSIST)
 	@JoinColumn(name= "idMateria")
@@ -75,12 +68,11 @@ public abstract class NotaPedido implements Serializable {
 	private Usuario solicitante;
 
 	// Constructor sin id
-	public NotaPedido(LocalDate fecha, char turno, int cantEstudiantes, Usuario docentes, Materia materia, String observaciones, TipoAula tipoAula, Aula aulaAsignada, Usuario solicitante) {
+	public NotaPedido(LocalDate fecha, TipoTurnos turno, int cantEstudiantes, Materia materia, String observaciones, TipoAula tipoAula, Aula aulaAsignada, Usuario solicitante) {
 		super();
 		this.fecha = fecha;
 		this.turno = turno;
 		this.cantEstudiantes = cantEstudiantes;
-		this.docentes = docentes;
 		this.materia = materia;
 		this.observaciones = observaciones;
 		this.tipoAula = tipoAula;
