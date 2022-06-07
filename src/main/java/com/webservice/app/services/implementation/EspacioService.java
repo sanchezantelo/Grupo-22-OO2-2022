@@ -18,6 +18,7 @@ import com.webservice.app.entities.Aula;
 import com.webservice.app.entities.Espacio;
 import com.webservice.app.entities.TipoTurnos;
 import com.webservice.app.helpers.Funciones;
+import com.webservice.app.models.NotaPedidoModel;
 import com.webservice.app.repositories.IEspacioRepository;
 import com.webservice.app.services.IAulaService;
 import com.webservice.app.services.IEspacioService;

@@ -13,7 +13,7 @@ import com.webservice.app.entities.Laboratorio;
 @Repository("laboratorioRepository")
 public interface ILaboratorioRepository extends JpaRepository<Laboratorio, Serializable>{
 
-	@Query("SELECT l FROM Laboratorio l WHERE l.cantSillas>=cantEstudiantes")
+	@Query("SELECT l FROM Laboratorio l WHERE l.cantSillas>=cantSillas")
 	public abstract List<Laboratorio> traerAulasPorAlumnos(int cantSillas);
 
 }
