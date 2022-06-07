@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.webservice.app.entities.Aula;
 import com.webservice.app.entities.Espacio;
+import com.webservice.app.entities.TipoTurnos;
 import com.webservice.app.helpers.Funciones;
 import com.webservice.app.repositories.IEspacioRepository;
 import com.webservice.app.services.IAulaService;
@@ -42,9 +43,7 @@ public class EspacioService implements IEspacioService{
 	
 	public void agregarEspacios(LocalDate desde,LocalDate hasta) throws Exception{
 		
-		
-		char[] turnos ={ 'M', 'T', 'N'};
-		
+			
 		List<Aula> aulas = aulaService.traerAulas();
 		
 		List<Espacio> espacios = new ArrayList<>();
@@ -58,8 +57,8 @@ public class EspacioService implements IEspacioService{
 		while(desde.isBefore(hasta) || desde.isEqual(hasta) ) {
 		
 			for(Aula aula:aulas) {
-				for(char turno:turnos) {
-					if(Funciones.esDiaHabil(desde)) {
+				for(TipoTurnos turno:TipoTurnos.values()) {
+					if(Funciones.esDiaHabil(desde) || Funciones.esSabado(desde)) {
 						
 						if(espacioRepository.findByFechaAndTurnoAndAula(desde, turno,aula)!=null) throw new Exception("Ya existe el espacio con fecha "+desde+", turno "+turno+" para el aula "+aula.getNumero()+" del edificio "+aula.getEdificio().getEdificio());
 						Espacio espacio = new Espacio(desde, turno, aula, true,true);

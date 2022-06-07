@@ -48,6 +48,12 @@ public static boolean esBisiesto(int anio) {
 	
 	}
 	
+	public static boolean esSabado(LocalDate fecha) {
+
+			return fecha.getDayOfWeek().getValue()==6;
+	
+	}
+	
 	public static String traerDiaDeLaSemana(LocalDate fecha) {
 		
 		String diaSemana="";

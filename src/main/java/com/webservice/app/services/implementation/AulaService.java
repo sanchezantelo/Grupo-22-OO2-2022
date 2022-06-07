@@ -9,7 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-
+import com.webservice.app.entities.Laboratorio;
+import com.webservice.app.entities.Tradicional;
 import com.webservice.app.entities.Aula;
 import com.webservice.app.repositories.IAulaRepository;
 import com.webservice.app.repositories.ILaboratorioRepository;
@@ -43,5 +44,19 @@ public class AulaService implements IAulaService {
 		return aula;
 	}
 	
+	public List<Aula> traerAulas(int cantEstudiantes,String tipo){
+		
+		List<Aula> aulas = new ArrayList<Aula>();
+		if (tipo.equals("Tradicional")) {			
+			List<Tradicional> tradicionales = tradicionalRepository.traerAulasPorAlumnos(cantEstudiantes);
+			aulas.addAll(tradicionales);
+		}else {
+			List<Laboratorio> laboratorios =  laboratorioRepository.traerAulasPorAlumnos(cantEstudiantes);
+			aulas.addAll(laboratorios);
+		}
+		
+		return aulas;
+		
+	}
 	
 }

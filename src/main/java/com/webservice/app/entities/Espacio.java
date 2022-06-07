@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,9 +34,9 @@ public class Espacio {
 	@NotNull
 	private LocalDate fecha;
 	
-	@Column(name="turno")
-	@NotNull
-	private char turno;
+	@Column(name= "turno")
+	@Enumerated(value = EnumType.STRING)
+	private TipoTurnos turno;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idAula")
@@ -53,7 +55,7 @@ public class Espacio {
 	private boolean activo;
 
 	
-	public Espacio(int idEspacio,LocalDate fecha, char turno, Aula aula, boolean libre,boolean activo ) {
+	public Espacio(int idEspacio,LocalDate fecha, TipoTurnos turno, Aula aula, boolean libre,boolean activo ) {
 		this.idEspacio=idEspacio;
 		this.fecha = fecha;
 		this.turno = turno;
@@ -62,7 +64,7 @@ public class Espacio {
 		this.activo=activo;
 	}
 	
-	public Espacio(LocalDate fecha, char turno, Aula aula, boolean libre,boolean activo ) {
+	public Espacio(LocalDate fecha, TipoTurnos turno, Aula aula, boolean libre,boolean activo ) {
 		this.fecha = fecha;
 		this.turno = turno;
 		this.aula = aula;

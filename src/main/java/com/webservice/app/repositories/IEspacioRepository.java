@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.webservice.app.entities.Aula;
 import com.webservice.app.entities.Espacio;
+import com.webservice.app.entities.TipoTurnos;
 
 
 @Repository("espacioRepository")
@@ -19,5 +20,5 @@ public interface IEspacioRepository extends JpaRepository<Espacio, Serializable>
 	public abstract List<Espacio> findByAulaAndActivo(Aula aula,boolean activo);
 	@Query("SELECT e FROM Espacio e WHERE e.activo=1")
 	public abstract List<Espacio> traerEspaciosActivos();
-	public abstract Espacio findByFechaAndTurnoAndAula(LocalDate fecha, char turno, Aula aula);
+	public abstract Espacio findByFechaAndTurnoAndAula(LocalDate fecha, TipoTurnos turno, Aula aula);
 }
