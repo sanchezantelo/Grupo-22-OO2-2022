@@ -187,7 +187,7 @@
                                 <label for="turnoC" class="col-form-label">Turno</label>
                                 <select class="form-select" id="turnoC" aria-label="Turno" th:field="*{turno}" required>
                   <option value="-1" selected>Seleccione un turno...</option>
-                  <option th:each="turno : ${T(com.webservice.app.entities.TipoTurnos).values()}" th:value="${turno}" th:text="${turno}"></option>
+                  <option th:each="turno : ${T (com.webservice.app.entities.TipoTurnos).values()}" th:value="${turno}" th:text="${turno}"></option>
                 </select>
                             </div>
                             <div class="form-group">
@@ -223,7 +223,7 @@
                                 <label for="tipoAula" class="col-form-label">Tipo de Aula</label>
                                 <select class="form-select form-control" id="tipoAula" aria-label="Tipo de Aula" th:field="*{tipoAula}" required>
                 <option value="-1" selected>Seleccione un tipo de aula...</option>
-                <option th:each="tipoAula : ${T(com.webservice.app.entities.TipoAula).values()}" th:value="${tipoAula}" th:text="${tipoAula}"></option>
+                <option th:each="tipoAula : ${T (com.webservice.app.entities.TipoAula).values()}" th:value="${tipoAula}" th:text="${tipoAula}"></option>
               </select>
                             </div>
                             <div class="modal-footer mt-lg-2 ">
@@ -255,6 +255,7 @@
                             <div class="form-group">
                                 <label for="materia" class="col-form-label">Materia</label>
                                 <select class="form-select" id="materia" aria-label="Materia" th:field="*{materia.idMateria}" required>
+                                <option value="-1" selected>Seleccione una materia</option>
                                 <option th:each="m : ${lstMaterias}" th:value="${m.idMateria}" th:text="${m.codigo + ' - ' + m.materia}"></option>
                             </select>
                             </div>
@@ -262,7 +263,7 @@
                                 <label for="nombre " class="col-form-label ">Turno</label>
                                   <select class="form-select" id="turno" aria-label="Turno" th:field="*{turno}" required>
 				                  <option value="" selected>Seleccione un turno...</option>
-				                  <option th:each="turno : ${T(com.webservice.app.entities.TipoTurnos).values()}" th:value="${turno}" th:text="${turno}"></option>
+				                  <option th:each="turno : ${T (com.webservice.app.entities.TipoTurnos).values()}" th:value="${turno}" th:text="${turno}"></option>
 				                </select>
                             </div>
                             <div class="form-group ">
@@ -276,6 +277,13 @@
                                                         <div class="form-group ">
                                 <label for="mesa" class="col-form-label ">Mesa:</label>
                                 <input type="text" class="form-control" id="mesa" th:field="*{mesa}" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="tipoAulaF" class="col-form-label">Tipo de Aula</label>
+                                <select class="form-select form-control" id="tipoAulaF" aria-label="Tipo de Aula" th:field="*{tipoAula}" required>
+                <option value="-1" selected>Seleccione un tipo de aula...</option>
+                <option th:each="tipoAula : ${T (com.webservice.app.entities.TipoAula).values()}" th:value="${tipoAula}" th:text="${tipoAula}"></option>
+              </select>
                             </div>
                             <div class="modal-footer mt-lg-2 ">
                                 <button type="button" class="btn btn-secondary " data-bs-dismiss="modal">
