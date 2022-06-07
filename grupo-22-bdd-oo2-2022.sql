@@ -174,8 +174,8 @@ DROP TABLE IF EXISTS `Laboratorio`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Laboratorio` (
   `id_laboratorio` int NOT NULL,
-  `cantSillas` int NOT NULL,
-  `cantPC` int NOT NULL,
+  `cant_sillas` int NOT NULL,
+  `cant_pc` int NOT NULL,
   PRIMARY KEY (`id_laboratorio`),
   CONSTRAINT `fk_Laboratorio_1` FOREIGN KEY (`id_laboratorio`) REFERENCES `Aula` (`id_aula`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -200,9 +200,9 @@ DROP TABLE IF EXISTS `Tradicional`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Tradicional` (
   `id_tradicional` int NOT NULL,
-  `cantBancos` int NOT NULL,
+  `cant_bancos` int NOT NULL,
   `pizarron` varchar(10) NOT NULL,
-  `tieneProyector` tinyint NOT NULL,
+  `tiene_proyector` tinyint NOT NULL,
   PRIMARY KEY (`id_tradicional`),
   CONSTRAINT `fk_Tradicional_1` FOREIGN KEY (`id_tradicional`) REFERENCES `Aula` (`id_aula`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
