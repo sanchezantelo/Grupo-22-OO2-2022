@@ -90,8 +90,6 @@ public class LoginController {
 		model.addAttribute("lstEdificios", edificioService.findAll());
 		model.addAttribute("lstMaterias", materiaService.findAll());
 		model.addAttribute("notasPedido", notasPedido);
-		model.addAttribute("curso", new CursoModel());
-		model.addAttribute("final", new FinalModel());
 		return "index";
 	}
 }

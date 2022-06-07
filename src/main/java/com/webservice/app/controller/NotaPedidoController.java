@@ -2,6 +2,7 @@ package com.webservice.app.controller;
 
 import com.webservice.app.entities.Curso;
 import com.webservice.app.entities.Final;
+import com.webservice.app.entities.NotaPedido;
 import com.webservice.app.models.CursoModel;
 import com.webservice.app.models.FinalModel;
 import com.webservice.app.models.UsuarioModel;
@@ -10,7 +11,7 @@ import com.webservice.app.services.IMateriaService;
 import com.webservice.app.services.INotaPedidoService;
 import com.webservice.app.services.IUsuarioService;
 
-import lombok.var;
+// import lombok.var;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
@@ -54,6 +55,18 @@ public class NotaPedidoController {
 
 	private ModelMapper modelMapper = new ModelMapper();
 
+    @GetMapping("/nuevoCurso")
+    public String nuevoCurso(Model model, RedirectAttributes redirAttr) {
+        redirAttr.addFlashAttribute("curso", new CursoModel());
+        return "redirect:/index";
+    }
+
+    @GetMapping("/nuevoFinal")
+    public String nuevoFinal(Model model, RedirectAttributes redirAttr) {
+        redirAttr.addFlashAttribute("final", new FinalModel());
+        return "redirect:/index";
+    }
+
     @PostMapping("/crearFinal")
     public String crearFinal(@Valid @ModelAttribute("final") FinalModel finalModel,RedirectAttributes redirAttr, HttpSession sesion) {
         log.info("/crearFinal" + finalModel);
@@ -95,53 +108,71 @@ public class NotaPedidoController {
         return "redirect:/index";
     }
 
-    @GetMapping("/{id}")
-    public String get(Model model, @PathVariable("id") int id) {
-        var notaPedido = notaPedidoService.findById(id);
-        if(notaPedido instanceof Final) {
-            model.addAttribute("final", notaPedido);
-            return "redirect:/index";
-        } else {
-            model.addAttribute("curso", notaPedido);
-            return "redirect:/index";
-        }
+    @GetMapping("{id}")
+    public String get(Model model, @PathVariable("id") int idNotaPedido, RedirectAttributes redirAttr) {
+        log.info("/{id}" + idNotaPedido);
+        NotaPedido notaPedido = notaPedidoService.findById(idNotaPedido);
+        model.addAttribute("editar", true);
+        redirAttr.addFlashAttribute("notaPedidoReq", notaPedido).addFlashAttribute("clase", "alert alert-success");
+        return "redirect:/index";
     }
 
     @PostMapping("/updateFinal")
-    public String updateFinal(@Valid @ModelAttribute("final") FinalModel finalModel) {
-        Final final_ = modelMapper.map(finalModel, Final.class);
-        if(final_.getIdNotaPedido() > 0) {
-            Final finalViejo = (Final) notaPedidoService.findById(final_.getIdNotaPedido());
-            final_.setSolicitante(finalViejo.getSolicitante());
-            final_.setFecha(finalViejo.getFecha());
-            final_.setMesa(finalViejo.getMesa());
+    public String updateFinal(@Valid @ModelAttribute("notaPedidoReq") FinalModel finalModel, RedirectAttributes redirAttr) {
+        log.info("/updateFinal" + finalModel);
+        try {
+            Final final_ = modelMapper.map(finalModel, Final.class);
+            if(final_.getIdNotaPedido() > 0) {
+                Final finalViejo = (Final) notaPedidoService.findById(final_.getIdNotaPedido());
+                final_.setSolicitante(finalViejo.getSolicitante());
+                final_.setFecha(finalViejo.getFecha());
+                final_.setMesa(finalViejo.getMesa());
+                notaPedidoService.insertOrUpdate(final_);
+                redirAttr.addFlashAttribute("mensaje", "Final modificado correctamente")
+                    .addFlashAttribute("clase", "alert alert-success");
+            }
+        } catch (Exception e) {
+            log.error("Error al modificar final: " + e.getMessage());
+            redirAttr.addFlashAttribute("mensaje", "Error al modificar final")
+                .addFlashAttribute("error", e.getMessage()).addAttribute("clase", "alert alert-danger");
         }
-        notaPedidoService.insertOrUpdate(final_);
         return "redirect:/index";
     }
 
     @PostMapping("/updateCurso")
-    public String updateCurso(@Valid @ModelAttribute("curso") CursoModel cursoModel) {
-        Curso curso = modelMapper.map(cursoModel, Curso.class);
-        if(curso.getIdNotaPedido() > 0) {
-            Curso cursoViejo = (Curso) notaPedidoService.findById(curso.getIdNotaPedido());
-            curso.setSolicitante(cursoViejo.getSolicitante());
-            curso.setFecha(cursoViejo.getFecha());
-            curso.setCodigo(cursoViejo.getCodigo());
+    public String updateCurso(@Valid @ModelAttribute("notaPedidoReq") CursoModel cursoModel, RedirectAttributes redirAttr) {
+        log.info("/updateCurso" + cursoModel);
+        try {
+            Curso curso = modelMapper.map(cursoModel, Curso.class);
+            if(curso.getIdNotaPedido() > 0) {
+                Curso cursoViejo = (Curso) notaPedidoService.findById(curso.getIdNotaPedido());
+                curso.setSolicitante(cursoViejo.getSolicitante());
+                curso.setFecha(cursoViejo.getFecha());
+                curso.setCodigo(cursoViejo.getCodigo());
+            }
+            notaPedidoService.insertOrUpdate(curso);
+            redirAttr.addFlashAttribute("mensaje", "Curso modificado correctamente")
+                .addFlashAttribute("clase", "alert alert-success");
+        } catch (Exception e) {
+            log.error("Error al modificar curso: " + e.getMessage());
+            redirAttr.addFlashAttribute("mensaje", "Error al modificar curso")
+                .addFlashAttribute("error", e.getMessage()).addAttribute("clase", "alert alert-danger");
         }
-        notaPedidoService.insertOrUpdate(curso);
         return "redirect:/index";
     }
 
-    @PostMapping("/eliminarFinal/{id}")
-    public String eliminarFinal(@PathVariable("id") int id) {
-        notaPedidoService.remove(id);
-        return "redirect:/index";
-    }
-
-    @PostMapping("/eliminarCurso/{id}")
-    public String eliminarCurso(@PathVariable("id") int id) {
-        notaPedidoService.remove(id);
+    @GetMapping("/eliminarNotaPedido/{id}")
+    public String eliminarNotaPedido(@PathVariable("id") int id, RedirectAttributes redirAttr) {
+        log.info("/eliminarNotaPedido" + id);
+        try {            
+            notaPedidoService.remove(id);
+            redirAttr.addFlashAttribute("mensaje", "Pedido eliminado correctamente")
+                .addFlashAttribute("clase", "alert alert-success");
+        } catch(Exception e) {
+            log.error("Error al eliminar pedido: " + e.getMessage());
+            redirAttr.addFlashAttribute("mensaje", "Error al eliminar pedido")
+                .addFlashAttribute("error", e.getMessage()).addAttribute("clase", "alert alert-danger");
+        }
         return "redirect:/index";
     }
 
