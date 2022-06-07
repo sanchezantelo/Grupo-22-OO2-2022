@@ -2,7 +2,6 @@ package com.webservice.app.controller;
 
 import com.webservice.app.entities.Curso;
 import com.webservice.app.entities.Final;
-import com.webservice.app.entities.Usuario;
 import com.webservice.app.models.CursoModel;
 import com.webservice.app.models.FinalModel;
 import com.webservice.app.models.UsuarioModel;
