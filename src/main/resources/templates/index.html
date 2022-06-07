@@ -480,8 +480,56 @@
 		                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
 		                  Cancelar
 		                </button>
-		                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+		                 <a th:href="@{'espacio/buscarAula/notapedido=1'}" class="btn btn-secondary">
 		                  Asignar
+		                </a>		               
+		            </div>
+	        	</div>
+
+       		</div>
+          </div>
+        </div>
+               <!-- Modal Aulas Disponibles por Nota Pedido -->
+      <div
+        class="modal fade"
+        id="modalAulasXNota"
+        tabindex="-1"
+        aria-hidden="true" 
+
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+	           	<div class="modal-header">
+	              <h5 class="modal-title">
+	                  <i class="bi bi-calendar3 p-lg-1"></i>Aulas disponibles</span> 
+	                            </h5>
+	                            <button type="button" class="btn btn-close btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
+	        	</div>
+      			<div class="modal-body">
+      			
+      					<div th:if="${notapedido instanceof T(com.webservice.app.entities.Final)}" th:object="${notapedido}">
+							<p>dia:<span th:text="${notapedido.fechaExamen}"></span></p>
+							<p>turno:<span th:text="${notapedido.turno}"></span></p>
+							<p>tipo de aula:<span th:text="${notapedido.tipoAula}"></span></p>
+						
+						</div>
+						
+						<div th:if="${notapedido instanceof T(com.webservice.app.entities.Curso)}" th:object="${notapedido}">
+						Aulas disponible para
+						<p>dia de semana: <span th:text="${notapedido.diaSemana}"></span></p>
+						<p>presencialidad: <span th:text="${notapedido.presencialidad}"></span></p>
+						<p>tipo de aula: <span th:text="${notapedido.tipoAula}"></span></p>
+						
+						
+						</div>
+			<ul>
+			<li th:each="aula : ${aulasNota}"><strong>Aula: </strong><span th:text="${aula.numero}"></span><strong> Edificio: </strong><span th:text="${aula.edificio.edificio}"></span><span ><a th:href="@{/espacio/asignar/notapedido={idNotaPedido}/aula={idAula}(idNotaPedido=${notapedido.idNotaPedido},idAula=${aula.idAula})}">Asignar</a></span></li>
+			<span  ></span>
+			</ul>
+
+		            <div class="modal-footer  mt-5">
+		                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+		                  Cancelar
 		                </button>		               
 		            </div>
 	        	</div>
@@ -510,6 +558,11 @@
     <script type="text/javascript" th:if="${modalGeneradorEspacios}">
         $(window).on('load', function() {
             $('#modalAddEspacios').modal('show');
+        });
+    </script>
+        <script type="text/javascript" th:if="${aulasNota}">
+        $(window).on('load', function() {
+            $('#modalAulasXNota').modal('show');
         });
     </script>
 

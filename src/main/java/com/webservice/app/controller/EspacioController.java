@@ -82,7 +82,7 @@ public class EspacioController {
  		if (notaPedido instanceof Final) { 
 			Final notafinal = (Final) notaPedido;	
 			try {
-				model.addAttribute("aulas",espacioService.traerAulasDisponiblesPorFecha(notafinal.getFechaExamen(),aulas,notafinal.getTurno()));
+				redirectAttrs.addFlashAttribute("aulasNota",espacioService.traerAulasDisponiblesPorFecha(notafinal.getFechaExamen(),aulas,notafinal.getTurno()));
 			
 			}catch(Exception e) {
 				redirectAttrs.addFlashAttribute("error", e.getMessage()).addFlashAttribute("clase", "alert alert-danger");
@@ -91,23 +91,19 @@ public class EspacioController {
 			
 			Curso curso=(Curso) notaPedido;
 			try {
-				model.addAttribute("aulas",espacioService.traerAulasDisponiblesPorFecha(aulas,curso));
+		 		redirectAttrs.addFlashAttribute("aulasNota",espacioService.traerAulasDisponiblesPorFecha(aulas,curso));
 			
 			}catch(Exception e) {
 				redirectAttrs.addFlashAttribute("error", e.getMessage()).addFlashAttribute("clase", "alert alert-danger");
-				//return new RedirectView("../../notaPedido");
-				
+		
 			}
 		}
-		
-		
-		model.addAttribute("notapedido",notaPedido);
-		return ("espacio/buscados");
-
+ 		redirectAttrs.addFlashAttribute("notapedido",notaPedido);
+		return "redirect:/index";
 	}
 	
 	@GetMapping("/asignar/notapedido={idNotaPedido}/aula={idAula}")
-	public RedirectView asignarAula(@PathVariable("idNotaPedido") int idNotaPedido,@PathVariable("idAula") int idAula, Model model) {
+	public String asignarAula(@PathVariable("idNotaPedido") int idNotaPedido,@PathVariable("idAula") int idAula, RedirectAttributes redirectAttrs) {
 		
 		NotaPedido notaPedido = notaPedidoService.findById(idNotaPedido);
 		
@@ -115,7 +111,8 @@ public class EspacioController {
 		
 		espacioService.AsignarEspacios(notaPedido, aula);
 		
-		return new RedirectView("../../../notaPedido");
+		redirectAttrs.addFlashAttribute("success", "Se asigno el aula para la nota pedido").addFlashAttribute("clase", "alert alert-danger");
+		return "redirect:/index";
 		
 	}
 

@@ -55,7 +55,9 @@ public class AulaService implements IAulaService {
 			List<Laboratorio> laboratorios =  laboratorioRepository.traerAulasPorAlumnos(cantEstudiantes);
 			aulas.addAll(laboratorios);
 		}
-		
+		for(Aula aula:aulas) {
+			Hibernate.initialize(aula.getEdificio());
+		}
 		return aulas;
 		
 	}
