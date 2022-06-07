@@ -38,17 +38,14 @@ public abstract class NotaPedido implements Serializable {
 	private int idNotaPedido;
 	
 	@NotNull
-	@NotEmpty
 	@DateTimeFormat(pattern= "yyyy-MM-dd")
 	@Column(name= "fecha")
 	private LocalDate fecha;
 
 	@Column(name= "turno")
-	@NotEmpty()
 	private char turno;
 	
 	@Column(name= "cantidad_estudiantes")
-	@NotEmpty()
 	private int cantEstudiantes;
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

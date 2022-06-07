@@ -5,6 +5,7 @@ import com.webservice.app.entities.Final;
 import com.webservice.app.entities.Usuario;
 import com.webservice.app.models.CursoModel;
 import com.webservice.app.models.FinalModel;
+import com.webservice.app.models.UsuarioModel;
 import com.webservice.app.services.IAulaService;
 import com.webservice.app.services.IMateriaService;
 import com.webservice.app.services.INotaPedidoService;
@@ -31,7 +32,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@Controller("notaPedido")
+@Controller
 @Slf4j // Logger
 @RequestMapping("/notaPedido")
 @Validated
@@ -55,25 +56,36 @@ public class NotaPedidoController {
 	private ModelMapper modelMapper = new ModelMapper();
 
     @PostMapping("/crearFinal")
-    public String crearFinal(@Valid @ModelAttribute("final") FinalModel finalModel, HttpSession sesion) {
-        Usuario user = (Usuario) sesion.getAttribute("user");
-        Final final_ = modelMapper.map(finalModel, Final.class);
-        final_.setSolicitante(user);
-        final_.setFecha(LocalDate.now());
-        final_.setMesa("MESIST-"+final_.getMateria().getCodigo()+"-T"+final_.getTurno());
-        notaPedidoService.insertOrUpdate(final_);
+    public String crearFinal(@Valid @ModelAttribute("final") FinalModel finalModel,RedirectAttributes redirAttr, HttpSession sesion) {
+        log.info("/crearFinal" + finalModel);
+    	UsuarioModel user = (UsuarioModel) sesion.getAttribute("user");
+    	try {
+	    	Final final_ = modelMapper.map(finalModel, Final.class);
+	        final_.setSolicitante(usuarioService.findById(user.getIdUsuario()));
+	        final_.setFecha(LocalDate.now());
+	        final_.setMesa("MESIST-"+String.valueOf(materiaService.traerMateria(final_.getMateria().getIdMateria()).getCodigo())+"-T"+final_.getTurno());
+	        final_.setMateria(materiaService.traerMateria(final_.getMateria().getIdMateria()));
+	        notaPedidoService.insertOrUpdate(final_);
+            redirAttr.addFlashAttribute("success", "Final creado correctamente");
+        } catch (Exception e) {
+            log.error("Error al crear final: " + e.getMessage());
+            redirAttr.addFlashAttribute("modalCursada", true);
+            redirAttr.addFlashAttribute("error", "Error al crear final");
+        }
         return "redirect:/index";
     }
     
     @PostMapping("/crearCursada")
     public String crearCursada(@Valid @ModelAttribute("curso") CursoModel curso, HttpSession sesion, RedirectAttributes redirAttr) {
         log.info("/crearCursada" + curso);
-        Usuario user = (Usuario) sesion.getAttribute("user");
+        UsuarioModel user = (UsuarioModel) sesion.getAttribute("user");
         try {
-            curso.setSolicitante(user);
+            curso.setSolicitante(usuarioService.findById(user.getIdUsuario()));
             curso.setFecha(LocalDate.now());
             curso.setCodigo(curso.getMateria().getCodigo()+"-"+String.valueOf(curso.getIdNotaPedido()));
             Curso cursada = modelMapper.map(curso, Curso.class);
+            cursada.setMateria(materiaService.traerMateria(curso.getMateria().getIdMateria()));
+            cursada.setFecha(LocalDate.now());
             notaPedidoService.insertOrUpdate(cursada);
             redirAttr.addFlashAttribute("success", "Cursada creada correctamente");
         } catch (Exception e) {
