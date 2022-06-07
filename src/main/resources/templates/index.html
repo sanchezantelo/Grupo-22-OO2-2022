@@ -186,7 +186,7 @@
                             <div class="form-group">
                                 <label for="turnoC" class="col-form-label">Turno</label>
                                 <select class="form-select" id="turnoC" aria-label="Turno" th:field="*{turno}" required>
-                  <option value="" selected>Seleccione un turno...</option>
+                  <option value="-1" selected>Seleccione un turno...</option>
                   <option th:each="turno : ${T(com.webservice.app.entities.TipoTurnos).values()}" th:value="${turno}" th:text="${turno}"></option>
                 </select>
                             </div>
