@@ -18,6 +18,7 @@ import lombok.EqualsAndHashCode;
 @Table(name= "curso")
 public class Curso extends NotaPedido {
 	private static final long serialVersionUID = 1L;
+	
 	@NotNull
 	@Column(name= "codigo")
 	private String codigo;
@@ -25,6 +26,7 @@ public class Curso extends NotaPedido {
 	@Min(1) @Max(6)@NotNull
 	@Column(name= "dia_semana")
 	private int diaSemana;
+
 	@NotNull
 	@Column(name= "presencialidad")
 	private int presencialidad;
