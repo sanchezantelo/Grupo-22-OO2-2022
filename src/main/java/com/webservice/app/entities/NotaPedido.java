@@ -16,7 +16,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -59,11 +58,11 @@ public abstract class NotaPedido implements Serializable {
 	@Enumerated(value = EnumType.STRING)
 	private TipoAula tipoAula;
 	
-	@OneToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	@JoinColumn(name="idAula")
 	private Aula aulaAsignada;
 	
-	@OneToOne(cascade= CascadeType.PERSIST)
+	@ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.PERSIST)
 	@JoinColumn(name= "idUsuario", insertable = false, updatable = false)
 	private Usuario solicitante;
 
