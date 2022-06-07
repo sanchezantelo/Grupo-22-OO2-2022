@@ -52,76 +52,80 @@
 
     <main role="main" class="container">
         <div class="alert alert-success" role="alert" th:if="${success}" th:unless="${error}" th:text="${success}"></div>
-        <div class="col-lg-5 m-lg-5">
-            <table class="table">
-                <thead>
-                    <tr class="align-items-center">
-                        <th colspan=1 class="border-0">
-                            <i class="bx bxs-notepad px-lg-1"></i>Notas Pedido
-                        </th>
-                        <th colspan=3 class="text-right border-0">
-                            <button type="button" class="btn btn-aulas btn-sm d-inline-flex align-items-center gap-1 float-end" data-bs-toggle="modal" data-bs-target="#modalNotaPedido">
-                <i class="bi bi-plus-circle"></i>
-                Crear Nota Pedido
-              </button>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Si no hay notas pedido -->
-                    <tr th:if="${notasPedido.empty}">
-                        <td colspan=2>
-                            <i class="bi bi-slash-circle px-lg-1" style="color: var(--burntUmber)"></i>Sin notas en el sistema
-                        </td>
-                    </tr>
-                    <!-- Si hay notas pedido -->
-                    <tr th:each="notaPedido : ${notasPedido}" th:key="notaPedido.idNotaPedido">
-                        <td th:text="${notaPedido.getClass().getSimpleName() + ' ' + notaPedido.materia.getCodigo() + ' | ' + notaPedido.materia.getMateria() + ' Turno ' + notaPedido.turno}"></td>
-                        <td class="text-right d-flex float-end gap-lg-3">
-                            <a class="btn btn-aulas btn-sm">
-                                <i class="bx bx-edit-alt" style="vertical-align: -1px"></i>
-                            </a>
-                            <a class="btn btn-aulas btn-sm">
-                                <i class="bx bx-trash" style="vertical-align: -1px"></i>
-                            </a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="col-lg-5 m-lg-5">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th class="border-0">
-                            <i class="bx bxs-buildings px-lg-1"></i>Edificios
-                        </th>
-                        <th class="border-0" colspan=2>
-                            <i class="bi bi-mortarboard-fill px-lg-1"></i>Aulas
-                        </th>
-                        <th class="border-0" colspan=2><button type="button" class="btn btn-aulas btn-sm d-inline-flex align-items-center gap-1 float-end px-lg-2" data-bs-toggle="modal" data-bs-target="#modalAddEspacios">
-                  <i class="bi bi-plus-circle"></i>
-                  Generar espacios
-                </button></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Si no hay edificios -->
-                    <tr th:if="${lstEdificios.empty}">
-                        <td colspan="2">
-                            <i class="bi bi-slash-circle px-lg-1" style="color: var(--burntUmber)"></i>Sin edificios en el sistema
-                        </td>
-                    </tr>
-                    <!-- Si hay edificios -->
-                    <tr th:each="edificio: ${lstEdificios}">
-                        <td style="width: 40%" th:text="${edificio.edificio}"></td>
-                        <td style="width: 10%" th:each="aulaslst: ${edificio.aulas}">
-                            <a th:href="@{'/aula/buscarPorId?idAula=' + ${aulaslst.idAula}}" class="btn btn-aulas btn-sm" style="color: #ffffff" th:text="${aulaslst.numero}"></a>
-                        </td>
-                        <td><input type="hidden" th:value="${edificio.idEdificio}" /></td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="d-flex d-table-row justify-content-center w-100">
+            <div class="col-lg-5 m-lg-5">
+                <table class="table">
+                    <thead>
+                        <tr class="align-items-center">
+                            <th class="border-0">
+                                <i class="bx bxs-notepad px-lg-1"></i>Notas Pedido
+                            </th>
+                            <th class="text-right border-0" style="width: 170px">
+                                <button type="button" class="btn btn-aulas btn-sm d-inline-flex align-items-center gap-1 float-end" data-bs-toggle="modal" data-bs-target="#modalNotaPedido">
+                    <i class="bi bi-plus-circle"></i>
+                    Crear Nota Pedido
+                  </button>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Si no hay notas pedido -->
+                        <tr th:if="${notasPedido.empty}">
+                            <td colspan=2>
+                                <i class="bi bi-slash-circle px-lg-1" style="color: var(--burntUmber)"></i>Sin notas en el sistema
+                            </td>
+                        </tr>
+                        <!-- Si hay notas pedido -->
+                        <tr th:each="notaPedido : ${notasPedido}" th:key="notaPedido.idNotaPedido">
+                            <input type="hidden" th:value="${notaPedido.idNotaPedido}" />
+                            <td class="w-auto" th:if="${notaPedido instanceof T( com.webservice.app.entities.Curso)}" th:text="${notaPedido.getClass().getSimpleName() + ' ' + notaPedido.materia.getCodigo() + ' | ' + notaPedido.materia.getMateria() + ' Turno ' + notaPedido.turno}"></td>
+                            <td class="w-auto" th:if="${notaPedido instanceof T( com.webservice.app.entities.Final)}" th:text="${notaPedido.getClass().getSimpleName() + ' ' + notaPedido.getMesa() + ' | ' + notaPedido.materia.getMateria() + ' Turno ' + notaPedido.turno}"></td>
+                            <td class="text-right d-flex float-end gap-lg-3">
+                                <a class="btn btn-aulas btn-sm" th:if="${user.hasRole('ROL_ADMIN')}">
+                                    <i class="bx bx-edit-alt" style="vertical-align: -1px"></i>
+                                </a>
+                                <a class="btn btn-aulas btn-sm">
+                                    <i class="bx bx-trash" style="vertical-align: -1px"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-5 m-lg-5">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="border-0">
+                                <i class="bx bxs-buildings px-lg-1"></i>Edificios
+                            </th>
+                            <th class="border-0" colspan=2>
+                                <i class="bi bi-mortarboard-fill px-lg-1"></i>Aulas
+                            </th>
+                            <th class="border-0" colspan=2><button type="button" class="btn btn-aulas btn-sm d-inline-flex align-items-center gap-1 float-end px-lg-2" data-bs-toggle="modal" data-bs-target="#modalAddEspacios">
+                      <i class="bi bi-plus-circle"></i>
+                      Generar espacios
+                    </button></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Si no hay edificios -->
+                        <tr th:if="${lstEdificios.empty}">
+                            <td colspan="2">
+                                <i class="bi bi-slash-circle px-lg-1" style="color: var(--burntUmber)"></i>Sin edificios en el sistema
+                            </td>
+                        </tr>
+                        <!-- Si hay edificios -->
+                        <tr th:each="edificio: ${lstEdificios}">
+                            <td style="width: 40%" th:text="${edificio.edificio}"></td>
+                            <td style="width: 10%" th:each="aulaslst: ${edificio.aulas}">
+                                <a th:href="@{'/aula/buscarPorId?idAula=' + ${aulaslst.idAula}}" class="btn btn-aulas btn-sm" style="color: #ffffff" th:text="${aulaslst.numero}"></a>
+                            </td>
+                            <td><input type="hidden" th:value="${edificio.idEdificio}" /></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <!-- Nota Pedido Modal-->
         <div class="modal fade" id="modalNotaPedido" tabindex="-1" aria-labelledby="modalNotaPedido" aria-hidden="true">
@@ -147,7 +151,7 @@
             </div>
         </div>
         <!-- Nota Pedido tipo Curso Modal -->
-        <div class="modal fade" id="modalCursada" tabindex="-1" aria-labelledby="modalCursada" aria-hidden="true" th:if="${notasPedido}">
+        <div class="modal fade" id="modalCursada" tabindex="-1" aria-labelledby="modalCursada" aria-hidden="true" th:if="${curso}">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -157,16 +161,13 @@
                         <button type="button" class="btn btn-close btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body mx-lg-2">
-                        <form class="form-horizontal mb-lg-3 px-lg-4" role="form" th:action="@{/notaPedido/crearCursada}" th:if="${curso}" th:object="${curso}" method="post">
+                        <form class="form-horizontal mb-lg-3 px-lg-4" role="form" th:if="${curso}" th:object="${curso}" th:action="@{/notaPedido/crearCursada}" method="post">
                             <!-- Hidden form groups -->
                             <div class="form-group">
                                 <input type="hidden" class="form-control" th:field="*{idNotaPedido}" />
                             </div>
                             <div class="form-group">
                                 <input type="hidden" class="form-control" th:field="*{codigo}" />
-                            </div>
-                            <div class="form-group">
-                                <input type="hidden" class="form-control" th:field="*{docentes}" />
                             </div>
                             <div class="form-group">
                                 <input type="hidden" class="form-control" th:field="*{aulaAsignada}" />
@@ -178,12 +179,13 @@
                             <div class="form-group">
                                 <label for="materia" class="col-form-label">Materia</label>
                                 <select class="form-select" id="materia" aria-label="Materia" th:field="*{materia.idMateria}" required>
+                                <option value="-1">Seleccione una materia</option>
                                 <option th:each="m : ${lstMaterias}" th:value="${m.idMateria}" th:text="${m.codigo + ' - ' + m.materia}"></option>
                             </select>
                             </div>
                             <div class="form-group">
-                                <label for="turno" class="col-form-label">Turno</label>
-                                <select class="form-select" id="turno" aria-label="Turno" th:field="*{turno}" required>
+                                <label for="turnoC" class="col-form-label">Turno</label>
+                                <select class="form-select" id="turnoC" aria-label="Turno" th:field="*{turno}" required>
                   <option value="" selected>Seleccione un turno...</option>
                   <option th:each="turno : ${T(com.webservice.app.entities.TipoTurnos).values()}" th:value="${turno}" th:text="${turno}"></option>
                 </select>
@@ -226,11 +228,11 @@
                             </div>
                             <div class="modal-footer mt-lg-2 ">
                                 <button type="button " class="btn btn-secondary" data-bs-dismiss="modal">
-                    Cerrar
-                  </button>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-aulas">Crear</button>
-                                </div>
+                                    Cerrar
+                                </button>
+                                <!-- <div class="form-group"> -->
+                                    <input type="submit" class="btn btn-aulas" value="Crear" />
+                                <!-- </div> -->
                             </div>
                         </form>
                     </div>
@@ -279,7 +281,7 @@
                                 <button type="button" class="btn btn-secondary " data-bs-dismiss="modal">
                     Cerrar
                   </button>
-                                <button type="submit" class="btn btn-aulas ">Crear</button>
+                                <button type="submit" class="btn btn-aulas">Crear</button>
                             </div>
                         </form>
                     </div>
