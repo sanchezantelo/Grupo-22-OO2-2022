@@ -78,7 +78,7 @@
                     <tr th:each="notaPedido : ${notasPedido}" th:key="notaPedido.idNotaPedido">
                         <td th:text="${notaPedido.getClass().getSimpleName() + ' ' + notaPedido.materia.getCodigo() + ' | ' + notaPedido.materia.getMateria() + ' Turno ' + notaPedido.turno}"></td>
                         <td class="text-right d-flex float-end gap-lg-3">
-                            <a class="btn btn-aulas btn-sm">
+                           <a class="btn btn-aulas btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarNota">
                                 <i class="bx bx-edit-alt" style="vertical-align: -1px"></i>
                             </a>
                             <a class="btn btn-aulas btn-sm">
@@ -157,7 +157,7 @@
                         <button type="button" class="btn btn-close btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body mx-lg-2">
-                        <form class="form-horizontal mb-lg-3 px-lg-4" role="form" th:action="@{/notaPedido/crearCursada}" th:if="${curso}" th:object="${curso}" method="post">
+                        <form class="form-horizontal mb-lg-3 px-lg-4" role="form" th:action="@{/notaPedido/crearCursada}" action="#" th:if="${curso}" th:object="${curso}" method="post">
                             <!-- Hidden form groups -->
                             <div class="form-group">
                                 <input type="hidden" class="form-control" th:field="*{idNotaPedido}" />
@@ -231,6 +231,7 @@
                   </button>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-aulas">Crear</button>
+                                    <input type="submit" value="Crear">
                                 </div>
                             </div>
                         </form>
@@ -393,6 +394,39 @@
           </div>
         </div>
        </div>
+          <!-- Modal Editar Nota Pedido -->
+      <div
+        class="modal fade"
+        id="modalEditarNota"
+        tabindex="-1"
+        aria-hidden="true" 
+
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+	           	<div class="modal-header">
+	              <h5 class="modal-title">
+	                  <i class="bi bi-calendar3 p-lg-1"></i>Editar Nota Pedido </span> 
+	                            </h5>
+	                            <button type="button" class="btn btn-close btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
+	        	</div>
+      			<div class="modal-body">
+	        	
+				
+		
+		            <div class="modal-footer  mt-5">
+		                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+		                  Cancelar
+		                </button>
+		                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+		                  Asignar
+		                </button>		               
+		            </div>
+	        	</div>
+        	 
+       		</div>
+          </div>
+        </div>
     </main>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
