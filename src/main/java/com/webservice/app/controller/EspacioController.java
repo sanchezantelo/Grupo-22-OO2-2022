@@ -18,6 +18,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.webservice.app.entities.NotaPedido;
 import com.webservice.app.services.INotaPedidoService;
+
+import lombok.var;
+
 import com.webservice.app.entities.Aula;
 import com.webservice.app.entities.Curso;
 import com.webservice.app.entities.Espacio;
@@ -123,7 +126,9 @@ public class EspacioController {
 		
 		try {
 			espacioService.AsignarEspacios(idNotaPedido, idAula);
-			redirectAttrs.addFlashAttribute("mensaje", "Se asigno el aula para la nota pedido").addFlashAttribute("clase", "task-success");
+			var aulaAsignada = aulaService.traerAula(idAula);
+			notaPedidoService.findById(idNotaPedido).setAulaAsignada(aulaService.traerAula(idAula));
+			redirectAttrs.addFlashAttribute("mensaje", "Se asigno el aula N° "+String.valueOf(aulaAsignada.getNumero())+" del "+aulaAsignada.getEdificio().getEdificio()+" para la nota pedido").addFlashAttribute("clase", "task-success");
 		}catch (Exception e) {
 			redirectAttrs.addFlashAttribute("mensaje", e.getMessage()).addFlashAttribute("clase", "task-error");
 		}
