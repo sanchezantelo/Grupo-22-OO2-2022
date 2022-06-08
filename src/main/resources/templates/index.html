@@ -74,13 +74,14 @@
                 <!-- END TOAST NOTIFICATIONS -->
             <div class="d-flex d-table-row justify-content-center w-100">
                 <div class="col-lg-5 m-lg-5">
+                    <!-- NOTAS PEDIDO PENDIENTES -->
                     <table class="table">
                         <thead>
                             <tr class="align-items-center">
                                 <th class="border-0">
                                     <i class="bx bxs-notepad px-lg-1"></i>Notas de Pedido
                                 </th>
-                                <th class="border-0" style="width: 170px">
+                                <th class="border-0" style="width: 170px" th:if="${user.hasRole('ROL_AUDITOR')}">
                                     <button type="button" class="btn btn-aulas btn-sm d-inline-flex align-items-center gap-1 float-end" data-bs-toggle="modal" data-bs-target="#modalNotaPedido">
                                         <i class="bi bi-plus-circle"></i>
                                         Crear Pedido
@@ -92,7 +93,7 @@
                             <!-- Si no hay notas pedido -->
                             <tr th:if="${notasPedido.empty}">
                                 <td colspan=2>
-                                    <i class="bi bi-slash-circle px-lg-1" style="color: var(--burntUmber)"></i>Sin notas en el sistema
+                                    <i class="bi bi-slash-circle px-lg-1" style="color: var(--burntUmber)"></i>Sin notas pendientes en el sistema.
                                 </td>
                             </tr>
                             <!-- Si hay notas pedido -->
@@ -107,13 +108,54 @@
                                     <span th:text="${notaPedido.getMesa() + ' | ' + notaPedido.materia.getMateria() + ' T' + notaPedido.turno.name().substring(0,1)}"></span>
                                 </td>
                                 <td class="text-right d-flex float-end gap-lg-3">
-                                    <a class="btn btn-aulas btn-sm" th:if="${user.hasRole('ROL_AUDITOR')}" th:href="@{/notaPedido/{id}(id=${notaPedido.idNotaPedido})}">
+                                    <a class="btn btn-aulas btn-sm" th:if="${user.hasRole('ROL_AUDITOR')}" th:href="@{/notaPedido/{id}(id=${notaPedido.idNotaPedido})}" title="Editar">
                                         <i class="bx bx-edit-alt" style="vertical-align: -1px"></i>
                                     </a>
-                                    <a class="btn btn-aulas btn-sm" th:if="${user.hasRole('ROL_ADMIN')}" th:href="@{/notaPedido/{id}(id=${notaPedido.idNotaPedido})}">
+                                    <a class="btn btn-aulas btn-sm" th:if="${user.hasRole('ROL_ADMIN')}" th:href="@{/notaPedido/{id}(id=${notaPedido.idNotaPedido})}" title="Asignar">
                                         <i class="bi bi-check-circle-fill"></i>
                                     </a>
-                                    <a class="btn btn-aulas btn-sm" th:if="${notaPedido}" th:href="@{/notaPedido/eliminarNotaPedido/{id}(id=${notaPedido.idNotaPedido})}">
+                                    <a class="btn btn-aulas btn-sm" th:if="${notaPedido}" th:unless="${user.hasRole('ROL_ADMIN')}" th:href="@{/notaPedido/eliminarNotaPedido/{id}(id=${notaPedido.idNotaPedido})}" title="Eliminar">
+                                        <i class="bx bx-trash" style="vertical-align: -1px"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- NOTAS PEDIDO ASIGNADAS -->
+                    <table class="table" th:if="${notasPedidoAsignadas}">
+                        <thead>
+                            <tr class="align-items-center">
+                                <th class="border-0">
+                                    <i class="bi bi-clipboard-check-fill px-lg-1"></i>Asignadas
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Si no hay notas pedido asignadas -->
+                            <tr th:if="${notasPedidoAsignadas.empty}">
+                                <td colspan=2>
+                                    <i class="bi bi-slash-circle px-lg-1" style="color: var(--burntUmber)"></i>Ninguna nota pedido ha sido asignada.
+                                </td>
+                            </tr>
+                            <!-- Si hay notas pedido asignadas -->
+                            <tr th:each="notaPedido : ${notasPedidoAsignadas}" th:key="${notaPedido.idNotaPedido}">
+                                <input type="hidden" th:value="${notaPedido.idNotaPedido}" />
+                                <td class="w-auto" th:if="${notaPedido instanceof T( com.webservice.app.entities.Curso)}">
+                                    <i class="bi bi-book px-lg-1" style="color: var(--flushMahogany)" title="Curso"></i>
+                                    <span th:text="${notaPedido.materia.getCodigo() + ' | ' + notaPedido.materia.getMateria() + ' T' + notaPedido.turno.name().substring(0,1)}"></span>
+                                </td>
+                                <td class="w-auto" th:if="${notaPedido instanceof T( com.webservice.app.entities.Final)}">
+                                    <i class="bi bi-file-text px-lg-1" style="color: var(--flushMahogany)" title="Final"></i>
+                                    <span th:text="${notaPedido.getMesa() + ' | ' + notaPedido.materia.getMateria() + ' T' + notaPedido.turno.name().substring(0,1)}"></span>
+                                </td>
+                                <td class="text-right d-flex float-end gap-lg-3">
+                                    <a class="btn btn-aulas btn-sm" th:if="${user.hasRole('ROL_AUDITOR')}" th:href="@{/notaPedido/{id}(id=${notaPedido.idNotaPedido})}" title="Editar">
+                                        <i class="bx bx-edit-alt" style="vertical-align: -1px"></i>
+                                    </a>
+                                    <a class="btn btn-aulas btn-sm" th:if="${user.hasRole('ROL_ADMIN')}" th:href="@{/notaPedido/{id}(id=${notaPedido.idNotaPedido})}" title="Reasignar">
+                                        <i class="bi bi-arrow-repeat"></i>
+                                    </a>
+                                    <a class="btn btn-aulas btn-sm" th:if="${notaPedido}" th:unless="${user.hasRole('ROL_ADMIN')}" th:href="@{/notaPedido/eliminarNotaPedido/{id}(id=${notaPedido.idNotaPedido})}" title="Eliminar">
                                         <i class="bx bx-trash" style="vertical-align: -1px"></i>
                                     </a>
                                 </td>
@@ -131,7 +173,7 @@
                                 <th class="border-0 col-2" colspan=4>
                                     <i class="bi bi-mortarboard-fill px-lg-1"></i>Aulas
                                 </th>
-                                <th class="border-0 col-2" style="min-width: 170px !important">
+                                <th class="border-0 col-2" style="min-width: 170px !important" th:if="${user.hasRole('ROL_ADMIN')}">
                                     <a  class="btn btn-aulas btn-sm gap-1" th:href="@{/espacio/generarEspaciosForm}">
                                         <i class="bi bi-plus-circle"></i><span class="px-sm-1">Generar Espacios</span>
                                     </a>
@@ -142,7 +184,7 @@
                             <!-- Si no hay edificios -->
                             <tr th:if="${lstEdificios.empty}">
                                 <td colspan="2">
-                                    <i class="bi bi-slash-circle px-lg-1" style="color: var(--burntUmber)"></i>Sin edificios en el sistema
+                                    <i class="bi bi-slash-circle px-lg-1" style="color: var(--burntUmber)"></i>Sin edificios en el sistema.
                                 </td>
                             </tr>
                             <!-- Si hay edificios -->
@@ -436,20 +478,16 @@
                                     <label for="descripcion " class="col-form-label ">Cantidad de Estudiantes</label>
                                     <input type="number" class="form-control" id="cantidad" min="1" max="500" value="1" th:field="*{cantEstudiantes}" required/>
                                 </div>
-                                <!-- <div class="form-group ">
-                                    <label for="dia" class="col-form-label ">Fecha de Examen</label>
-                                    <input type="date" class="form-control" id="fechaExamen" th:field="*{fechaExamen}" th:value="*{fechaExamen}" required />
-                                </div> -->
                                 <div class="form-group">
                                     <label>Fecha de Examen</label>
-                                    <input class="form-control" type="date" id="fechaExamen" min="1970-01-01" max="5555-12-31" placeholder="Fecha de Examen" th:field="*{fechaExamen}" /> 
+                                    <input class="form-control" type="date" id="fechaExamen" min="1970-01-01" max="5555-12-31" placeholder="Fecha de Examen" th:field="*{fechaExamen}" required /> 
                                 </div>
                                 <div class="form-group ">
                                     <input type="hidden" class="form-control" id="mesa" th:field="*{mesa}" />
                                 </div>
                                 <div class="form-group">
-                                    <label for="observaciones" class="col-form-label">Observaciones</label>
-                                    <textarea class="form-control" id="observaciones" rows="2" th:field="*{observaciones}"></textarea>
+                                    <label for="observacionesF" class="col-form-label">Observaciones</label>
+                                    <textarea class="form-control" id="observacionesF" rows="2" th:field="*{observaciones}"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="tipoAulaF" class="col-form-label">Tipo de Aula</label>
@@ -590,9 +628,9 @@
                             <button type="button" class="btn btn-close btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form class="form-horizontal mb-lg-3 px-lg-4" action="#" th:action="@{/notaPedido/updateCurso}" th:if="${notaPedidoReq}" th:object="${notaPedidoReq}" method="post">
+                            <form class="form-horizontal mb-lg-3 px-lg-4" action="#" th:action="@{/notaPedido/updateCurso}" th:if="${notaPedidoReq instanceof T(com.webservice.app.entities.Curso)}" th:object="${notaPedidoReq}" method="post">
                                 <!-- Campos de Curso -->
-                                <div th:if="${notaPedidoReq instanceof T(com.webservice.app.entities.Curso)}">
+                                <div>
                                     <div class="form-group d-none">
                                         <input type="hidden" th:field="*{idNotaPedido}" />
                                     </div>
@@ -605,15 +643,39 @@
                                         <input type="number" id="editEstudiantesC" class="form-control" th:field="*{cantEstudiantes}" required>
                                     </div>
                                 </div>
+                                <div class="modal-footer  mt-5">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                        Cancelar
+                                    </button>
+                                    <a th:href="@{'espacio/buscarAula/notapedido=' + ${notaPedidoReq.idNotaPedido}}" class="btn btn-aulas">
+                                        Asignar
+                                    </a>
+                                </div>
                             </form>
-                            <div class="modal-footer  mt-5">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                    Cancelar
-                                </button>
-                                <a th:href="@{'espacio/buscarAula/notapedido=' + ${notaPedidoReq.idNotaPedido}}" class="btn btn-aulas">
-                                    Asignar
-                                </a>
-                            </div>
+                            <!-- Campos de Final -->
+                            <form class="form-horizontal mb-lg-3 px-lg-4" action="#" th:action="@{/notaPedido/updateFinal}" th:if="${notaPedidoReq instanceof T(com.webservice.app.entities.Final)}" th:object="${notaPedidoReq}" method="post">
+                                <div>
+                                    <div class="form-group d-none">
+                                        <input type="hidden" th:field="*{idNotaPedido}" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Mesa</label>
+                                        <input type="text" class="form-control" th:field="*{mesa}" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="editEstudiantesF" class="col-form-label">Cantidad de Estudiantes</label>
+                                        <input type="number" id="editEstudiantesF" class="form-control" th:field="*{cantEstudiantes}" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer  mt-5">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                        Cancelar
+                                    </button>
+                                    <a th:href="@{'espacio/buscarAula/notapedido=' + ${notaPedidoReq.idNotaPedido}}" class="btn btn-aulas">
+                                        Asignar
+                                    </a>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
