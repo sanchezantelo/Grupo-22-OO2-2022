@@ -29,3 +29,14 @@ Footer
 .forgot a{
     color: #800000;
 }
+
+.btn-enviar {
+	background-color: var(--burntUmber);
+    color: rgb(255, 255, 255);
+}
+
+.btn-enviar:hover {
+    background-color: var(--flushMahogany);
+    color: rgb(255, 255, 255);
+}
+
