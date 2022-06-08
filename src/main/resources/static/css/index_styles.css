@@ -6,6 +6,7 @@ Footer
 
 :root {
     --burntUmber: #8e2836;
+    --flushMahogany: #C7374A;
 }
 
 .social-media-icon {
@@ -34,7 +35,7 @@ Footer
 }
 
 .btn-aulas:hover {
-    background-color: #c7374a;
+    background-color: var(--flushMahogany);
     color: rgb(255, 255, 255);
 }
 
@@ -46,7 +47,7 @@ Footer
 }
 
 .btn-unla:hover {
-    background-color: #c7374a;
+    background-color: var(--flushMahogany);
     color: rgb(255, 255, 255);
 }
 
