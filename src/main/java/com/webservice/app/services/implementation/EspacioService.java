@@ -131,42 +131,49 @@ public List<Aula> traerAulasDisponiblesPorFecha(LocalDate fecha, List<Aula> aula
 		
 	}
 	
-public List<LocalDate> generarListadoDias(int presencialidad, int diaSolicitado){
+public List<LocalDate> generarListadoDias(int presencialidad, int diaSolicitado) throws Exception{
 		
-		LocalDate inicioCuatrimestre = espacioRepository.inicioCuatrimestre().getFecha();
-		LocalDate finCuatrimestre = espacioRepository.finCuatrimestre().getFecha();
+			List<Espacio> inicioFin = traerCuatrimestreActivo();
 		
-		int diaSemanaComienzo = inicioCuatrimestre.getDayOfWeek().getValue();
-		LocalDate inicioClase = inicioCuatrimestre;	
-		List<LocalDate> listadoDias = new ArrayList<>();
-		
-		if(diaSolicitado>diaSemanaComienzo) {
-		
-			inicioClase = inicioClase.plusDays(diaSolicitado-diaSemanaComienzo);
-		
-		}else if( diaSemanaComienzo > diaSolicitado){
+			if (inicioFin.isEmpty())  throw new Exception("No existen espacios activos disponibles");
 			
-			inicioClase = inicioClase.plusDays( 7 - (diaSemanaComienzo - diaSolicitado) );
-		}
-		
-		long cantidadClases=ChronoUnit.DAYS.between(inicioCuatrimestre, finCuatrimestre)/7;
-		int sumaDias = 7;		
-		if(presencialidad==50) {
-			cantidadClases = cantidadClases/2;
-			sumaDias=14;}
-		
-		for(int i=0 ; i < cantidadClases ;i++) {
+			List<LocalDate> listadoDias = new ArrayList<>();
 			
-			listadoDias.add(inicioClase);
+			LocalDate inicioCuatrimestre = (!inicioFin.isEmpty())? inicioFin.get(0).getFecha() : null;
+			LocalDate finCuatrimestre = (!inicioFin.isEmpty())? inicioFin.get(1).getFecha() : null;
+	
+			int diaSemanaComienzo = inicioCuatrimestre.getDayOfWeek().getValue();
+			LocalDate inicioClase = inicioCuatrimestre;	
 			
-			inicioClase = inicioClase.plusDays(sumaDias);
+			
+			if(diaSolicitado>diaSemanaComienzo) {
+			
+				inicioClase = inicioClase.plusDays(diaSolicitado-diaSemanaComienzo);
+			
+			}else if( diaSemanaComienzo > diaSolicitado){
+				
+				inicioClase = inicioClase.plusDays( 7 - (diaSemanaComienzo - diaSolicitado) );
+			}
+			
+			long cantidadClases=ChronoUnit.DAYS.between(inicioCuatrimestre, finCuatrimestre)/7;
+			int sumaDias = 7;		
+			if(presencialidad==50) {
+				cantidadClases = cantidadClases/2;
+				sumaDias=14;}
+			
+			for(int i=0 ; i < cantidadClases ;i++) {
+				
+				listadoDias.add(inicioClase);
+				
+				inicioClase = inicioClase.plusDays(sumaDias);
+			
+			}
 		
-		}
 		
 		return listadoDias;
 	}
 
-	public void AsignarEspacios(NotaPedido notaPedido, Aula aula) {
+	public void AsignarEspacios(NotaPedido notaPedido, Aula aula) throws Exception{
 	
 		if(notaPedido instanceof Final) {
 			Final notaFinal= (Final) notaPedido;
@@ -203,10 +210,22 @@ public List<LocalDate> generarListadoDias(int presencialidad, int diaSolicitado)
 			
 		}
 	}
-	public List<Espacio> traerEspacios(Curso curso,Aula aula){
+	public List<Espacio> traerEspacios(Curso curso,Aula aula) throws Exception{
 		
 		List<LocalDate> diasClases = this.generarListadoDias(curso.getPresencialidad(), curso.getDiaSemana());
 		return	espacioRepository.traerEspaciosPorFechaTurnoYAula(diasClases, aula, curso.getTurno());
+	
+	}
+	
+	public List<Espacio> traerCuatrimestreActivo(){
+		
+		List<Espacio> inicioFin = new ArrayList<>();
+		Espacio inicio = espacioRepository.inicioCuatrimestre();
+		Espacio fin = espacioRepository.finCuatrimestre();
+		if(inicio!=null) inicioFin.add(inicio);
+		if(fin!=null) inicioFin.add(fin);
+		
+		return inicioFin;
 	
 	}
 }

@@ -619,7 +619,6 @@
                             <button type="button" class="btn btn-close btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <div class="alert alert-danger" role="alert" th:if="${error}" th:text="${error}"></div>
                             <form class="form-horizontal mb-lg-3 px-lg-4" action="#" th:action="@{/notaPedido/updateCurso}" th:if="${notaPedidoReq}" th:object="${notaPedidoReq}" method="post">
                                 <!-- Campos de Curso -->
                                 <div th:if="${notaPedidoReq instanceof T(com.webservice.app.entities.Curso)}">

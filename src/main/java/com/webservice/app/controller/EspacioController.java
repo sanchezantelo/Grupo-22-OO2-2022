@@ -73,7 +73,6 @@ public class EspacioController {
 	public String buscarAula(@PathVariable("idNotaPedido") int idNotaPedido,
 			RedirectAttributes redirectAttrs) throws Exception
 	{  
-		
 		NotaPedido notaPedido = notaPedidoService.findById(idNotaPedido);
 		List<Aula> aulas = aulaService.traerAulas(notaPedido.getCantEstudiantes(),notaPedido.getTipoAula());
  		if (notaPedido instanceof Final) { 
@@ -95,7 +94,9 @@ public class EspacioController {
 		
 			}
 		}
+		
  		redirectAttrs.addFlashAttribute("notapedido",notaPedido);
+
 		return "redirect:/index";
 	}
 	
@@ -105,10 +106,13 @@ public class EspacioController {
 		NotaPedido notaPedido = notaPedidoService.findById(idNotaPedido);
 		
 		Aula aula = aulaService.traerAula(idAula);
+		try {
+			espacioService.AsignarEspacios(notaPedido, aula);
+			redirectAttrs.addFlashAttribute("mensaje", "Se asigno el aula para la nota pedido").addFlashAttribute("clase", "task-success");
+		}catch (Exception e) {
+			redirectAttrs.addFlashAttribute("mensaje", e.getMessage()).addFlashAttribute("clase", "task-error");
+		}
 		
-		espacioService.AsignarEspacios(notaPedido, aula);
-		
-		redirectAttrs.addFlashAttribute("mensaje", "Se asigno el aula para la nota pedido").addFlashAttribute("clase", "task-success");
 		return "redirect:/index";
 		
 	}
