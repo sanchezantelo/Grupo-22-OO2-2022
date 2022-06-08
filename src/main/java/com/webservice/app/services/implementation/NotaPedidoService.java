@@ -34,6 +34,18 @@ public class NotaPedidoService implements INotaPedidoService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public List<NotaPedido> findNotasPendientes() {
+        return repository.findNotasPendientes();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<NotaPedido> findNotasAsignadas() {
+        return repository.findNotasAsignadas();
+    }
+
+    @Override
     public boolean insertOrUpdate(NotaPedido notaPedido) {
         try {
             if(notaPedido instanceof Curso) {

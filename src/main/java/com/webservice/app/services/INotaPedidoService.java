@@ -10,6 +10,10 @@ public interface INotaPedidoService {
     
     public List<NotaPedido> findAll();
 
+    public List<NotaPedido> findNotasPendientes();
+
+    public List<NotaPedido> findNotasAsignadas();
+
     public boolean insertOrUpdate(NotaPedido notaPedido);
 
     public boolean remove(int id);
