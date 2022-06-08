@@ -79,8 +79,8 @@
                         <!-- Si hay notas pedido -->
                         <tr th:each="notaPedido : ${notasPedido}" th:key="${notaPedido.idNotaPedido}">
                             <input type="hidden" th:value="${notaPedido.idNotaPedido}" />
-                            <td class="w-auto" th:if="${notaPedido instanceof T( com.webservice.app.entities.Curso)}" th:text="${notaPedido.getClass().getSimpleName() + ' ' + notaPedido.materia.getCodigo() + ' | ' + notaPedido.materia.getMateria() + ' Turno ' + notaPedido.turno}"></td>
-                            <td class="w-auto" th:if="${notaPedido instanceof T( com.webservice.app.entities.Final)}" th:text="${notaPedido.getClass().getSimpleName() + ' ' + notaPedido.getMesa() + ' | ' + notaPedido.materia.getMateria() + ' Turno ' + notaPedido.turno}"></td>
+                            <td class="w-auto" th:if="${notaPedido instanceof T( com.webservice.app.entities.Curso)}"><i class="bi bi-book-fill px-lg-1" style="color: var(--burntUmber)" title="Curso"></i><span th:text="${notaPedido.materia.getCodigo() + ' | ' + notaPedido.materia.getMateria() + ' T' + notaPedido.turno.name().substring(0,1)}"></span></td>
+                            <td class="w-auto" th:if="${notaPedido instanceof T( com.webservice.app.entities.Final)}"><i class="bi bi-file-text-fill px-lg-1" style="color: var(--burntUmber)" title="Final"></i><span th:text="${notaPedido.getMesa() + ' | ' + notaPedido.materia.getMateria() + ' T' + notaPedido.turno.name().substring(0,1)}"></span></td>
                             <td class="text-right d-flex float-end gap-lg-3">
                                 <a class="btn btn-aulas btn-sm" th:href="@{/notaPedido/{id}(id=${notaPedido.idNotaPedido})}">
                                     <i class="bx bx-edit-alt" style="vertical-align: -1px"></i>
@@ -354,21 +354,24 @@
                                 <label for="dia" class="col-form-label ">Fecha de Examen</label>
                                 <input type="date" class="form-control" id="fechaExamen" th:field="*{fechaExamen}" required />
                             </div>
-                                                        <div class="form-group ">
-                                <label for="mesa" class="col-form-label ">Mesa:</label>
-                                <input type="text" class="form-control" id="mesa" th:field="*{mesa}" required />
+                            <div class="form-group ">
+                                <input type="hidden" class="form-control" id="mesa" th:field="*{mesa}" />
+                            </div>
+                            <div class="form-group">
+                                <label for="observaciones" class="col-form-label">Observaciones</label>
+                                <textarea class="form-control" id="observaciones" rows="2" th:field="*{observaciones}"></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="tipoAulaF" class="col-form-label">Tipo de Aula</label>
                                 <select class="form-select form-control" id="tipoAulaF" aria-label="Tipo de Aula" th:field="*{tipoAula}" required>
-                <option value="-1" selected>Seleccione un tipo de aula...</option>
-                <option th:each="tipoAula : ${T (com.webservice.app.entities.TipoAula).values()}" th:value="${tipoAula}" th:text="${tipoAula}"></option>
-              </select>
+                                    <option value="-1" selected>Seleccione un tipo de aula...</option>
+                                    <option th:each="tipoAula : ${T (com.webservice.app.entities.TipoAula).values()}" th:value="${tipoAula}" th:text="${tipoAula}"></option>
+                                </select>
                             </div>
                             <div class="modal-footer mt-lg-2 ">
                                 <button type="button" class="btn btn-secondary " data-bs-dismiss="modal">
-                    Cerrar
-                  </button>
+                                    Cerrar
+                                </button>
                                 <button type="submit" class="btn btn-aulas">Crear</button>
                             </div>
                         </form>
@@ -403,13 +406,20 @@
                                 <label for="descripcion " class="col-form-label ">Cantidad de Estudiantes</label>
                                 <input type="number" class="form-control" id="cantidad" min="1" max="500" value="1" th:field="*{cantEstudiantes}" required/>
                             </div>
-                            <div class="form-group ">
+                            <!-- <div class="form-group ">
                                 <label for="dia" class="col-form-label ">Fecha de Examen</label>
                                 <input type="date" class="form-control" id="fechaExamen" th:field="*{fechaExamen}" th:value="*{fechaExamen}" required />
+                            </div> -->
+                            <div class="form-group">
+                                <label>Fecha de Examen</label>
+                                <input class="form-control" type="date" id="fechaExamen" min="1970-01-01" max="5555-12-31" placeholder="Fecha de Examen" th:field="*{fechaExamen}" /> 
+  						    </div>
+                            <div class="form-group ">
+                                <input type="hidden" class="form-control" id="mesa" th:field="*{mesa}" />
                             </div>
-                                                        <div class="form-group ">
-                                <label for="mesa" class="col-form-label ">Mesa:</label>
-                                <input type="text" class="form-control" id="mesa" th:field="*{mesa}" required />
+                            <div class="form-group">
+                                <label for="observaciones" class="col-form-label">Observaciones</label>
+                                <textarea class="form-control" id="observaciones" rows="2" th:field="*{observaciones}"></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="tipoAulaF" class="col-form-label">Tipo de Aula</label>
