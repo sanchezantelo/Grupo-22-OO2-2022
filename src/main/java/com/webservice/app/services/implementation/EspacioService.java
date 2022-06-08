@@ -158,6 +158,10 @@ public class EspacioService implements IEspacioService{
 	
 		NotaPedido notaPedido = notaPedidoService.findById(idNotaPedido);
 		Aula aula = aulaService.traerAula(idAula);
+		List<Espacio> espaciosAsignados = null;
+		if(notaPedido.getAulaAsignada()!=null) {
+			 espaciosAsignados = espacioRepository.findByNotaPedido(notaPedido);
+		}
 		
 		if(notaPedido instanceof Final) {
 			Final notaFinal= (Final) notaPedido;
@@ -169,6 +173,13 @@ public class EspacioService implements IEspacioService{
 			List<Espacio> espacios = this.traerEspacios(curso, aula);
 			for(Espacio espacio:espacios) {
 				ModificarEspacio(espacio,notaPedido,aula);
+			}
+		}
+		if( espaciosAsignados!=null) {
+			for(Espacio e: espaciosAsignados) {
+				e.setLibre(true);
+				e.setNotaPedido(null);
+				this.insertarOActualizar(e);
 			}
 		}
 	}
@@ -194,6 +205,8 @@ public class EspacioService implements IEspacioService{
 			
 		}
 	}
+	
+
 	
 	//Desactiva los espacios del cuatrimestre anterior. Cuando se crea un nuevo listado de espacios, se desactivan los anteriores
 	public void DesactivarCuatrimestreAnterior(List<Espacio> espaciosActivos){

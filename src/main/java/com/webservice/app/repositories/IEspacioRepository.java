@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.webservice.app.entities.Aula;
 import com.webservice.app.entities.Espacio;
+import com.webservice.app.entities.NotaPedido;
 import com.webservice.app.entities.TipoTurnos;
 
 
@@ -19,6 +20,8 @@ public interface IEspacioRepository extends JpaRepository<Espacio, Serializable>
 	public abstract Espacio findByIdEspacio(int idEspacio);
 	
 	public abstract List<Espacio> findByAulaAndActivo(Aula aula,boolean activo);
+	
+	public abstract List<Espacio> findByNotaPedido(NotaPedido notaPedido);
 
 	@Query("SELECT e FROM Espacio e WHERE e.activo=1")
 	public abstract List<Espacio> traerEspaciosActivos();
