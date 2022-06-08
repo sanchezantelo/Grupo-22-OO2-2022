@@ -11,7 +11,6 @@ import com.webservice.app.services.IMateriaService;
 import com.webservice.app.services.INotaPedidoService;
 import com.webservice.app.services.IUsuarioService;
 
-// import lombok.var;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
@@ -101,6 +100,8 @@ public class NotaPedidoController {
             cursada.setMateria(materiaService.traerMateria(curso.getMateria().getIdMateria()));
             cursada.setFecha(LocalDate.now());
             notaPedidoService.insertOrUpdate(cursada);
+            cursada.setCodigo(cursada.getMateria().getCodigo()+"-"+String.valueOf(cursada.getIdNotaPedido()));
+            notaPedidoService.insertOrUpdate(cursada);
             redirAttr.addFlashAttribute("mensaje", "Pedido de cursada creada correctamente")
                 .addFlashAttribute("clase", "task-success");
         } catch (Exception e) {
@@ -130,7 +131,7 @@ public class NotaPedidoController {
                 Final finalViejo = (Final) notaPedidoService.findById(final_.getIdNotaPedido());
                 final_.setSolicitante(finalViejo.getSolicitante());
                 final_.setFecha(finalViejo.getFecha());
-                final_.setMesa(finalViejo.getMesa());
+                final_.setMesa("MESIST-"+String.valueOf(materiaService.traerMateria(final_.getMateria().getIdMateria()).getCodigo()));
                 notaPedidoService.insertOrUpdate(final_);
                 redirAttr.addFlashAttribute("mensaje", "Pedido de final modificado correctamente")
                     .addFlashAttribute("clase", "task-success");
