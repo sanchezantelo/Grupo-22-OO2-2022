@@ -61,10 +61,9 @@ public class EspacioController {
 		LocalDate hasta= LocalDate.parse(parameters.get("hasta"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		try {
 			espacioService.agregarEspacios(desde,hasta);
-			redirectAttrs.addFlashAttribute("success", "Se generaron los espacios").addFlashAttribute("clase", "alert alert-danger");
+			redirectAttrs.addFlashAttribute("mensaje", "Se generaron los espacios").addFlashAttribute("clase", "task-success");
 		}catch(Exception e) {
-			redirectAttrs.addFlashAttribute("modalGeneradorEspacios", true);
-			redirectAttrs.addFlashAttribute("error", e.getMessage()).addFlashAttribute("clase", "alert alert-danger");
+			redirectAttrs.addFlashAttribute("mensaje", e.getMessage()).addFlashAttribute("clase", "task-error");
 		}
 
 		return "redirect:/index";
@@ -83,7 +82,7 @@ public class EspacioController {
 				redirectAttrs.addFlashAttribute("aulasNota",espacioService.traerAulasDisponiblesPorFecha(notafinal.getFechaExamen(),aulas,notafinal.getTurno()));
 			
 			}catch(Exception e) {
-				redirectAttrs.addFlashAttribute("error", e.getMessage()).addFlashAttribute("clase", "alert alert-danger");
+				redirectAttrs.addFlashAttribute("mensaje", e.getMessage()).addFlashAttribute("clase", "task-error");
 			}
 		}else {
 			
@@ -92,7 +91,7 @@ public class EspacioController {
 		 		redirectAttrs.addFlashAttribute("aulasNota",espacioService.traerAulasDisponiblesPorFecha(aulas,curso));
 			
 			}catch(Exception e) {
-				redirectAttrs.addFlashAttribute("error", e.getMessage()).addFlashAttribute("clase", "alert alert-danger");
+				redirectAttrs.addFlashAttribute("mensaje", e.getMessage()).addFlashAttribute("clase", "task-error");
 		
 			}
 		}
@@ -109,7 +108,7 @@ public class EspacioController {
 		
 		espacioService.AsignarEspacios(notaPedido, aula);
 		
-		redirectAttrs.addFlashAttribute("success", "Se asigno el aula para la nota pedido").addFlashAttribute("clase", "alert alert-danger");
+		redirectAttrs.addFlashAttribute("mensaje", "Se asigno el aula para la nota pedido").addFlashAttribute("clase", "task-success");
 		return "redirect:/index";
 		
 	}
