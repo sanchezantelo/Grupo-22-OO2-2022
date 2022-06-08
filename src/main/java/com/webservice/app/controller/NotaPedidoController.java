@@ -113,7 +113,7 @@ public class NotaPedidoController {
         log.info("/{id}" + idNotaPedido);
         NotaPedido notaPedido = notaPedidoService.findById(idNotaPedido);
         model.addAttribute("editar", true);
-        redirAttr.addFlashAttribute("notaPedidoReq", notaPedido).addFlashAttribute("clase", "alert alert-success");
+        redirAttr.addFlashAttribute("notaPedidoReq", notaPedido).addFlashAttribute("clase", "task-success");
         return "redirect:/index";
     }
 
@@ -129,12 +129,12 @@ public class NotaPedidoController {
                 final_.setMesa(finalViejo.getMesa());
                 notaPedidoService.insertOrUpdate(final_);
                 redirAttr.addFlashAttribute("mensaje", "Final modificado correctamente")
-                    .addFlashAttribute("clase", "alert alert-success");
+                    .addFlashAttribute("clase", "task-success");
             }
         } catch (Exception e) {
             log.error("Error al modificar final: " + e.getMessage());
             redirAttr.addFlashAttribute("mensaje", "Error al modificar final")
-                .addFlashAttribute("error", e.getMessage()).addAttribute("clase", "alert alert-danger");
+                .addFlashAttribute("error", e.getMessage()).addAttribute("clase", "task-error");
         }
         return "redirect:/index";
     }
@@ -152,11 +152,11 @@ public class NotaPedidoController {
             }
             notaPedidoService.insertOrUpdate(curso);
             redirAttr.addFlashAttribute("mensaje", "Curso modificado correctamente")
-                .addFlashAttribute("clase", "alert alert-success");
+                .addFlashAttribute("clase", "task-success");
         } catch (Exception e) {
             log.error("Error al modificar curso: " + e.getMessage());
             redirAttr.addFlashAttribute("mensaje", "Error al modificar curso")
-                .addFlashAttribute("error", e.getMessage()).addAttribute("clase", "alert alert-danger");
+                .addFlashAttribute("error", e.getMessage()).addAttribute("clase", "task-error");
         }
         return "redirect:/index";
     }
@@ -167,11 +167,11 @@ public class NotaPedidoController {
         try {            
             notaPedidoService.remove(id);
             redirAttr.addFlashAttribute("mensaje", "Pedido eliminado correctamente")
-                .addFlashAttribute("clase", "alert alert-success");
+                .addFlashAttribute("clase", "task-success");
         } catch(Exception e) {
             log.error("Error al eliminar pedido: " + e.getMessage());
             redirAttr.addFlashAttribute("mensaje", "Error al eliminar pedido")
-                .addFlashAttribute("error", e.getMessage()).addAttribute("clase", "alert alert-danger");
+                .addFlashAttribute("error", e.getMessage()).addAttribute("clase", "task-error");
         }
         return "redirect:/index";
     }
