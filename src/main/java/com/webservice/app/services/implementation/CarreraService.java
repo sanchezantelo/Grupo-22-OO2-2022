@@ -18,7 +18,6 @@ public class CarreraService implements ICarreraService {
 	public Carrera traerCarrera(int idCarrera) {
 
 		Carrera carrera = carreraRepository.findByIdCarrera(idCarrera);
-		// Hibernate.initialize(aula.getEdificio());
 		return carrera;
 	}
 

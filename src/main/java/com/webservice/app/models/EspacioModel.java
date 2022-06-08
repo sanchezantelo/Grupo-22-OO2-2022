@@ -20,7 +20,6 @@ public class EspacioModel {
 	private NotaPedido notaPedido;
 	private boolean activo;
 
-	
 	public EspacioModel(int idEspacio, LocalDate fecha, TipoTurnos turno, Aula aula, boolean libre, boolean activo) {
 		this.idEspacio = idEspacio;
 		this.fecha = fecha;
@@ -37,8 +36,4 @@ public class EspacioModel {
 		this.libre = libre;
 		this.activo=activo;
 	}
-	
-	
-
-	
 }

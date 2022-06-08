@@ -20,7 +20,6 @@ public class MateriaService implements IMateriaService {
 	public Materia traerMateria(int idMateria) {
 
 		Materia materia = materiaRepository.findByIdMateria(idMateria);
-		// Hibernate.initialize(aula.getEdificio());
 		return materia;
 	}
 

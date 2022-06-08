@@ -18,9 +18,6 @@ public interface IUsuarioRolRepository extends JpaRepository<UsuarioRol, Seriali
 	
 	public abstract List<UsuarioRol> findAll();
 	
-
 	@Query("SELECT r FROM UsuarioRol r WHERE r.enabled=true")
 	public abstract List<UsuarioRol> findByEnabled();
-
-
 }

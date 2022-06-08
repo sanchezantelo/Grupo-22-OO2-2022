@@ -18,7 +18,6 @@ public class DepartamentoService implements IDepartamentoService {
 	public Departamento traerDepartamento(int idDepartamento) {
 
 		Departamento departamento = departamentoRepository.findByIdDepartamento(idDepartamento);
-		// Hibernate.initialize(aula.getEdificio());
 		return departamento;
 	}
 

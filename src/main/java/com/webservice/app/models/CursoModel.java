@@ -9,5 +9,4 @@ public class CursoModel extends NotaPedidoModel {
 	protected String codigo;
 	protected int diaSemana;
 	protected int presencialidad;
-
 }

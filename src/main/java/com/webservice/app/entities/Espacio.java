@@ -54,7 +54,6 @@ public class Espacio {
 	@NotNull
 	private boolean activo;
 
-	
 	public Espacio(int idEspacio,LocalDate fecha, TipoTurnos turno, Aula aula, boolean libre,boolean activo ) {
 		this.idEspacio=idEspacio;
 		this.fecha = fecha;
@@ -71,13 +70,4 @@ public class Espacio {
 		this.libre = libre;
 		this.activo=activo;
 	}
-	
-
-	
-	
-	
-	
-	
-	
-	
 }

@@ -16,5 +16,4 @@ public interface INotaPedidoRepository extends JpaRepository<NotaPedido, Integer
 
 	@Query("SELECT n FROM NotaPedido n WHERE n.aulaAsignada IS NOT NULL")
     public List<NotaPedido> findNotasAsignadas();
-
 }
