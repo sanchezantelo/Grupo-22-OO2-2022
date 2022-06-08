@@ -63,7 +63,7 @@ public abstract class NotaPedido implements Serializable {
 	private Aula aulaAsignada;
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.PERSIST)
-	@JoinColumn(name= "idUsuario", insertable = false, updatable = false)
+	@JoinColumn(name= "idUsuario")
 	private Usuario solicitante;
 
 	// Constructor sin id

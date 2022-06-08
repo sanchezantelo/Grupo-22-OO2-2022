@@ -75,7 +75,7 @@ public class NotaPedidoController {
 	    	Final final_ = modelMapper.map(finalModel, Final.class);
 	        final_.setSolicitante(usuarioService.findById(user.getIdUsuario()));
 	        final_.setFecha(LocalDate.now());
-	        final_.setMesa("MESIST-"+String.valueOf(materiaService.traerMateria(final_.getMateria().getIdMateria()).getCodigo())+"- Turno "+final_.getTurno().name());
+	        final_.setMesa("MESIST-"+String.valueOf(materiaService.traerMateria(final_.getMateria().getIdMateria()).getCodigo()));
 	        final_.setMateria(materiaService.traerMateria(final_.getMateria().getIdMateria()));
 	        notaPedidoService.insertOrUpdate(final_);
             redirAttr.addFlashAttribute("success", "Final creado correctamente");
