@@ -42,7 +42,6 @@ public class EspacioController {
 	@Qualifier("notaPedidoService")
 	private INotaPedidoService notaPedidoService;
 	
-	private ModelMapper modelMapper = new ModelMapper();
 	
 	@GetMapping("/{idAula}")
 	public String traerEspaciosPorAula(@PathVariable("idAula") int idAula, Model model,RedirectAttributes redirectAttrs) {
@@ -123,11 +122,8 @@ public class EspacioController {
 	@GetMapping("/asignar/notapedido={idNotaPedido}/aula={idAula}")
 	public String asignarAula(@PathVariable("idNotaPedido") int idNotaPedido,@PathVariable("idAula") int idAula, RedirectAttributes redirectAttrs) {
 		
-		NotaPedido notaPedido = notaPedidoService.findById(idNotaPedido);
-		
-		Aula aula = aulaService.traerAula(idAula);
 		try {
-			espacioService.AsignarEspacios(notaPedido, aula);
+			espacioService.AsignarEspacios(idNotaPedido, idAula);
 			redirectAttrs.addFlashAttribute("mensaje", "Se asigno el aula para la nota pedido").addFlashAttribute("clase", "task-success");
 		}catch (Exception e) {
 			redirectAttrs.addFlashAttribute("mensaje", e.getMessage()).addFlashAttribute("clase", "task-error");

@@ -40,15 +40,88 @@ public class EspacioService implements IEspacioService{
 	@Qualifier("notaPedidoService")
 	private INotaPedidoService notaPedidoService;
 	
-	private ModelMapper modelMapper = new ModelMapper();
-
+	
+	//Trae espacios por aula
 	public List<Espacio> traerEspacios(Aula aula) {
 		return espacioRepository.findByAulaAndActivo(aula,true);
 	}
 	
-	public void agregarEspacios(LocalDate desde,LocalDate hasta) throws Exception {
+	//Trae espacios para las notas de pedido de tipo Curso
+	public List<Espacio> traerEspacios(Curso curso,Aula aula) throws Exception{
+	
+		List<Espacio> inicioFin = traerCuatrimestreActivo();		
+		if (inicioFin.isEmpty())  throw new Exception("No existen espacios activos disponibles");
 		
-			
+		LocalDate inicioCuatrimestre = inicioFin.get(0).getFecha();
+		LocalDate finCuatrimestre = inicioFin.get(1).getFecha();
+		
+		List<LocalDate> diasClases = Funciones.generarListadoDias(curso.getPresencialidad(), curso.getDiaSemana(),inicioCuatrimestre,finCuatrimestre);
+		return	espacioRepository.traerEspaciosPorFechaTurnoYAula(diasClases, aula, curso.getTurno());
+	}
+	
+	//Trae el cuatrimestre activo
+	public List<Espacio> traerCuatrimestreActivo(){
+		List<Espacio> inicioFin = new ArrayList<>();
+		Espacio inicio = espacioRepository.inicioCuatrimestre();
+		Espacio fin = espacioRepository.finCuatrimestre();
+		if(inicio!=null) inicioFin.add(inicio);
+		if(fin!=null) inicioFin.add(fin);
+		return inicioFin;
+	
+	}
+	
+	//Trae las aulas para finales
+	public List<Aula> traerAulasDisponiblesPorFecha(LocalDate fecha, List<Aula> aulas,TipoTurnos turno) throws Exception{
+		
+		Iterator <Aula> aulasIterador = aulas.iterator();
+		while (aulasIterador.hasNext()) {
+			Aula aula = aulasIterador.next();
+			if(espacioRepository.buscarAulasLibresPorFechaYTurno(fecha,aula, turno) == null) {
+				aulasIterador.remove();
+			}
+		}
+		
+		if ( aulas.isEmpty() ) throw new Exception("No se encontraron aulas para la fecha y el turno indicado");
+		return  aulas;
+	 
+	}
+	
+	//Trae las aulas para curso
+	public List<Aula> traerAulasDisponiblesPorFecha(List<Aula> aulas,Curso curso) throws Exception{
+		
+		List<Espacio> inicioFin = traerCuatrimestreActivo();
+		
+		if (inicioFin.isEmpty())  throw new Exception("No existen espacios activos disponibles");
+		
+		LocalDate inicioCuatrimestre = inicioFin.get(0).getFecha();
+		LocalDate finCuatrimestre = inicioFin.get(1).getFecha();
+		
+		List<LocalDate> diasClases = Funciones.generarListadoDias(curso.getPresencialidad(), curso.getDiaSemana(),inicioCuatrimestre,finCuatrimestre);
+		
+		Iterator <Aula> aulasIterador = aulas.iterator();
+		while (aulasIterador.hasNext()) {
+			Aula aula = aulasIterador.next();
+			if(espacioRepository.traerEspaciosPorFechaTurnoYAula(diasClases, aula, curso.getTurno()).size() < diasClases.size()) {
+				aulasIterador.remove();
+			}			
+		}
+		if ( aulas.isEmpty() ) throw new Exception("No se encontraron aulas para la fecha y el turno indicado");
+		return  aulas;
+		
+	}
+	
+
+	public boolean insertarOActualizar(Espacio espacio) {
+	    return espacioRepository.save(espacio) != null ? true : false;
+	}
+	
+	public boolean insertarOActualizar(List<Espacio> espacios) {
+	    return espacioRepository.saveAll(espacios) != null ? true : false;
+	}
+	
+	//Genera los espacios para el cuatrimestre
+	public void agregarEspacios(LocalDate desde,LocalDate hasta) throws Exception {
+	
 		List<Aula> aulas = aulaService.traerAulas();
 		
 		List<Espacio> espacios = new ArrayList<>();
@@ -72,109 +145,23 @@ public class EspacioService implements IEspacioService{
 					}
 				}
 
-			}
-			
+			}	
 			desde = desde.plusDays(1);
 		}
 		
 		if(this.insertarOActualizar(espacios) ) {
-			if(!espaciosActivos.isEmpty()) this.DesactivarCalendarioAnterior(espaciosActivos);
+			if(!espaciosActivos.isEmpty()) this.DesactivarCuatrimestreAnterior(espaciosActivos);
 		}else {
 			throw new Exception("No se pudo completar la transaccion");
 		}
 
 	}
-
-
-	public boolean insertarOActualizar(Espacio espacio) {
-	    return espacioRepository.save(espacio) != null ? true : false;
-	}
+	//Asigna el espacio a una nota Pedido
+	public void AsignarEspacios(int idNotaPedido, int idAula) throws Exception{
 	
-	public boolean insertarOActualizar(List<Espacio> espacios) {
-	    return espacioRepository.saveAll(espacios) != null ? true : false;
-	}
-	
-	public void DesactivarCalendarioAnterior(List<Espacio> espaciosActivos){
-		espaciosActivos.stream().forEach(espacio -> espacio.setActivo(false));
-		this.insertarOActualizar(espaciosActivos);
-	}
-	
-public List<Aula> traerAulasDisponiblesPorFecha(LocalDate fecha, List<Aula> aulas,TipoTurnos turno) throws Exception{
+		NotaPedido notaPedido = notaPedidoService.findById(idNotaPedido);
+		Aula aula = aulaService.traerAula(idAula);
 		
-		Iterator <Aula> aulasIterador = aulas.iterator();
-		while (aulasIterador.hasNext()) {
-			Aula aula = aulasIterador.next();
-			if(espacioRepository.buscarAulasLibresPorFechaYTurno(fecha,aula, turno) == null) {
-				aulasIterador.remove();
-			}
-		}
-		
-		if ( aulas.isEmpty() ) throw new Exception("No se encontraron aulas para la fecha y el turno indicado");
-		return  aulas;
-	 
-	}
-	
-
-	public List<Aula> traerAulasDisponiblesPorFecha(List<Aula> aulas,Curso curso) throws Exception{
-		
-		List<LocalDate> diasClases = this.generarListadoDias(curso.getPresencialidad(), curso.getDiaSemana());
-		
-		Iterator <Aula> aulasIterador = aulas.iterator();
-		while (aulasIterador.hasNext()) {
-			Aula aula = aulasIterador.next();
-			if(espacioRepository.traerEspaciosPorFechaTurnoYAula(diasClases, aula, curso.getTurno()).size() < diasClases.size()) {
-				aulasIterador.remove();
-			}			
-		}
-		if ( aulas.isEmpty() ) throw new Exception("No se encontraron aulas para la fecha y el turno indicado");
-		return  aulas;
-		
-	}
-	
-public List<LocalDate> generarListadoDias(int presencialidad, int diaSolicitado) throws Exception{
-		
-			List<Espacio> inicioFin = traerCuatrimestreActivo();
-		
-			if (inicioFin.isEmpty())  throw new Exception("No existen espacios activos disponibles");
-			
-			List<LocalDate> listadoDias = new ArrayList<>();
-			
-			LocalDate inicioCuatrimestre = inicioFin.get(0).getFecha();
-			LocalDate finCuatrimestre = inicioFin.get(1).getFecha();
-	
-			int diaSemanaComienzo = inicioCuatrimestre.getDayOfWeek().getValue();
-			LocalDate inicioClase = inicioCuatrimestre;	
-			
-			
-			if(diaSolicitado>diaSemanaComienzo) {
-			
-				inicioClase = inicioClase.plusDays(diaSolicitado-diaSemanaComienzo);
-			
-			}else if( diaSemanaComienzo > diaSolicitado){
-				
-				inicioClase = inicioClase.plusDays( 7 - (diaSemanaComienzo - diaSolicitado) );
-			}
-			
-			long cantidadClases=ChronoUnit.DAYS.between(inicioCuatrimestre, finCuatrimestre)/7;
-			int sumaDias = 7;		
-			if(presencialidad==50) {
-				cantidadClases = cantidadClases/2;
-				sumaDias=14;}
-			
-			for(int i=0 ; i < cantidadClases ;i++) {
-				
-				listadoDias.add(inicioClase);
-				
-				inicioClase = inicioClase.plusDays(sumaDias);
-			
-			}
-		
-		
-		return listadoDias;
-	}
-
-	public void AsignarEspacios(NotaPedido notaPedido, Aula aula) throws Exception{
-	
 		if(notaPedido instanceof Final) {
 			Final notaFinal= (Final) notaPedido;
 			Espacio espacio = espacioRepository.findByFechaAndTurnoAndAulaAndActivo(notaFinal.getFechaExamen(),notaFinal.getTurno(),aula,true);
@@ -188,7 +175,7 @@ public List<LocalDate> generarListadoDias(int presencialidad, int diaSolicitado)
 			}
 		}
 	}
-	
+	//Modifica el espacio y la nota peiddo. Al espacio le setea nota pedido y lo pone en ocupado, y a la nota le pone el aula asignada
 	public void ModificarEspacio(Espacio espacio,NotaPedido notaPedido,Aula aula){
 		
 		espacio.setLibre(false);
@@ -210,22 +197,12 @@ public List<LocalDate> generarListadoDias(int presencialidad, int diaSolicitado)
 			
 		}
 	}
-	public List<Espacio> traerEspacios(Curso curso,Aula aula) throws Exception{
-		
-		List<LocalDate> diasClases = this.generarListadoDias(curso.getPresencialidad(), curso.getDiaSemana());
-		return	espacioRepository.traerEspaciosPorFechaTurnoYAula(diasClases, aula, curso.getTurno());
 	
+	//Desactiva los espacios del cuatrimestre anterior. Cuando se crea un nuevo listado de espacios, se desactivan los anteriores
+	public void DesactivarCuatrimestreAnterior(List<Espacio> espaciosActivos){
+		espaciosActivos.stream().forEach(espacio -> espacio.setActivo(false));
+		this.insertarOActualizar(espaciosActivos);
 	}
-	
-	public List<Espacio> traerCuatrimestreActivo(){
 		
-		List<Espacio> inicioFin = new ArrayList<>();
-		Espacio inicio = espacioRepository.inicioCuatrimestre();
-		Espacio fin = espacioRepository.finCuatrimestre();
-		if(inicio!=null) inicioFin.add(inicio);
-		if(fin!=null) inicioFin.add(fin);
-		
-		return inicioFin;
 	
-	}
 }

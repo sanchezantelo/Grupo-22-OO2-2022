@@ -7,6 +7,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.webservice.app.entities.Espacio;
+
 public class Funciones {
 public static boolean esBisiesto(int anio) {
 		
@@ -260,6 +262,48 @@ public static boolean esBisiesto(int anio) {
 		
 		return diasCuatrimestre;
 	
+	}
+	
+	public static List<LocalDate> generarListadoDias(int presencialidad, int diaSolicitado,LocalDate inicioCuatrimestre,LocalDate finCuatrimestre) {
+		
+			List<LocalDate> listadoDias = new ArrayList<>();
+			int diaSemanaComienzo = inicioCuatrimestre.getDayOfWeek().getValue();
+			LocalDate inicioClase = inicioCuatrimestre;	
+			
+			
+			if(diaSolicitado>diaSemanaComienzo) {
+			
+				inicioClase = inicioClase.plusDays(diaSolicitado-diaSemanaComienzo);
+			
+			}else if( diaSemanaComienzo > diaSolicitado){
+				
+				inicioClase = inicioClase.plusDays( 7 - (diaSemanaComienzo - diaSolicitado) );
+			}
+			
+			long cantidadClases=ChronoUnit.DAYS.between(inicioCuatrimestre, finCuatrimestre)/7;
+			
+			int sumaDias = 7;		
+			
+			switch(presencialidad) {
+				case 50 :cantidadClases = cantidadClases/2;
+					sumaDias=14;
+				break;
+				case 25 :cantidadClases = cantidadClases/4;
+					sumaDias=28;
+				break;
+			}
+	
+			
+			for(int i=0 ; i < cantidadClases ;i++) {
+				
+				listadoDias.add(inicioClase);
+				
+				inicioClase = inicioClase.plusDays(sumaDias);
+			
+			}
+		
+		
+		return listadoDias;
 	}
 
 }
