@@ -1,12 +1,10 @@
 package com.webservice.app.services.implementation;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -18,7 +16,6 @@ import com.webservice.app.entities.Aula;
 import com.webservice.app.entities.Espacio;
 import com.webservice.app.entities.TipoTurnos;
 import com.webservice.app.helpers.Funciones;
-import com.webservice.app.models.NotaPedidoModel;
 import com.webservice.app.repositories.IEspacioRepository;
 import com.webservice.app.services.IAulaService;
 import com.webservice.app.services.IEspacioService;

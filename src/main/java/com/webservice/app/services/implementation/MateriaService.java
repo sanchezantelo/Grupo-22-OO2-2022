@@ -2,7 +2,6 @@ package com.webservice.app.services.implementation;
 
 import java.util.List;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -17,8 +16,6 @@ public class MateriaService implements IMateriaService {
 	@Autowired
 	@Qualifier("materiaRepository")
 	private IMateriaRepository materiaRepository;
-
-	private ModelMapper modelMapper = new ModelMapper();
 
 	public Materia traerMateria(int idMateria) {
 
