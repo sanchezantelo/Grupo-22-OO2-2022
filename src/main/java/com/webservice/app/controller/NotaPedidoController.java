@@ -70,8 +70,8 @@ public class NotaPedidoController {
     @PostMapping("/crearFinal")
     public String crearFinal(@Valid @ModelAttribute("final") FinalModel finalModel,RedirectAttributes redirAttr, HttpSession sesion) {
         log.info("/crearFinal" + finalModel);
-    	UsuarioModel user = (UsuarioModel) sesion.getAttribute("user");
     	try {
+            UsuarioModel user = (UsuarioModel) sesion.getAttribute("user");
 	    	Final final_ = modelMapper.map(finalModel, Final.class);
 	        final_.setSolicitante(usuarioService.findById(user.getIdUsuario()));
 	        final_.setFecha(LocalDate.now());
@@ -90,8 +90,8 @@ public class NotaPedidoController {
     @PostMapping("/crearCursada")
     public String crearCursada(@Valid @ModelAttribute("curso") CursoModel curso, HttpSession sesion, RedirectAttributes redirAttr) {
         log.info("/crearCursada" + curso);
-        UsuarioModel user = (UsuarioModel) sesion.getAttribute("user");
         try {
+            UsuarioModel user = (UsuarioModel) sesion.getAttribute("user");
             curso.setSolicitante(usuarioService.findById(user.getIdUsuario()));
             curso.setFecha(LocalDate.now());
             curso.setCodigo(curso.getMateria().getCodigo()+"-"+String.valueOf(curso.getIdNotaPedido()));
