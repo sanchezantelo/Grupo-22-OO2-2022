@@ -149,14 +149,8 @@
                                     <span th:text="${notaPedido.getMesa() + ' | ' + notaPedido.materia.getMateria() + ' T' + notaPedido.turno.name().substring(0,1)}"></span>
                                 </td>
                                 <td class="text-right d-flex float-end gap-lg-3">
-                                    <a class="btn btn-aulas btn-sm" th:if="${user.hasRole('ROL_AUDITOR')}" th:href="@{/notaPedido/{id}(id=${notaPedido.idNotaPedido})}" title="Editar">
-                                        <i class="bx bx-edit-alt" style="vertical-align: -1px"></i>
-                                    </a>
                                     <a class="btn btn-aulas btn-sm" th:if="${user.hasRole('ROL_ADMIN')}" th:href="@{/notaPedido/{id}(id=${notaPedido.idNotaPedido})}" title="Reasignar">
                                         <i class="bi bi-arrow-repeat"></i>
-                                    </a>
-                                    <a class="btn btn-aulas btn-sm" th:if="${notaPedido}" th:unless="${user.hasRole('ROL_ADMIN')}" th:href="@{/notaPedido/eliminarNotaPedido/{id}(id=${notaPedido.idNotaPedido})}" title="Eliminar">
-                                        <i class="bx bx-trash" style="vertical-align: -1px"></i>
                                     </a>
                                 </td>
                             </tr>
