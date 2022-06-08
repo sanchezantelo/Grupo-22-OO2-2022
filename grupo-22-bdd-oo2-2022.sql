@@ -143,27 +143,22 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `Espacio`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `Espacio` (
+
+CREATE TABLE `espacio` (
   `id_espacio` int NOT NULL AUTO_INCREMENT,
+  `activo` bit(1) NOT NULL,
   `fecha` date NOT NULL,
-  `turno` char(1) NOT NULL,
-  `id_aula` int NOT NULL,
-  `libre` tinyint NOT NULL,
+  `libre` bit(1) NOT NULL,
+  `turno` varchar(255) DEFAULT NULL,
+  `id_aula` int DEFAULT NULL,
+  `id_nota_pedido` int DEFAULT NULL,
   PRIMARY KEY (`id_espacio`),
-  KEY `fk_Espacio_1_idx` (`id_aula`),
-  CONSTRAINT `fk_Espacio_1` FOREIGN KEY (`id_aula`) REFERENCES `Aula` (`id_aula`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  KEY `FKeubgg3n2nn6959ix7e8t5pda0` (`id_aula`),
+  KEY `FKiqwrpr6ff7orpk7usx6136kbv` (`id_nota_pedido`),
+  CONSTRAINT `FKeubgg3n2nn6959ix7e8t5pda0` FOREIGN KEY (`id_aula`) REFERENCES `aula` (`id_aula`),
+  CONSTRAINT `FKiqwrpr6ff7orpk7usx6136kbv` FOREIGN KEY (`id_nota_pedido`) REFERENCES `nota_pedido` (`id_nota_pedido`)
+) ENGINE=InnoDB AUTO_INCREMENT=3145 DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `Espacio`
---
-
-LOCK TABLES `Espacio` WRITE;
-/*!40000 ALTER TABLE `Espacio` DISABLE KEYS */;
-INSERT INTO `Espacio` VALUES (1,'2022-05-01','M',5,1),(2,'2022-05-02','M',5,1),(3,'2022-05-03','M',5,1),(4,'2022-05-04','M',5,1),(5,'2022-05-05','M',5,1),(6,'2022-05-06','M',5,1),(7,'2022-05-07','M',5,1),(8,'2022-05-08','M',5,1),(9,'2022-05-09','M',5,1),(10,'2022-05-10','M',5,1),(11,'2022-05-11','M',5,1),(12,'2022-05-12','M',5,1),(13,'2022-05-13','M',5,1),(14,'2022-05-14','M',5,1),(15,'2022-05-15','M',5,1),(16,'2022-05-16','M',5,1),(17,'2022-05-17','M',5,1),(18,'2022-05-18','M',5,1),(19,'2022-05-19','M',5,1),(20,'2022-05-20','M',5,1),(21,'2022-05-21','M',5,1),(22,'2022-05-22','M',5,1),(23,'2022-05-23','M',5,1),(24,'2022-05-24','M',5,1),(25,'2022-05-25','M',5,1),(26,'2022-05-26','M',5,1),(27,'2022-05-27','M',5,1),(28,'2022-05-28','M',5,1),(29,'2022-05-29','M',5,1),(30,'2022-05-30','M',5,1),(31,'2022-05-31','M',5,1),(32,'2022-05-01','M',6,1),(33,'2022-05-02','M',6,1),(34,'2022-05-03','M',6,1),(35,'2022-05-04','M',6,1),(36,'2022-05-05','M',6,1),(37,'2022-05-06','M',6,1),(38,'2022-05-07','M',6,1),(39,'2022-05-08','M',6,1),(40,'2022-05-09','M',6,1),(41,'2022-05-10','M',6,1),(42,'2022-05-11','M',6,1),(43,'2022-05-12','M',6,1),(44,'2022-05-13','M',6,1),(45,'2022-05-14','M',6,1),(46,'2022-05-15','M',6,1),(47,'2022-05-16','M',6,1),(48,'2022-05-17','M',6,1),(49,'2022-05-18','M',6,1),(50,'2022-05-19','M',6,1),(51,'2022-05-20','M',6,1),(52,'2022-05-21','M',6,1),(53,'2022-05-22','M',6,1),(54,'2022-05-23','M',6,1),(55,'2022-05-24','M',6,1),(56,'2022-05-25','M',6,1),(57,'2022-05-26','M',6,1),(58,'2022-05-27','M',6,1),(59,'2022-05-28','M',6,1),(60,'2022-05-29','M',6,1),(61,'2022-05-30','M',6,1),(62,'2022-05-31','M',6,1);
-/*!40000 ALTER TABLE `Espacio` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `Laboratorio`
