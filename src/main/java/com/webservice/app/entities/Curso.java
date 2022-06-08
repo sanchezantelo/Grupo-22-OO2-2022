@@ -8,6 +8,8 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import com.webservice.app.helpers.Funciones;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -30,4 +32,8 @@ public class Curso extends NotaPedido {
 	@NotNull
 	@Column(name= "presencialidad")
 	private int presencialidad;
+	
+	public String TraerNombreDia() {
+		return Funciones.traerDiaDeLaSemana(this.diaSemana);
+	}
 }

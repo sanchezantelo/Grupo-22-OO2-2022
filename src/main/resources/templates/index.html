@@ -630,20 +630,19 @@
                             <button type="button" class="btn btn-close btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <div th:if="${notapedido instanceof T(com.webservice.app.entities.Final)}" th:object="${notapedido}">
+                            <div th:if="${notapedido instanceof T(com.webservice.app.entities.Final)}" th:object="${notapedido}" class="mb-lg-3 px-lg-4">
                                 <p>Dia: <span th:text="${notapedido.fechaExamen}"></span></p>
                                 <p>Turno: <span th:text="${notapedido.turno}"></span></p>
                                 <p>Tipo de Aula: <span th:text="${notapedido.tipoAula}"></span></p>
                             </div>
                                 
-                            <div th:if="${notapedido instanceof T(com.webservice.app.entities.Curso)}" th:object="${notapedido}">
-                                Aulas Disponibles para
-                                <p>Dia de Semana: <span th:text="${notapedido.diaSemana}"></span></p>
-                                <p>Presencialidad: <span th:text="${notapedido.presencialidad}"></span></p>
-                                <p>Tipo de Aula: <span th:text="${notapedido.tipoAula}"></span></p>
+                            <div th:if="${notapedido instanceof T(com.webservice.app.entities.Curso)}" th:object="${notapedido}" class="mb-lg-3 px-lg-4">
+           	                    <p style="margin-bottom:7px">Dia de Semana: <span th:text="${notapedido.TraerNombreDia()}"></span></p>
+                                <p style="margin-bottom:7px">Presencialidad: <span th:text="${notapedido.presencialidad}"></span></p>
+                                <p style="margin-bottom:7px">Tipo de Aula: <span th:text="${notapedido.tipoAula}"></span></p>
                             </div>
                             <ul>
-                                <li th:each="aula : ${aulasNota}"><strong>Aula: </strong><span th:text="${aula.numero}"></span><strong> Edificio: </strong><span th:text="${aula.edificio.edificio}"></span><span ><a th:href="@{/espacio/asignar/notapedido={idNotaPedido}/aula={idAula}(idNotaPedido=${notapedido.idNotaPedido},idAula=${aula.idAula})}">Asignar</a></span></li>
+                                <li th:each="aula : ${aulasNota}" style="PADDING: 13PX 0PX;"><strong>Aula: </strong><span th:text="${aula.numero}"></span><strong> Edificio: </strong><span th:text="${aula.edificio.edificio}"></span><span ><a th:href="@{/espacio/asignar/notapedido={idNotaPedido}/aula={idAula}(idNotaPedido=${notapedido.idNotaPedido},idAula=${aula.idAula})}" class="btn btn-aulas btn-sm  a" STYLE="float:right;">Asignar</a></span></li>
                                 <span  ></span>
                             </ul>
                             <div class="modal-footer  mt-5">

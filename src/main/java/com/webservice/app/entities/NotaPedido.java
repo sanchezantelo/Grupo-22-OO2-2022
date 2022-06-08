@@ -21,6 +21,8 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.webservice.app.helpers.Funciones;
+
 import lombok.NoArgsConstructor;
 import lombok.Data;
 
@@ -78,4 +80,6 @@ public abstract class NotaPedido implements Serializable {
 		this.aulaAsignada = aulaAsignada;
 		this.solicitante = solicitante;
 	}
+	
+
 }
