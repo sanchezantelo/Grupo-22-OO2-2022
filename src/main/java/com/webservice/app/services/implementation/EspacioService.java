@@ -46,7 +46,7 @@ public class EspacioService implements IEspacioService{
 		return espacioRepository.findByAulaAndActivo(aula,true);
 	}
 	
-	public void agregarEspacios(LocalDate desde,LocalDate hasta) throws Exception{
+	public void agregarEspacios(LocalDate desde,LocalDate hasta) throws Exception {
 		
 			
 		List<Aula> aulas = aulaService.traerAulas();
@@ -65,7 +65,7 @@ public class EspacioService implements IEspacioService{
 				for(TipoTurnos turno:TipoTurnos.values()) {
 					if(Funciones.esDiaHabil(desde) || Funciones.esSabado(desde)) {
 						
-						if(espacioRepository.findByFechaAndTurnoAndAula(desde, turno,aula)!=null) throw new Exception("Ya existe el espacio con fecha "+desde+", turno "+turno+" para el aula "+aula.getNumero()+" del edificio "+aula.getEdificio().getEdificio());
+						if(espacioRepository.findByFechaAndTurnoAndAulaAndActivo(desde, turno,aula,true)!=null) throw new Exception("Ya existe el espacio con fecha "+desde+", turno "+turno+" para el aula "+aula.getNumero()+" del edificio "+aula.getEdificio().getEdificio());
 						Espacio espacio = new Espacio(desde, turno, aula, true,true);
 						espacios.add(espacio);
 
@@ -170,7 +170,7 @@ public List<LocalDate> generarListadoDias(int presencialidad, int diaSolicitado)
 	
 		if(notaPedido instanceof Final) {
 			Final notaFinal= (Final) notaPedido;
-			Espacio espacio = espacioRepository.findByFechaAndTurnoAndAula(notaFinal.getFechaExamen(),notaFinal.getTurno(),aula);
+			Espacio espacio = espacioRepository.findByFechaAndTurnoAndAulaAndActivo(notaFinal.getFechaExamen(),notaFinal.getTurno(),aula,true);
 			ModificarEspacio(espacio,notaPedido,aula);
 		
 		}else {
@@ -190,13 +190,23 @@ public List<LocalDate> generarListadoDias(int presencialidad, int diaSolicitado)
 		if(this.insertarOActualizar(espacio)) 
 		{
 			notaPedido.setAulaAsignada(aula);
-			notaPedidoService.insertOrUpdate(notaPedido);
+			if(notaPedido instanceof Curso) {
+				
+				Curso curso = (Curso) notaPedido;
+				
+				notaPedidoService.insertOrUpdate(curso);
+				
+			}else {
+				Final notaFinal = (Final) notaPedido;
+				notaPedidoService.insertOrUpdate(notaFinal);
+			}
+			
 		}
 	}
 	public List<Espacio> traerEspacios(Curso curso,Aula aula){
 		
 		List<LocalDate> diasClases = this.generarListadoDias(curso.getPresencialidad(), curso.getDiaSemana());
-		return espacioRepository.traerEspaciosPorFechaTurnoYAula(diasClases, aula, curso.getTurno());
+		return	espacioRepository.traerEspaciosPorFechaTurnoYAula(diasClases, aula, curso.getTurno());
 	
 	}
 }
