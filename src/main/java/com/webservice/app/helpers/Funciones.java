@@ -7,8 +7,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.webservice.app.entities.Espacio;
-
 public class Funciones {
 public static boolean esBisiesto(int anio) {
 		

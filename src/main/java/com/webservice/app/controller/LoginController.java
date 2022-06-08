@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.webservice.app.helpers.ViewRouteHelper;
-import com.webservice.app.models.CursoModel;
-import com.webservice.app.models.FinalModel;
 import com.webservice.app.models.UsuarioModel;
 import com.webservice.app.services.IAulaService;
 import com.webservice.app.services.IEdificioService;
@@ -85,11 +83,13 @@ public class LoginController {
 	public String index(Model model, HttpSession sesion) {	
 		log.info("/edificio" + edificioService.findAll());
 		log.info("/notaPedido" + notaPedidoService.findAll());
-		var notasPedido = notaPedidoService.findAll();
+		var notasPedido = notaPedidoService.findNotasPendientes();
+		var notasPedidoAsignadas = notaPedidoService.findNotasAsignadas();
 		model.addAttribute("user",sesion.getAttribute("user"));
 		model.addAttribute("lstEdificios", edificioService.findAll());
 		model.addAttribute("lstMaterias", materiaService.findAll());
 		model.addAttribute("notasPedido", notasPedido);
+		model.addAttribute("notasPedidoAsignadas", notasPedidoAsignadas);
 		return "index";
 	}
 }
