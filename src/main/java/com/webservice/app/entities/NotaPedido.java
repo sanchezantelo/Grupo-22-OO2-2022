@@ -8,7 +8,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -47,7 +46,7 @@ public abstract class NotaPedido implements Serializable {
 	@Column(name= "cantidad_estudiantes")
 	private int cantEstudiantes;
 	
-	@ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.PERSIST)
+	@ManyToOne(cascade= CascadeType.PERSIST)
 	@JoinColumn(name= "idMateria")
 	private Materia materia;
 	
@@ -58,11 +57,11 @@ public abstract class NotaPedido implements Serializable {
 	@Enumerated(value = EnumType.STRING)
 	private TipoAula tipoAula;
 	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name="idAula")
 	private Aula aulaAsignada;
 	
-	@ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.PERSIST)
+	@ManyToOne(cascade= CascadeType.PERSIST)
 	@JoinColumn(name= "idUsuario")
 	private Usuario solicitante;
 
@@ -78,6 +77,4 @@ public abstract class NotaPedido implements Serializable {
 		this.aulaAsignada = aulaAsignada;
 		this.solicitante = solicitante;
 	}
-	
-
 }
