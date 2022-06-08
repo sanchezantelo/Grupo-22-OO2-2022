@@ -2,8 +2,9 @@ package com.webservice.app.services.implementation;
 
 import java.util.List;
 
+import com.webservice.app.entities.Curso;
+import com.webservice.app.entities.Final;
 import com.webservice.app.entities.NotaPedido;
-import com.webservice.app.models.NotaPedidoModel;
 import com.webservice.app.repositories.INotaPedidoRepository;
 import com.webservice.app.services.INotaPedidoService;
 
@@ -33,9 +34,19 @@ public class NotaPedidoService implements INotaPedidoService {
     }
 
     @Override
-    public NotaPedidoModel insertOrUpdate(NotaPedido notaPedido) {
-        NotaPedido newNotaPedido = repository.save(notaPedido);
-        return modelMapper.map(newNotaPedido, NotaPedidoModel.class);
+    public boolean insertOrUpdate(NotaPedido notaPedido) {
+        try {
+            if(notaPedido instanceof Curso) {
+                modelMapper.map(notaPedido, Curso.class);
+                repository.save(notaPedido);
+            } else if(notaPedido instanceof Final) {
+                modelMapper.map(notaPedido, Final.class);
+                repository.save(notaPedido);
+            }
+            return true;
+        } catch(Exception e) {
+            return false;
+        }
     }
 
     @Override
