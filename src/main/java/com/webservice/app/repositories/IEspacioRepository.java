@@ -23,7 +23,7 @@ public interface IEspacioRepository extends JpaRepository<Espacio, Serializable>
 	@Query("SELECT e FROM Espacio e WHERE e.activo=1")
 	public abstract List<Espacio> traerEspaciosActivos();
 	
-	public abstract Espacio findByFechaAndTurnoAndAula(LocalDate fecha, TipoTurnos turno, Aula aula);
+	public abstract Espacio findByFechaAndTurnoAndAulaAndActivo(LocalDate fecha, TipoTurnos turno, Aula aula,boolean activo);
 	
 	@Query("SELECT e FROM Espacio e WHERE e.libre=1 and aula=(:aula) and turno=(:turno) and fecha in (:fechas)")
 	public abstract List<Espacio> traerEspaciosPorFechaTurnoYAula(List<LocalDate> fechas,Aula aula,TipoTurnos turno);

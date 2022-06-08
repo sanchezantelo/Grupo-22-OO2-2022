@@ -71,7 +71,7 @@ public class EspacioController {
 	}
 	
 	@GetMapping("/buscarAula/notapedido={idNotaPedido}")
-	public String buscarAula(@PathVariable("idNotaPedido") int idNotaPedido, Model model,
+	public String buscarAula(@PathVariable("idNotaPedido") int idNotaPedido,
 			RedirectAttributes redirectAttrs) throws Exception
 	{  
 		
