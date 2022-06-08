@@ -78,11 +78,13 @@ public class NotaPedidoController {
 	        final_.setMesa("MESIST-"+String.valueOf(materiaService.traerMateria(final_.getMateria().getIdMateria()).getCodigo()));
 	        final_.setMateria(materiaService.traerMateria(final_.getMateria().getIdMateria()));
 	        notaPedidoService.insertOrUpdate(final_);
-            redirAttr.addFlashAttribute("success", "Final creado correctamente");
+            redirAttr.addFlashAttribute("mensaje", "Pedido de final creado correctamente")
+                .addFlashAttribute("clase", "task-success");
         } catch (Exception e) {
             log.error("Error al crear final: " + e.getMessage());
             redirAttr.addFlashAttribute("modalCursada", true);
-            redirAttr.addFlashAttribute("error", "Error al crear final");
+            redirAttr.addFlashAttribute("mensaje", "Error al crear su pedido de final")
+                .addFlashAttribute("clase", "task-error");
         }
         return "redirect:/index";
     }
@@ -99,11 +101,13 @@ public class NotaPedidoController {
             cursada.setMateria(materiaService.traerMateria(curso.getMateria().getIdMateria()));
             cursada.setFecha(LocalDate.now());
             notaPedidoService.insertOrUpdate(cursada);
-            redirAttr.addFlashAttribute("success", "Cursada creada correctamente");
+            redirAttr.addFlashAttribute("mensaje", "Pedido de cursada creada correctamente")
+                .addFlashAttribute("clase", "task-success");
         } catch (Exception e) {
             log.error("Error al crear cursada: " + e.getMessage());
             redirAttr.addFlashAttribute("modalCursada", true);
-            redirAttr.addFlashAttribute("error", "Error al crear cursada");
+            redirAttr.addFlashAttribute("mensaje", "Error al crear su pedido de cursada")
+                .addFlashAttribute("clase", "task-error");
         }
         return "redirect:/index";
     }
@@ -128,12 +132,12 @@ public class NotaPedidoController {
                 final_.setFecha(finalViejo.getFecha());
                 final_.setMesa(finalViejo.getMesa());
                 notaPedidoService.insertOrUpdate(final_);
-                redirAttr.addFlashAttribute("mensaje", "Final modificado correctamente")
+                redirAttr.addFlashAttribute("mensaje", "Pedido de final modificado correctamente")
                     .addFlashAttribute("clase", "task-success");
             }
         } catch (Exception e) {
             log.error("Error al modificar final: " + e.getMessage());
-            redirAttr.addFlashAttribute("mensaje", "Error al modificar final")
+            redirAttr.addFlashAttribute("mensaje", "Error al modificar su pedido de final")
                 .addFlashAttribute("error", e.getMessage()).addAttribute("clase", "task-error");
         }
         return "redirect:/index";
@@ -151,11 +155,11 @@ public class NotaPedidoController {
                 curso.setCodigo(cursoViejo.getCodigo());
             }
             notaPedidoService.insertOrUpdate(curso);
-            redirAttr.addFlashAttribute("mensaje", "Curso modificado correctamente")
+            redirAttr.addFlashAttribute("mensaje", "Pedido de curso modificado correctamente")
                 .addFlashAttribute("clase", "task-success");
         } catch (Exception e) {
             log.error("Error al modificar curso: " + e.getMessage());
-            redirAttr.addFlashAttribute("mensaje", "Error al modificar curso")
+            redirAttr.addFlashAttribute("mensaje", "Error al modificar su pedido de curso")
                 .addFlashAttribute("error", e.getMessage()).addAttribute("clase", "task-error");
         }
         return "redirect:/index";
@@ -170,7 +174,7 @@ public class NotaPedidoController {
                 .addFlashAttribute("clase", "task-success");
         } catch(Exception e) {
             log.error("Error al eliminar pedido: " + e.getMessage());
-            redirAttr.addFlashAttribute("mensaje", "Error al eliminar pedido")
+            redirAttr.addFlashAttribute("mensaje", "Error al eliminar el pedido")
                 .addFlashAttribute("error", e.getMessage()).addAttribute("clase", "task-error");
         }
         return "redirect:/index";
