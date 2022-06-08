@@ -139,8 +139,8 @@ public List<LocalDate> generarListadoDias(int presencialidad, int diaSolicitado)
 			
 			List<LocalDate> listadoDias = new ArrayList<>();
 			
-			LocalDate inicioCuatrimestre = (!inicioFin.isEmpty())? inicioFin.get(0).getFecha() : null;
-			LocalDate finCuatrimestre = (!inicioFin.isEmpty())? inicioFin.get(1).getFecha() : null;
+			LocalDate inicioCuatrimestre = inicioFin.get(0).getFecha();
+			LocalDate finCuatrimestre = inicioFin.get(1).getFecha();
 	
 			int diaSemanaComienzo = inicioCuatrimestre.getDayOfWeek().getValue();
 			LocalDate inicioClase = inicioCuatrimestre;	

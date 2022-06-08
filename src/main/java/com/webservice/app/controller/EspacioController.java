@@ -21,6 +21,7 @@ import com.webservice.app.entities.NotaPedido;
 import com.webservice.app.services.INotaPedidoService;
 import com.webservice.app.entities.Aula;
 import com.webservice.app.entities.Curso;
+import com.webservice.app.entities.Espacio;
 import com.webservice.app.entities.Final;
 import com.webservice.app.services.IAulaService;
 import com.webservice.app.services.IEspacioService;
@@ -65,6 +66,25 @@ public class EspacioController {
 		}catch(Exception e) {
 			redirectAttrs.addFlashAttribute("mensaje", e.getMessage()).addFlashAttribute("clase", "task-error");
 		}
+
+		return "redirect:/index";
+	}
+	
+	@GetMapping("/generarEspaciosForm")
+	public String generarEspaciosForm(RedirectAttributes redirectAttrs) 
+	{   
+		List<Espacio> cuatrimestreActivo =espacioService.traerCuatrimestreActivo();
+		
+		if(!cuatrimestreActivo.isEmpty())
+		{
+			DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+			redirectAttrs.addFlashAttribute("inicio",cuatrimestreActivo.get(0).getFecha().format(formato));
+			redirectAttrs.addFlashAttribute("fin",cuatrimestreActivo.get(1).getFecha().format(formato));
+			
+		
+		}
+		redirectAttrs.addFlashAttribute("modalAddEspacios", true);	
+	
 
 		return "redirect:/index";
 	}
