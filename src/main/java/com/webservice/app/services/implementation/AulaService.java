@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Hibernate;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -33,8 +32,6 @@ public class AulaService implements IAulaService {
 	@Qualifier("laboratorioRepository")
 	private ILaboratorioRepository laboratorioRepository;
 
-	private ModelMapper modelMapper = new ModelMapper();
-
 	public List<Aula> traerAulas() {
 		return  aulaRepository.findAll();
 	}
@@ -49,7 +46,7 @@ public class AulaService implements IAulaService {
 		
 		List<Aula> aulas = new ArrayList<Aula>();
 		
-		if (tipo.equals("Tradicional")) {			
+		if (tipo.name().equals("Tradicional")) {			
 			List<Tradicional> tradicionales = tradicionalRepository.traerAulasPorAlumnos(cantEstudiantes);
 			aulas.addAll(tradicionales);
 		}else {
@@ -62,5 +59,4 @@ public class AulaService implements IAulaService {
 		return aulas;
 		
 	}
-	
 }
