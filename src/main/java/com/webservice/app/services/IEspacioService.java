@@ -21,8 +21,9 @@ public interface IEspacioService {
 	public void DesactivarCalendarioAnterior(List<Espacio> espaciosActivos);
 	public List<Aula> traerAulasDisponiblesPorFecha(LocalDate fecha, List<Aula> aulas,TipoTurnos turno) throws Exception;
 	public List<Aula> traerAulasDisponiblesPorFecha(List<Aula> aulas,Curso curso) throws Exception;
-	public List<LocalDate> generarListadoDias(int presencialidad, int diaSolicitado);
-	public void AsignarEspacios(NotaPedido notaPedido, Aula aula);
+	public List<LocalDate> generarListadoDias(int presencialidad, int diaSolicitado) throws Exception;
+	public void AsignarEspacios(NotaPedido notaPedido, Aula aula) throws Exception;
 	public void ModificarEspacio(Espacio espacio,NotaPedido notaPedido,Aula aula);
-	public List<Espacio> traerEspacios(Curso curso,Aula aula);
+	public List<Espacio> traerEspacios(Curso curso,Aula aula) throws Exception;
+	public List<Espacio> traerCuatrimestreActivo();
 }

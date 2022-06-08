@@ -21,6 +21,7 @@ import com.webservice.app.entities.NotaPedido;
 import com.webservice.app.services.INotaPedidoService;
 import com.webservice.app.entities.Aula;
 import com.webservice.app.entities.Curso;
+import com.webservice.app.entities.Espacio;
 import com.webservice.app.entities.Final;
 import com.webservice.app.services.IAulaService;
 import com.webservice.app.services.IEspacioService;
@@ -69,11 +70,29 @@ public class EspacioController {
 		return "redirect:/index";
 	}
 	
+	@GetMapping("/generarEspaciosForm")
+	public String generarEspaciosForm(RedirectAttributes redirectAttrs) 
+	{   
+		List<Espacio> cuatrimestreActivo =espacioService.traerCuatrimestreActivo();
+		
+		if(!cuatrimestreActivo.isEmpty())
+		{
+			DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+			redirectAttrs.addFlashAttribute("inicio",cuatrimestreActivo.get(0).getFecha().format(formato));
+			redirectAttrs.addFlashAttribute("fin",cuatrimestreActivo.get(1).getFecha().format(formato));
+			
+		
+		}
+		redirectAttrs.addFlashAttribute("modalAddEspacios", true);	
+	
+
+		return "redirect:/index";
+	}
+	
 	@GetMapping("/buscarAula/notapedido={idNotaPedido}")
 	public String buscarAula(@PathVariable("idNotaPedido") int idNotaPedido,
 			RedirectAttributes redirectAttrs) throws Exception
 	{  
-		
 		NotaPedido notaPedido = notaPedidoService.findById(idNotaPedido);
 		List<Aula> aulas = aulaService.traerAulas(notaPedido.getCantEstudiantes(),notaPedido.getTipoAula());
  		if (notaPedido instanceof Final) { 
@@ -95,7 +114,9 @@ public class EspacioController {
 		
 			}
 		}
+		
  		redirectAttrs.addFlashAttribute("notapedido",notaPedido);
+
 		return "redirect:/index";
 	}
 	
@@ -105,10 +126,13 @@ public class EspacioController {
 		NotaPedido notaPedido = notaPedidoService.findById(idNotaPedido);
 		
 		Aula aula = aulaService.traerAula(idAula);
+		try {
+			espacioService.AsignarEspacios(notaPedido, aula);
+			redirectAttrs.addFlashAttribute("mensaje", "Se asigno el aula para la nota pedido").addFlashAttribute("clase", "task-success");
+		}catch (Exception e) {
+			redirectAttrs.addFlashAttribute("mensaje", e.getMessage()).addFlashAttribute("clase", "task-error");
+		}
 		
-		espacioService.AsignarEspacios(notaPedido, aula);
-		
-		redirectAttrs.addFlashAttribute("mensaje", "Se asigno el aula para la nota pedido").addFlashAttribute("clase", "task-success");
 		return "redirect:/index";
 		
 	}

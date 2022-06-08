@@ -132,9 +132,9 @@
                                     <i class="bi bi-mortarboard-fill px-lg-1"></i>Aulas
                                 </th>
                                 <th class="border-0 col-2" style="min-width: 170px !important">
-                                    <button type="button" class="btn btn-aulas btn-sm gap-1" data-bs-toggle="modal" data-bs-target="#modalAddEspacios">
+                                    <a  class="btn btn-aulas btn-sm gap-1" th:href="@{/espacio/generarEspaciosForm}">
                                         <i class="bi bi-plus-circle"></i><span class="px-sm-1">Generar Espacios</span>
-                                    </button>
+                                    </a>
                                 </th>
                             </tr>
                         </thead>
@@ -524,8 +524,8 @@
                             <!-- Si no hay espacios -->
                             <div th:if="${espacios.empty}"> El aula no posee espacios </div>
                             <div th:each="espacio : ${espacios}">
-                                <p>
-                                    </span><strong>Fecha: </strong><span th:text="${espacio.fecha}"></span> <strong>Turno:</strong> <span th:text="${espacio.turno}"> <span th:text="${espacio.libre}" ></span></span></p>
+                                <p style="margin-bottom: 5px;">
+                                    <strong>Fecha: </strong><span th:text="${espacio.fecha}"></span> <strong>Turno:</strong> <span th:text="${espacio.turno}"></span> <strong><span th:text="${espacio.libre}? 'Libre':'Ocupado'" ></span></strong></p>
                             </div>
 
                             <div class="modal-footer mt-lg-2">
@@ -551,7 +551,11 @@
                                 <button type="button" class="btn btn-close btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <div>
+                            <div >
+                            	<div th:if="${inicio}" class="mb-lg-3 px-lg-4">
+                            	<p style="margin-bottom: 2px;"><u>Cuatrimestre activo:</u> </p>
+                            	<p><strong>Inicio </strong><span th:text="${inicio}"></span> <strong>      Fin</strong> <span th:text="${fin}"></span></p>
+                            	</div>
                                 <form class="form-horizontal mb-lg-3 px-lg-4" action="#" th:action="@{/espacio/add/}"  method="post">
                                     <div class="form-group">
                                         <label for="inicio" class="col-form-label">Inicio</label>
@@ -574,40 +578,7 @@
                 </div>
             </div>
         
-            <!-- Modal Generar Espacios -->
-     <!--       <div class="modal fade" id="modalAddEspacios" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">
-                                <i class="bi bi-calendar3 p-lg-1"></i><span>Generar Espacios para Cuatrimestre</span> 
-                            </h5>
-                            <button type="button" class="btn btn-close btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div>
-                                <form class="form-horizontal mb-lg-3 px-lg-4" action="#" th:action="@{/espacio/add/}"  method="post">
-                                    <div class="form-group">
-                                        <label for="inicio" class="col-form-label">Inicio</label>
-                                        <input type="date" name="desde" class="form-control" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="hasta" class="col-form-label">Fin</label>
-                                        <input type="date" name="hasta" class="form-control" required>
-                                    </div>                    
-                                    <div class="modal-footer  mt-5">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                            Cancelar
-                                        </button>
-                                        <input type="submit" class="btn btn-aulas" value="Generar">
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
--->
+          
             <!-- Modal Asignar Nota Pedido -->
             <div class="modal fade" id="modalAsignarNota" tabindex="-1" aria-hidden="true" th:if="${notaPedidoReq}">
                 <div class="modal-dialog modal-dialog-centered">
@@ -619,7 +590,6 @@
                             <button type="button" class="btn btn-close btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <div class="alert alert-danger" role="alert" th:if="${error}" th:text="${error}"></div>
                             <form class="form-horizontal mb-lg-3 px-lg-4" action="#" th:action="@{/notaPedido/updateCurso}" th:if="${notaPedidoReq}" th:object="${notaPedidoReq}" method="post">
                                 <!-- Campos de Curso -->
                                 <div th:if="${notaPedidoReq instanceof T(com.webservice.app.entities.Curso)}">
@@ -743,6 +713,12 @@
         <script type="text/javascript" th:if="${notaPedidoReq instanceof T(com.webservice.app.entities.Final)}" th:unless="${user.hasRole('ROL_ADMIN')}">
             $(window).on('load', function() {
                 $('#modalFinal').modal('show');
+            });
+        </script>
+        
+         <script type="text/javascript" th:if="${modalAddEspacios}">
+            $(window).on('load', function() {
+                $('#modalAddEspacios').modal('show');
             });
         </script>
 
