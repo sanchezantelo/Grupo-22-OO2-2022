@@ -48,6 +48,7 @@ public class AulaService implements IAulaService {
 	public List<Aula> traerAulas(int cantEstudiantes,TipoAula tipo){
 		
 		List<Aula> aulas = new ArrayList<Aula>();
+		
 		if (tipo.equals("Tradicional")) {			
 			List<Tradicional> tradicionales = tradicionalRepository.traerAulasPorAlumnos(cantEstudiantes);
 			aulas.addAll(tradicionales);

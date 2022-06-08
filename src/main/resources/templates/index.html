@@ -525,13 +525,13 @@
                             <div th:if="${espacios.empty}"> El aula no posee espacios </div>
                             <div th:each="espacio : ${espacios}">
                                 <p>
-                                    </span>Fecha:<span th:text="${espacio.fecha}"></span> Libre:<span th:text="${espacio.libre}"></span> Turno:<span th:text="${espacio.turno}"></span></p>
+                                    </span><strong>Fecha: </strong><span th:text="${espacio.fecha}"></span> <strong>Turno:</strong> <span th:text="${espacio.turno}"> <span th:text="${espacio.libre}" ></span></span></p>
                             </div>
 
                             <div class="modal-footer mt-lg-2">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    Cerrar
-                    </button>
+		                    Cerrar
+		                    </button>
 
                             </div>
                         </div>
@@ -552,7 +552,6 @@
                         </div>
                         <div class="modal-body">
                             <div>
-                                <div class="alert alert-danger" role="alert" th:if="${error}" th:text="${error}"></div>
                                 <form class="form-horizontal mb-lg-3 px-lg-4" action="#" th:action="@{/espacio/add/}"  method="post">
                                     <div class="form-group">
                                         <label for="inicio" class="col-form-label">Inicio</label>
@@ -576,7 +575,7 @@
             </div>
         
             <!-- Modal Generar Espacios -->
-            <div class="modal fade" id="modalAddEspacios" tabindex="-1" aria-hidden="true">
+     <!--       <div class="modal fade" id="modalAddEspacios" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -587,7 +586,6 @@
                         </div>
                         <div class="modal-body">
                             <div>
-                                <div class="alert alert-danger" role="alert" th:if="${error}" th:text="${error}"></div>
                                 <form class="form-horizontal mb-lg-3 px-lg-4" action="#" th:action="@{/espacio/add/}"  method="post">
                                     <div class="form-group">
                                         <label for="inicio" class="col-form-label">Inicio</label>
@@ -609,7 +607,7 @@
                     </div>
                 </div>
             </div>
-
+-->
             <!-- Modal Asignar Nota Pedido -->
             <div class="modal fade" id="modalAsignarNota" tabindex="-1" aria-hidden="true" th:if="${notaPedidoReq}">
                 <div class="modal-dialog modal-dialog-centered">
