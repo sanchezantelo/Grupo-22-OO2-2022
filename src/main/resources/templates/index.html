@@ -155,6 +155,11 @@
                                         <i class="bi bi-arrow-repeat"></i>
                                     </a>
                                 </td>
+                                <td class="text-right d-flex float-end gap-lg-3" th:if="${user.hasRole('ROL_AUDITOR')}">
+                                    <a class="btn btn-aulas btn-sm" th:href="@{/notaPedido/verAula/{id}(id=${notaPedido.idNotaPedido})}" title="Ver Pedido">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -729,7 +734,7 @@
                                         <input readonly type="text" class="form-control" th:value="*{turno.name()}" />
                                     </div>
                                 </div>
-                                <div class="modal-footer  mt-5">
+                                <div class="modal-footer  mt-5" th:if="${user.hasRole('ROL_ADMIN')}">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                         Cancelar
                                     </button>
@@ -737,6 +742,123 @@
                                         <span th:if="${notaPedidoReq.aulaAsignada != null}" th:unless="${notaPedidoReq.aulaAsignada == null}">Reasignar</span>
                                         <span th:if="${notaPedidoReq.aulaAsignada == null}">Asignar</span>
                                     </a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="modalVerAsignada" tabindex="-1" aria-hidden="true" th:if="${notaPedidoAula}">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">
+                                <i class="bi bi-calendar3 p-lg-1"></i>
+                                <span th:if="${notaPedidoAula instanceof T(com.webservice.app.entities.Curso)}">Datos de Cursada Asignada</span>
+                                <span th:if="${notaPedidoAula instanceof T(com.webservice.app.entities.Final)}">Datos de Mesa de Examen Asignada</span>
+                            </h5>
+                            <button type="button" class="btn btn-close btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal mb-lg-3 px-lg-4" th:if="${notaPedidoAula instanceof T(com.webservice.app.entities.Curso)}" th:object="${notaPedidoAula}">
+                                <!-- Campos de Curso -->
+                                <div>
+                                    <div class="form-group d-none">
+                                        <input type="hidden" th:field="*{idNotaPedido}" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Materia</label>
+                                        <input readonly type="text" class="form-control" th:value="*{materia.getMateria()}" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Código</label>
+                                        <input readonly type="text" class="form-control" th:value="*{codigo}" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Solicitante</label>
+                                        <input readonly type="text" class="form-control" th:value="*{solicitante.getUsuario()}" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Día de Cursada</label>
+                                        <input readonly type="text" class="form-control" th:value="${notaPedidoAula.TraerNombreDia()}" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Presencialidad</label>
+                                        <input readonly type="text" class="form-control" th:value="*{presencialidad+'%'}" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Fecha de Solicitud</label>
+                                        <input readonly type="text" class="form-control" th:value="*{fecha}" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="editEstudiantesC" class="col-form-label">Cantidad de Estudiantes</label>
+                                        <input readonly type="number" id="editEstudiantesC" class="form-control" th:field="*{cantEstudiantes}" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Observaciones</label>
+                                        <input readonly type="text" class="form-control" th:value="*{observaciones}" />
+                                    </div>
+                                    <div class="form-group" th:if="${notaPedidoAula.aulaAsignada != null}">
+                                        <label class="col-form-label">Aula</label>
+                                        <input readonly type="text" class="form-control" th:value="*{aulaAsignada.getNumero() + ' ' + aulaAsignada.getEdificio().getEdificio()}" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Tipo de Aula</label>
+                                        <input readonly type="text" class="form-control" th:value="*{tipoAula.name()}" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Turno</label>
+                                        <input readonly type="text" class="form-control" th:value="*{turno.name()}" />
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- Campos de Final -->
+                            <form class="form-horizontal mb-lg-3 px-lg-4" th:if="${notaPedidoAula instanceof T(com.webservice.app.entities.Final)}" th:object="${notaPedidoAula}">
+                                <div>
+                                    <div class="form-group d-none">
+                                        <input type="hidden" th:field="*{idNotaPedido}" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Materia</label>
+                                        <input readonly type="text" class="form-control" th:value="*{materia.getMateria()}" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Mesa</label>
+                                        <input readonly type="text" class="form-control" th:field="*{mesa}" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Fecha de Examen</label>
+                                        <input readonly type="text" class="form-control" th:value="*{fechaExamen}" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Solicitante</label>
+                                        <input readonly type="text" class="form-control" th:value="*{solicitante.getUsuario()}" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Fecha de Solicitud</label>
+                                        <input readonly type="text" class="form-control" th:value="*{fecha}" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="editEstudiantesF" class="col-form-label">Cantidad de Estudiantes</label>
+                                        <input readonly type="number" id="editEstudiantesF" class="form-control" th:field="*{cantEstudiantes}" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Observaciones</label>
+                                        <input readonly type="text" class="form-control" th:value="*{observaciones}" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Aula</label>
+                                        <input type="text" disabled class="form-control" th:value="*{aulaAsignada.getNumero() + ' ' + aulaAsignada.getEdificio().getEdificio()}" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Tipo de Aula</label>
+                                        <input readonly type="text" class="form-control" th:value="*{tipoAula.name()}" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Turno</label>
+                                        <input readonly type="text" class="form-control" th:value="*{turno.name()}" />
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -809,6 +931,13 @@
                 $('#modalAsignarNota').modal('show');
             });
         </script>
+
+        <script type="text/javascript" th:if="${notaPedidoAula}" th:unless="${user.hasRole('ROL_ADMIN')}">
+            $(window).on('load', function() {
+                $('#modalVerAsignada').modal('show');
+            });
+        </script>
+
 
         <script type="text/javascript" th:if="${aulasNota}">
             $(window).on('load', function() {

@@ -122,6 +122,15 @@ public class NotaPedidoController {
         return "redirect:/index";
     }
 
+    @GetMapping("/verAula/{id}")
+    public String getAula(Model model, @PathVariable("id") int idNotaPedido, RedirectAttributes redirAttr) {
+        log.info("/verAula/{id}" + idNotaPedido);
+        NotaPedido notaPedido = notaPedidoService.findById(idNotaPedido);
+        model.addAttribute("verAula", true);
+        redirAttr.addFlashAttribute("notaPedidoAula", notaPedido).addFlashAttribute("clase", "task-success");
+        return "redirect:/index";
+    }
+
     @PostMapping("/updateFinal")
     public String updateFinal(@Valid @ModelAttribute("notaPedidoReq") FinalModel finalModel, RedirectAttributes redirAttr) {
         log.info("/updateFinal" + finalModel);
