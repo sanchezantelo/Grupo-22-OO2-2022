@@ -35,7 +35,7 @@
 
 ## Ingresar al login desde el navegador con el usuario admin/admin o auditor/auditor  
 
-    http://localhost:8080/login
+    http://localhost:8080
 
 
 ### Reference Documentation
