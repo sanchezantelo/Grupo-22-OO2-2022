@@ -749,6 +749,7 @@
                 </div>
             </div>
 
+            <!-- Modal Visualizar Nota Asignada -->
             <div class="modal fade" id="modalVerAsignada" tabindex="-1" aria-hidden="true" th:if="${notaPedidoAula}">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -774,10 +775,6 @@
                                     <div class="form-group">
                                         <label class="col-form-label">Código</label>
                                         <input readonly type="text" class="form-control" th:value="*{codigo}" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-form-label">Solicitante</label>
-                                        <input readonly type="text" class="form-control" th:value="*{solicitante.getUsuario()}" />
                                     </div>
                                     <div class="form-group">
                                         <label class="col-form-label">Día de Cursada</label>
@@ -830,10 +827,6 @@
                                     <div class="form-group">
                                         <label class="col-form-label">Fecha de Examen</label>
                                         <input readonly type="text" class="form-control" th:value="*{fechaExamen}" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-form-label">Solicitante</label>
-                                        <input readonly type="text" class="form-control" th:value="*{solicitante.getUsuario()}" />
                                     </div>
                                     <div class="form-group">
                                         <label class="col-form-label">Fecha de Solicitud</label>
